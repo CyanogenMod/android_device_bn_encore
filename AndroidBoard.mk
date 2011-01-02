@@ -10,4 +10,4 @@ $(file) : $(LOCAL_PATH)/postrecoveryboot.sh | $(ACP)
 	$(transform-prebuilt-to-target)
 
 # include the non-open-source counterpart to this file
--include vendor/bn/nook/AndroidBoardVendor.mk
+-include vendor/bn/nookcolor/AndroidBoardVendor.mk

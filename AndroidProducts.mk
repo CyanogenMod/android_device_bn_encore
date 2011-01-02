@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/device_nook.mk
+    $(LOCAL_DIR)/device_nookcolor.mk
