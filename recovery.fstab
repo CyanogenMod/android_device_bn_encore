@@ -1,6 +1,11 @@
 # mount point	fstype		device
 
-/sdcard		vfat		/dev/block/mmcblk1p1
+/boot		vfat		/dev/block/mmcblk0p1
+/rom		vfat		/dev/block/mmcblk0p2
+/factory	ext2		/dev/block/mmcblk0p3
 /system		ext2		/dev/block/mmcblk0p5
-/cache		ext3		/dev/block/mmcblk0p7
 /data		ext3		/dev/block/mmcblk0p6
+/cache		ext3		/dev/block/mmcblk0p7
+/emmc		vfat		/dev/block/mmcblk0p8
+/data		ext3		/dev/block/mmcblk0p6
+/sdcard		vfat		/dev/block/mmcblk1p1
