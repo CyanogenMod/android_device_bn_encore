@@ -17,6 +17,7 @@ loglevel 3
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /mnt/sdcard
+    export PHONE_STORAGE /media
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export SD_EXT_DIRECTORY /sd-ext
