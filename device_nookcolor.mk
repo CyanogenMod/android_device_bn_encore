@@ -24,8 +24,8 @@ DEVICE_PACKAGE_OVERLAYS += device/bn/nookcolor/overlay
 #$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # include cicada's sensors library
+# common_ti_dirs := sensors
 
-common_ti_dirs := sensors
 include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 
 # The gps config appropriate for this device

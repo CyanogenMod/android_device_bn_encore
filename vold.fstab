@@ -20,7 +20,7 @@
 dev_mount sdcard /mnt/sdcard 4 /devices/platform/mmci-omap-hs.0/mmc_host/mmc1
 
 ## Internal SD ( media )
-dev_mount media /media 8 /devices/platform/mmci-omap-hs.1/mmc_host/mmc0
+dev_mount media /mnt/media 8 /devices/platform/mmci-omap-hs.1/mmc_host/mmc0
 
 #dev mount right_sdcard /mnt/sdcard2 8 /devices/platform/mmci-omap-hs.1/mmc_host/mmc1
 

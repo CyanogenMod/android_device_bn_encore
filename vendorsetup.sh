@@ -21,4 +21,5 @@
 # function: add_lunch_combo generic-eng
 
 #add_lunch_combo generic_nookcolor-userdebug
-add_lunch_combo bn_nookcolor-eng
+add_lunch_combo full_nookcolor-eng
+add_lunch_combo cyanogen_nookcolor-eng
