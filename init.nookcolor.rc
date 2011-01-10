@@ -307,6 +307,9 @@ on boot
 # Run sysinit
     exec /system/bin/sysinit
 
+# load wifi module
+    insmod /system/etc/wifi/tiwlan_drv.ko
+
     class_start default
 
 ## Daemon processes to be run by init.
