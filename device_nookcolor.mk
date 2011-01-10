@@ -123,9 +123,9 @@ PRODUCT_COPY_FILES += \
 # this driver is from TI.  Source at https://gforge.ti.com/gf/project/wilink_driver
 
 PRODUCT_COPY_FILES += \
-    device/bn/nookcolor/tiwlan_drv.ko:/system/etc/wifi/tiwlan_drv.ko \
-    device/bn/nookcolor/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
-    device/bn/nookcolor/firmware.bin:/system/etc/wifi/firmware.bin \
+    device/bn/nookcolor/prebuilt/wifi/tiwlan_drv.ko:/system/etc/wifi/tiwlan_drv.ko \
+    device/bn/nookcolor/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
+    device/bn/nookcolor/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
     device/bn/nookcolor/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
 # cicadaman's custom accel lib
