@@ -337,6 +337,12 @@ on property:persist.service.adb.enable=1
 on property:persist.service.adb.enable=0
     stop adbd
 
+# Initialize the PowerVR SGX530 driver
+ service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
+     user root
+     oneshot
+
+
 service servicemanager /system/bin/servicemanager
     user system
     critical
