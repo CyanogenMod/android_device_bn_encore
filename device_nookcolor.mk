@@ -65,8 +65,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	alsa.mixer.capture.master=Analog \
 	dalvik.vm.heapsize=32m \
 	ro.opengles.version=131072
-
-
                                         
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
@@ -78,8 +76,6 @@ PRODUCT_COPY_FILES += \
 #    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
 #    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
 #    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-
-
 
 # media config xml file
 PRODUCT_COPY_FILES += \
@@ -118,6 +114,11 @@ PRODUCT_LOCALES += hdpi
 PRODUCT_COPY_FILES += \
     device/bn/nookcolor/vold.fstab:system/etc/vold.fstab
 
+## Add in Softkeys -- source at http://git.hoopajoo.net/  GPLv3
+
+PRODUCT_COPY_FILES += \
+    device/bn/nookcolor/prebuilt/SoftKeys_3.00.apk:/data/app/SoftKeys_3.00.apk
+
 # cicadaman says /etc/wifi is the place for wifi drivers on TI machines...
 # this driver is from TI.  Source at https://gforge.ti.com/gf/project/wilink_driver
 
@@ -131,7 +132,6 @@ PRODUCT_COPY_FILES += \
 
 #PRODUCT_COPY_FILES += \
 #    device/bn/nookcolor/sensors.omap3.so:/system/lib/hw/
-
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/bn/nookcolor/kernel
