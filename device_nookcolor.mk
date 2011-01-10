@@ -153,3 +153,54 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_nookcolor
 PRODUCT_DEVICE := nookcolor
 #TARGET_BUILD_TYPE:=debug
+
+# POWERVR_SGX530_v125-binaries -- TI's GFX accel -- built and licensed by cicadman
+
+PRODUCT_COPY_FILES += \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/eglinfo:/system/bin/eglinfo \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/framebuffer_test:/system/bin/framebuffer_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/gles1test1:/system/bin/gles1test1 \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/gles2test1:/system/bin/gles2test1 \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/glsltest1_fragshaderA.txt:/system/bin/glsltest1_fragshaderA.txt \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/glsltest1_fragshaderB.txt:/system/bin/glsltest1_fragshaderB.txt \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/glsltest1_vertshader.txt:/system/bin/glsltest1_vertshader.txt \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/hal_client_test:/system/bin/hal_client_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/hal_server_test:/system/bin/hal_server_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/pvr2d_test:/system/bin/pvr2d_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/pvrsrvinit:/system/bin/pvrsrvinit \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/services_test:/system/bin/services_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/sgx/omaplfb.ko:/system/bin/sgx/omaplfb.ko \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/sgx/pvrsrvkm.ko:/system/bin/sgx/pvrsrvkm.ko \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/sgx/rc.pvr:/system/bin/sgx/rc.pvr \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/sgx_blit_test:/system/bin/sgx_blit_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/sgx_flip_test:/system/bin/sgx_flip_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/sgx_init_test:/system/bin/sgx_init_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/sgx_render_flip_test:/system/bin/sgx_render_flip_test \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/texture_benchmark:/system/bin/texture_benchmark \
+    device/bn/nookcolor/prebuilt/GFX/system/bin/xmultiegltest:/system/bin/xmultiegltest \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/egl/egl.cfg:/system/lib/egl/egl.cfg \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/egl/libEGL_POWERVR_SGX530_125.so:/system/lib/egl/libEGL_POWERVR_SGX530_125.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/egl/libEGL_POWERVR_SGX530_125.so.1.1.15.2766:/system/lib/egl/libEGL_POWERVR_SGX530_125.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so.1.1.15.2766:/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so:/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.15.2766:/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/hw/gralloc.omap3.so:/system/lib/hw/gralloc.omap3.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/hw/gralloc.omap3.so.1.1.15.2766:/system/lib/hw/gralloc.omap3.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libfakehal.so:/system/lib/libfakehal.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libfakehal.so.1.1.15.2766:/system/lib/libfakehal.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libglslcompiler.so:/system/lib/libglslcompiler.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libglslcompiler.so.1.1.15.2766:/system/lib/libglslcompiler.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libIMGegl.so:/system/lib/libIMGegl.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libIMGegl.so.1.1.15.2766:/system/lib/libIMGegl.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libpvr2d.so:/system/lib/libpvr2d.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libpvr2d.so.1.1.15.2766:/system/lib/libpvr2d.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libpvrANDROID_WSEGL.so:/system/lib/libpvrANDROID_WSEGL.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libpvrANDROID_WSEGL.so.1.1.15.2766:/system/lib/libpvrANDROID_WSEGL.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libPVRScopeServices.so:/system/lib/libPVRScopeServices.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libPVRScopeServices.so.1.1.15.2766:/system/lib/libPVRScopeServices.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libsfutil.so:/system/lib/libsfutil.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libsfutil.so.1.1.15.2766:/system/lib/libsfutil.so.1.1.15.2766 \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libsrv_um.so:/system/lib/libsrv_um.so \
+    device/bn/nookcolor/prebuilt/GFX/system/lib/libsrv_um.so.1.1.15.2766:/system/lib/libsrv_um.so.1.1.15.2766
+
