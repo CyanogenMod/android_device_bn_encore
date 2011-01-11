@@ -23,3 +23,5 @@ TARGET_PREBUILT_KERNEL := device/bn/nookcolor/kernel
 
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/nookcolor/default_recovery_ui.c
+
+BOARD_USES_MKIMAGE := true
