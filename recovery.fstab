@@ -4,3 +4,4 @@
 /system		ext2		/dev/block/mmcblk0p5
 /cache		ext3		/dev/block/mmcblk0p7
 /data		ext3		/dev/block/mmcblk0p6
+/boot       vfat        /dev/block/mmcblk0p1
