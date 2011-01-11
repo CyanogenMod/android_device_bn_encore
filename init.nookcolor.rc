@@ -500,13 +500,13 @@ service dumpstate /system/bin/dumpstate -s
 #    disabled
 #    oneshot
 
-    service hciattach_legacy /system/bin/hciattach -n /dev/ttyS1 texas 3000000
-        user root
+#    service hciattach_legacy /system/bin/hciattach -n /dev/ttyS1 texas 3000000
+#        user root
 
 # changing user to root from bluetooth is a potential security issue
-    group bluetooth net_bt_admin misc
-    disabled
-    oneshot
+#    group bluetooth net_bt_admin misc
+#    disabled
+#    oneshot
 
     service wlan_loader /system/bin/wlan_loader \
         -f /system/etc/wifi/firmware.bin \
