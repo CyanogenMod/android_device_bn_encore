@@ -133,7 +133,7 @@ PRODUCT_COPY_FILES += \
 #    device/bn/nookcolor/sensors.omap3.so:/system/lib/hw/
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/bn/nookcolor/kernel
+LOCAL_KERNEL := device/bn/nookcolor/prebuilt/boot/uImage
 else
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
