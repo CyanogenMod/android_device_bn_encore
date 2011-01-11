@@ -116,7 +116,7 @@ PRODUCT_COPY_FILES += \
 ## Add in Softkeys -- source at http://git.hoopajoo.net/  GPLv3
 
 PRODUCT_COPY_FILES += \
-    device/bn/nookcolor/prebuilt/SoftKeys_3.00.apk:/data/app/SoftKeys_3.00.apk
+    device/bn/nookcolor/prebuilt/app/SoftKeys_3.00.apk:/data/app/SoftKeys_3.00.apk
 
 # cicadaman says /etc/wifi is the place for wifi drivers on TI machines...
 # this driver is from TI.  Source at https://gforge.ti.com/gf/project/wilink_driver
