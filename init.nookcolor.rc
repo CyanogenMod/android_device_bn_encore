@@ -173,11 +173,10 @@ on post-fs
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     chmod 0770 /data/misc/wifi
-    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    mkdir /data/misc/udhcpd 0777 wifi wifi
+#    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+    chown dhcp dhcp /data/misc/dhcp
     chown wifi wifi /data/misc/wifi
-    chown wifi wifi /data/misc/dhcp
+#    chown wifi wifi /data/misc/dhcp
     mkdir /data/local 0771 shell shell
     mkdir /data/local/tmp 0771 shell shell
     mkdir /data/data 0771 system system
@@ -236,6 +235,10 @@ on boot
     setprop ro.HOME_APP_MEM 6144
     setprop ro.HIDDEN_APP_MEM 7168
     setprop ro.EMPTY_APP_MEM 8192
+
+# wireless
+
+    setprop wifi.interface tiwlan0
 
 # Write value must be consistent with the above properties.
 # Note that the driver only supports 6 slots, so we have combined some of
@@ -371,7 +374,7 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
     socket zygote stream 666
     onrestart write /sys/android_power/request_state wake
     onrestart write /sys/power/state on
-#    onrestart restart media
+    onrestart restart media
     onrestart restart netd
 
 service media /system/bin/mediaserver
@@ -398,46 +401,46 @@ service dbus /system/bin/dbus-daemon --system --nofork
 #    group bluetooth net_bt_admin misc
 #    disabled
 
-service hfag /system/bin/sdptool add --channel=10 HFAG
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
+#service hfag /system/bin/sdptool add --channel=10 HFAG
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+#    oneshot
 
-service hsag /system/bin/sdptool add --channel=11 HSAG
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
+#service hsag /system/bin/sdptool add --channel=11 HSAG
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+#    oneshot
 
-service opush /system/bin/sdptool add --channel=12 OPUSH
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
+#service opush /system/bin/sdptool add --channel=12 OPUSH
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+#    oneshot
 
-service pbap /system/bin/sdptool add --channel=19 PBAP
-    user bluetooth
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
+#service pbap /system/bin/sdptool add --channel=19 PBAP
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+#    oneshot
 
 service installd /system/bin/installd
     socket installd stream 600 system system
 
-service racoon /system/bin/racoon
-    socket racoon stream 600 system system
-    # racoon will setuid to vpn after getting necessary resources.
-    group net_admin
-    disabled
-    oneshot
+#service racoon /system/bin/racoon
+#    socket racoon stream 600 system system
+#    # racoon will setuid to vpn after getting necessary resources.
+#    group net_admin
+#    disabled
+#    oneshot
 
-service mtpd /system/bin/mtpd
-    socket mtpd stream 600 system system
-    user vpn
-    group vpn net_admin net_raw
-    disabled
-    oneshot
+#service mtpd /system/bin/mtpd
+#    socket mtpd stream 600 system system
+#    user vpn
+#    group vpn net_admin net_raw
+#    disabled
+#    oneshot
 
 service keystore /system/bin/keystore /data/misc/keystore
     user keystore
@@ -451,13 +454,6 @@ service dumpstate /system/bin/dumpstate -s
 
 # OMAP specific services start here
 
-
-# load DSP firmware
-    service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
-        user root
-        group audio
-        oneshot
-
 # clear bootcnt
 # for nookcolor
 
@@ -470,39 +466,39 @@ service dumpstate /system/bin/dumpstate -s
 # most of this is unused for the moment.
 
 # load DSP firmware
+
     service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
         user root
         group audio
         oneshot
 
-    service pppd_gprs /etc/init.gprs-pppd /dev/pts/1
-       user root
-       group radio cache inet misc
-       disabled
+#    service pppd_gprs /etc/init.gprs-pppd /dev/pts/1
+#       user root
+#       group radio cache inet misc
+#       disabled
 
-    service fw3a /system/bin/fw3a_core
-        user media
-        group system camera
+#    service fw3a /system/bin/fw3a_core
+#        user media
+#        group system camera
 
     service bootsound /system/bin/playmp3
         user media
         group audio
         oneshot
 
-    service uim /system/xbin/uim /dev/ttyO1 3000000 1 /sys/uim/pid 21
-       user root
-       group media bluetooth
-       oneshot
+#    service uim /system/xbin/uim /dev/ttyO1 3000000 1 /sys/uim/pid 21
+#       user root
+#       group media bluetooth
+#       oneshot
 
-    service hciattach /system/bin/hciattach -l 
-        user root
-
+#    service hciattach /system/bin/hciattach -l 
+#        user root
 # changing user to root from bluetooth is a potential security issue
 # service hciattach_legacy is used instead of hciattach because, we dont 
 # have nodes named ttyHS0
-    group bluetooth net_bt_admin misc
-    disabled
-    oneshot
+#    group bluetooth net_bt_admin misc
+#    disabled
+#    oneshot
 
     service hciattach_legacy /system/bin/hciattach -n /dev/ttyS1 texas 3000000
         user root
@@ -523,7 +519,8 @@ service dumpstate /system/bin/dumpstate -s
         disabled
         oneshot
 
-    service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
+    service wpa_supplicant /system/bin/wpa_supplicant \
+        -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
         socket wpa_tiwlan0 dgram 660 wifi wifi
         disabled
         oneshot
@@ -532,14 +529,3 @@ service dumpstate /system/bin/dumpstate -s
         disabled 
         oneshot
 
-# TI WLAN Soft AP related services and configuration
-
-    service wlan_ap_loader /system/bin/tiap_loader \
-        -f /system/etc/wifi/softap/firmware_ap.bin \
-        -i /system/etc/wifi/softap/tiwlan_ap.ini
-        disabled
-        oneshot
-
-    service hostapd /system/bin/hostap -dd /data/misc/wifi/hostapd.conf
-        disabled
-        oneshot

@@ -55,7 +55,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
         ro.sf.lcd_density=160 \
         ro.setupwizard.enable_bypass=1 \
         ro.sf.hwrotation=270 \
-        dalvik.vm.heapsize=48m \
         ctl.stop ril-daemon \
 	com.ti.omap_enhancement=true \
 	opencore.asmd=1 \
