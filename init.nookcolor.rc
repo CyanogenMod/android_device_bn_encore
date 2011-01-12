@@ -16,6 +16,7 @@ loglevel 3
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
+    export ANDROID_CACHE /cache
     export EXTERNAL_STORAGE /mnt/sdcard
     export PHONE_STORAGE /mnt/media
     export ASEC_MOUNTPOINT /mnt/asec
@@ -47,7 +48,7 @@ loglevel 3
 
     mkdir /system
     mkdir /data 0771 system system
-    mkdir /cache 0770 system cache
+    mkdir /cache 0771 system cache
     mkdir /config 0500 root root
     # for nookcolor
     mkdir /rom 0777 root root
@@ -142,7 +143,7 @@ on post-fs
 
     # Same reason as /data above
     chown system cache /cache
-    chmod 0770 /cache
+    chmod 0771 /cache
 
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
@@ -186,9 +187,9 @@ on post-fs
     mkdir /data/property 0700 root root
 
     # create dalvik-cache and double-check the perms
-    mkdir /data/dalvik-cache 0771 system system
-    chown system system /data/dalvik-cache
-    chmod 0771 /data/dalvik-cache
+    mkdir /cache/dalvik-cache 0771 system system
+    chown system system /cache/dalvik-cache
+    chmod 0771 /cache/dalvik-cache
 
     # create the lost+found directories, so as to enforce our permissions
     mkdir /data/lost+found 0770
@@ -240,6 +241,7 @@ on boot
 # wireless
 
     setprop wifi.interface tiwlan0
+    setprop wlan.driver.status "ok"
 
 # Write value must be consistent with the above properties.
 # Note that the driver only supports 6 slots, so we have combined some of
