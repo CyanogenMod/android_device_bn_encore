@@ -101,7 +101,7 @@ static const struct sensor_t sSensorList[] = {
         { "KXTF9 3 axis accelerometer",
                 "kxtf9_accel",
                 1, SENSORS_HANDLE_BASE+ID_A,
-                SENSOR_TYPE_ACCELEROMETER, 4.0f*9.81f, 9.81f/1000.0f, 0.25f,  200, { } },
+                SENSOR_TYPE_ACCELEROMETER, 4.0f*9.81f, 9.81f/1000.0f, 0.25f, { } },
 /*	// KXTF9 TILT
 	{ "KXTF9 Orientation sensor",
 		"kxtf9_orientation",
