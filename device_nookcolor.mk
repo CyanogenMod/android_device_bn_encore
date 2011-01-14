@@ -24,7 +24,7 @@ DEVICE_PACKAGE_OVERLAYS += device/bn/nookcolor/overlay
 #$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # include cicada's sensors library
-common_ti_dirs := sensors
+common_ti_dirs := libsensors
 
 include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 
@@ -125,7 +125,7 @@ PRODUCT_COPY_FILES += \
 # cicadaman's custom accel lib
 
 #PRODUCT_COPY_FILES += \
-#    device/bn/nookcolor/sensors.omap3.so:/system/lib/hw/
+#    device/bn/nookcolor/libsensors/sensors.nookcolor.so:/system/lib/hw/
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/bn/nookcolor/prebuilt/boot/uImage
