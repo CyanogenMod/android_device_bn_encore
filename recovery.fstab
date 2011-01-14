@@ -1,8 +1,11 @@
+# NOTE THIS FSTAB IS FOR GINGERBREAD ONLY RUNNING FROM EMMC
+# FROYO/ECLAIR & SD SHOULD HAVE DIFFERENT VALUES
+
 # mount point   fstype      device
 
 /sdcard		vfat		/dev/block/mmcblk1p1
-/system		ext2		/dev/block/mmcblk0p5
-/cache		ext3		/dev/block/mmcblk0p7
-/data		ext3		/dev/block/mmcblk0p6
-/boot       vfat        /dev/block/mmcblk0p1
+/system		ext4		/dev/block/mmcblk0p5
+/cache		ext4		/dev/block/mmcblk0p7
+/data		ext4		/dev/block/mmcblk0p6
+/boot       	vfat        	/dev/block/mmcblk0p1
 
