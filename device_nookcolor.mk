@@ -54,8 +54,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
         ro.allow.mock.location=0 \
         ro.sf.lcd_density=160 \
         ro.setupwizard.enable_bypass=1 \
-        ro.sf.hwrotation=270 \
-        ctl.stop ril-daemon \
+        ro.sf.hwrotation=270 \ 
 	com.ti.omap_enhancement=true \
 	opencore.asmd=1 \
 	keyguard.no_require_sim=1 \
