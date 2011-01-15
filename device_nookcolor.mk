@@ -63,7 +63,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	alsa.mixer.capture.master=Analog \
 	dalvik.vm.heapsize=32m \
 	ro.opengles.version=131072
-                                        
+
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
