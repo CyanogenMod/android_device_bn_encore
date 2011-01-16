@@ -35,7 +35,8 @@ include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
 PRODUCT_COPY_FILES += \
-    device/bn/nookcolor/init.nookcolor.rc:root/init.nookcolor.rc
+    device/bn/nookcolor/init.nookcolor.rc:root/init.nookcolor.rc \
+    device/bn/nookcolor/init.nookcolor.rc:root/init.rc
 
 ## (2) Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/bn/nookcolor/nookcolor-vendor.mk)
@@ -119,7 +120,8 @@ PRODUCT_COPY_FILES += \
     device/bn/nookcolor/prebuilt/wifi/tiwlan_drv.ko:/system/etc/wifi/tiwlan_drv.ko \
     device/bn/nookcolor/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
     device/bn/nookcolor/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
-    device/bn/nookcolor/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
+    device/bn/nookcolor/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh \
+    device/bn/nookcolor/prebuilt/uRamdisk/initlogo.rle:/root/initlogo.rle
 
 # cicadaman's custom accel lib
 
