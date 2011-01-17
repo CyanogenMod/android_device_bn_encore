@@ -55,7 +55,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
         ro.allow.mock.location=0 \
         ro.sf.lcd_density=160 \
         ro.setupwizard.enable_bypass=1 \
-        ro.sf.hwrotation=270 \ 
+        ro.sf.hwrotation=270 \
 	com.ti.omap_enhancement=true \
 	opencore.asmd=1 \
 	keyguard.no_require_sim=1 \
@@ -64,7 +64,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	alsa.mixer.capture.master=Analog \
 	dalvik.vm.heapsize=32m \
 	ro.opengles.version=131072
-                                        
+
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
