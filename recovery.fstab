@@ -8,4 +8,5 @@
 /cache		ext4		/dev/block/mmcblk0p7
 /data		ext4		/dev/block/mmcblk0p6
 /boot       	vfat        	/dev/block/mmcblk0p1
+/recovery	vfat		/dev/block/mmcblk0p1
 /emmc		vfat		/dev/block/mmcblk0p8
