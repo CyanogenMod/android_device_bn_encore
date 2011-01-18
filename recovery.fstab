@@ -6,3 +6,4 @@
 /cache      ext4        /dev/block/mmcblk0p7
 /emmc       vfat        /dev/block/mmcblk0p8
 /sdcard     vfat        /dev/block/mmcblk1p1 /dev/block/mmcblk1
+/recovery   vfat		recovery
