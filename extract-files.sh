@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEVICE=nookcolor
+DEVICE=encore
 MANUFACTURER=bn
 
 
@@ -23,7 +23,7 @@ MANUFACTURER=bn
 
 # Prebuilt libraries that are needed to build open-source libraries
 
-# (no files for nookcolor)
+# (no files for encore)
 EOF
 
 ./setup-makefiles.sh

@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE=nookcolor
+DEVICE=encore
 MANUFACTURER=bn
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE

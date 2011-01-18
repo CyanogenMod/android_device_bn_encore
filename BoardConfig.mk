@@ -1,14 +1,14 @@
 USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
--include vendor/bn/nookcolor/BoardConfigVendor.mk
+-include vendor/bn/encore/BoardConfigVendor.mk
 
 TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := omap3
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_BOOTLOADER_BOARD_NAME := nookcolor
+TARGET_BOOTLOADER_BOARD_NAME := encore
 TARGET_PROVIDES_INIT_RC := true
 TARGET_USERIMAGES_USE_EXT4 := true
 OMAP_ENHANCEMENT := true
@@ -24,11 +24,11 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x08c60000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x105c0000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-TARGET_PREBUILT_KERNEL := device/bn/nookcolor/uImage
+TARGET_PREBUILT_KERNEL := device/bn/encore/uImage
 
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/nookcolor/default_recovery_ui.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/default_recovery_ui.c
 
 BOARD_USES_GENERIC_AUDIO := true
 

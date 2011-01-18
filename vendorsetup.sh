@@ -20,6 +20,6 @@
 # In particular, you can add lunch options with the add_lunch_combo
 # function: add_lunch_combo generic-eng
 
-#add_lunch_combo generic_nookcolor-userdebug
-add_lunch_combo full_nookcolor-eng
-add_lunch_combo cyanogen_nookcolor-eng
+#add_lunch_combo generic_encore-userdebug
+add_lunch_combo full_encore-eng
+add_lunch_combo cyanogen_encore-eng

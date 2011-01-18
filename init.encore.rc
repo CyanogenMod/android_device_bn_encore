@@ -50,7 +50,7 @@ loglevel 3
     mkdir /data 0771 system system
     mkdir /cache 0771 system cache
     mkdir /config 0500 root root
-    # for nookcolor
+    # for encore
     mkdir /rom 0777 root root
     mkdir /media 0777 system system
 
@@ -82,7 +82,7 @@ loglevel 3
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 
-# for nookcolor
+# for encore
 write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
 
 # Create cgroup mount points for process groups
@@ -106,7 +106,7 @@ write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
 
 on fs
 # mount mtd partitions
-    # for nookcolor
+    # for encore
     mount vfat /dev/block/mmcblk0p2 /rom sync noatime nodiratime uid=1000,gid=1000,fmask=117,dmask=007
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     mount ext4 /dev/block/mmcblk0p5 /system
@@ -463,7 +463,7 @@ service dumpstate /system/bin/dumpstate -s
 # OMAP specific services start here
 
 # clear bootcnt
-# for nookcolor
+# for encore
 
     service clearboot /system/bin/clear_bootcnt.sh
         user root
