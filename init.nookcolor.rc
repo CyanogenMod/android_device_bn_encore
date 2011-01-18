@@ -112,7 +112,7 @@ on fs
     mount ext4 /dev/block/mmcblk0p5 /system
     mount ext4 /dev/block/mmcblk0p5 /system ro remount
     mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev
-    mount ext3 /dev/block/mmcblk0p7 /cache nosuid nodev
+    mount ext4 /dev/block/mmcblk0p7 /cache nosuid nodev
 
 on post-fs
     # once everything is setup, no need to modify /
