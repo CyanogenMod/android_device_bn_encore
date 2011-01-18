@@ -109,9 +109,9 @@ on fs
     # for nookcolor
     mount vfat /dev/block/mmcblk0p2 /rom sync noatime nodiratime uid=1000,gid=1000,fmask=117,dmask=007
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
-    mount ext4 /dev/block/mmcblk1p2 /system
-    mount ext4 /dev/block/mmcblk1p2 /system ro remount
-    mount ext4 /dev/block/mmcblk1p3 /data nosuid nodev
+    mount ext4 /dev/block/mmcblk0p5 /system
+    mount ext4 /dev/block/mmcblk0p5 /system ro remount
+    mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev
     mount ext3 /dev/block/mmcblk0p7 /cache nosuid nodev
 
 on post-fs
