@@ -35,8 +35,7 @@ include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
 PRODUCT_COPY_FILES += \
-    device/bn/encore/init.encore.rc:root/init.encore.rc \
-    device/bn/encore/init.encore.rc:root/init.rc
+    device/bn/encore/init.encore.rc:root/init.encore.rc
 
 ## (2) Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
