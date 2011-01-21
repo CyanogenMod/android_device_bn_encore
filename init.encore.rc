@@ -191,6 +191,11 @@ on post-fs
     chown system system /cache/dalvik-cache
     chmod 0771 /cache/dalvik-cache
 
+    # create /data/dalvik-cache as well and double-check the perms
+    mkdir /data/dalvik-cache 0771 system system
+    chown system system /data/dalvik-cache  
+    chmod 0771 /data/dalvik-cache
+
     # create the lost+found directories, so as to enforce our permissions
     mkdir /data/lost+found 0770
     mkdir /cache/lost+found 0770
@@ -206,8 +211,20 @@ on post-fs
     chmod 0775 /dev/socket
 
 #   make sure su has perms set
+#   and symlink
 
     chmod 4755 /system/xbin/su
+    symlink /system/xbin/su /system/bin/su
+
+# change permissions for alsa nodes
+  symlink /dev/snd/pcmC0D0c /dev/pcmC0D0c
+  symlink /dev/snd/pcmC0D0p /dev/pcmC0D0p
+  symlink /dev/snd/controlC0 /dev/controlC0
+  symlink /dev/snd/timer /dev/timer
+  chown audio audio /dev/pcmC0D0c
+  chown audio audio /dev/pcmC0D0p
+  chown audio audio /dev/controlC0
+  chown audio audio /dev/timer
 
 
 on boot
@@ -243,11 +260,6 @@ on boot
     setprop ro.HIDDEN_APP_MEM 7168
     setprop ro.EMPTY_APP_MEM 8192
 
-# wireless
-
-    setprop wifi.interface tiwlan0
-    setprop wlan.driver.status "ok"
-
 # Write value must be consistent with the above properties.
 # Note that the driver only supports 6 slots, so we have combined some of
 # the classes into the same memory level; the associated processes of higher
@@ -265,7 +277,39 @@ on boot
     write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio  5
 
+# wireless
+
+setprop wifi.interface tiwlan0
+setprop wlan.driver.status "ok"
+
+# Enable Power Management - thanks NookieFroyo for this
+
+# Mount Debug file system
+mkdir /debug
+mount debugfs debugfs /debug
+        
+# Enabling sleep in idle path
+write /debug/pm_debug/sleep_while_idle 1
+            
+# Enabling Voltage OFF in idle path
+write /debug/pm_debug/voltage_off_while_idle 1
+                
+# Enabling OFF mode
+write /debug/pm_debug/enable_off_mode 1
+                    
+# Enablig DVFS with ondemand governor
+write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+
+# Enabling SmartReflex for Zoom3 OMAP3630
+write  /sys/power/sr_vdd1_autocomp 1
+write  /sys/power/sr_vdd2_autocomp 1
+        
+# Permissions for setting the DSP Frequency
+chown media root /sys/power/dsp_freq
+
     # Permissions for System Server and daemons.
+    chmod 0444 /system/usr/keychars/qwerty.kcm.bin
+    chmod 0444 /system/usr/keychars/qwerty2.kcm.bin
     chown radio system /sys/android_power/state
     chown radio system /sys/android_power/request_state
     chown radio system /sys/android_power/acquire_full_wake_lock
@@ -277,24 +321,23 @@ on boot
     chmod 0660 /sys/power/state
     chmod 0660 /sys/power/wake_lock
     chmod 0660 /sys/power/wake_unlock
-    chown system system /sys/class/timed_output/vibrator/enable
+#    chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
-    chown system system /sys/class/leds/lcd-backlight/brightness
-    chown system system /sys/class/leds/button-backlight/brightness
-    chown system system /sys/class/leds/jogball-backlight/brightness
-    chown system system /sys/class/leds/red/brightness
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/blue/brightness
-    chown system system /sys/class/leds/red/device/grpfreq
-    chown system system /sys/class/leds/red/device/grppwm
-    chown system system /sys/class/leds/red/device/blink
-    chown system system /sys/class/leds/red/brightness
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/blue/brightness
-    chown system system /sys/class/leds/red/device/grpfreq
-    chown system system /sys/class/leds/red/device/grppwm
-    chown system system /sys/class/leds/red/device/blink
-    chown system system /sys/class/timed_output/vibrator/enable
+#    chown system system /sys/class/leds/lcd-backlight/brightness
+#    chown system system /sys/class/leds/button-backlight/brightness
+#    chown system system /sys/class/leds/jogball-backlight/brightness
+#    chown system system /sys/class/leds/red/brightness
+#    chown system system /sys/class/leds/green/brightness
+#    chown system system /sys/class/leds/blue/brightness
+#    chown system system /sys/class/leds/red/device/grpfreq
+#    chown system system /sys/class/leds/red/device/grppwm
+#    chown system system /sys/class/leds/red/device/blink
+#    chown system system /sys/class/leds/red/brightness
+#    chown system system /sys/class/leds/green/brightness
+#    chown system system /sys/class/leds/blue/brightness
+#    chown system system /sys/class/leds/red/device/grpfreq
+#    chown system system /sys/class/leds/red/device/grppwm
+#    chown system system /sys/class/leds/red/device/blink
     chown system system /sys/module/sco/parameters/disable_esco
     chown system system /sys/kernel/ipv4/tcp_wmem_min
     chown system system /sys/kernel/ipv4/tcp_wmem_def
@@ -308,9 +351,9 @@ on boot
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.wifi    4095,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+#    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
+#    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
+#    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
 # Include extra init file
     import /system/etc/init.local.rc
@@ -322,6 +365,12 @@ on boot
     insmod /system/etc/wifi/tiwlan_drv.ko
 
     class_start default
+
+# SGX driver
+    chmod 0666 /dev/pvrsrvkm
+    
+    class_start default
+        
 
 ## Daemon processes to be run by init.
 ##
@@ -336,6 +385,11 @@ service console /system/bin/sh
 
 on property:ro.secure=0
     start console
+
+# Initialize the SGX driver
+    service pvrsrvinit /system/bin/pvrsrvinit
+        user root
+        oneshot            
 
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
@@ -352,10 +406,9 @@ on property:persist.service.adb.enable=0
     stop adbd
 
 # Initialize the PowerVR SGX530 driver
- service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
+service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
      user root
      oneshot
-
 
 service servicemanager /system/bin/servicemanager
     user system
