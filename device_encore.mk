@@ -112,7 +112,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab
+    $(LOCAL_PATH)/etc/vold.encore.fstab:system/etc/vold.fstab
 
 # cicadaman says /etc/wifi is the place for wifi drivers on TI machines...
 # this driver is from TI.  Source at https://gforge.ti.com/gf/project/wilink_driver
@@ -130,7 +130,7 @@ PRODUCT_COPY_FILES += \
 #    device/bn/encore/libsensors/sensors.encore.so:/system/lib/hw/
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/bn/encore/prebuilt/boot/uImage
+LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
 else
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
