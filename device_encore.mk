@@ -14,70 +14,33 @@
 # limitations under the License.
 #
 
-DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
-
-#
-# This is the product configuration for a generic GSM passion,
-# not specialized for any geography.
-#
-
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # include cicada's sensors library
 common_ti_dirs := libsensors
 
 include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 
-# The gps config appropriate for this device
-# Doesn't apply to NC
-#$(call inherit-product, device/common/gps/gps_us_supl.mk)
-
-## (1) First, the most specific values, i.e. the aspects that are specific to GSM
-
+# Get a proper init file
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc
 
-## (2) Also get non-open-source GSM-specific aspects if available
-$(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
+# Place wifi files
+PRODUCT_COPY_FILES += \
+    device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/etc/wifi/tiwlan_drv.ko \
+    device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
+    device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
 
-## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
-PRODUCT_PROPERTY_OVERRIDES += \
-        ro.com.android.wifi-watchlist=GoogleGuest \
-        ro.error.receiver.system.apps=com.google.android.feedback \
-        ro.setupwizard.enterprise_mode=1 \
-        ro.com.google.clientidbase=android-verizon \
-        ro.com.google.locationfeatures=1 \
-        ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html \
-        ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html \
-        dalvik.vm.lockprof.threshold=500 \
-        dalvik.vm.dexopt-flags=m=y \
-        ro.allow.mock.location=0 \
-        ro.sf.lcd_density=160 \
-        ro.setupwizard.enable_bypass=1 \
-        ro.sf.hwrotation=270 \
-	com.ti.omap_enhancement=true \
-	opencore.asmd=1 \
-	keyguard.no_require_sim=1 \
-	wifi.interface=tiwlan0 \
-	alsa.mixer.playback.master=DAC2 Analog \
-	alsa.mixer.capture.master=Analog \
-	dalvik.vm.heapsize=32m \
-	ro.opengles.version=131072
-
+# Place permission files
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-#    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
-#    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-#    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-#    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-#    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
-# media config xml file
-PRODUCT_COPY_FILES += \
-    device/bn/encore/media_profiles.xml:system/etc/media_profiles.xml
+$(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
+
+DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -99,59 +62,24 @@ PRODUCT_PACKAGES += \
     libOMX_Core \
     libOMX.TI.Video.Decoder \
     libOMX.TI.Video.encoder \
-    libVendor_ti_omx \
-    SoftKeys
-
-#    gps.encore
-#    libcamera
-
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
+    libVendor_ti_omx
 
 # Use high-density artwork where available
-PRODUCT_LOCALES += hdpi
+PRODUCT_LOCALES += mdpi
 
+# VOLD
 PRODUCT_COPY_FILES += \
-    device/bn/encore/vold.fstab:system/etc/vold.fstab
+    $(LOCAL_PATH)/vold.encore.fstab:system/etc/vold.fstab
 
-# cicadaman says /etc/wifi is the place for wifi drivers on TI machines...
-# this driver is from TI.  Source at https://gforge.ti.com/gf/project/wilink_driver
-
+# Media Profile
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/etc/wifi/tiwlan_drv.ko \
-    device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
-    device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
-    device/bn/encore/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh \
-    device/bn/encore/prebuilt/uRamdisk/initlogo.rle:/root/initlogo.rle
+    device/bn/encore/media_profiles.xml:system/etc/media_profiles.xml
 
-# cicadaman's custom accel lib
-
-#PRODUCT_COPY_FILES += \
-#    device/bn/encore/libsensors/sensors.encore.so:/system/lib/hw/
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/bn/encore/prebuilt/boot/uImage
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
+# Misc # TODO: Find a better home for this
 PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
+	device/bn/encore/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
-$(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
-
-# stuff common to all HTC phones
-#$(call inherit-product, device/htc/common/common.mk)
-
-$(call inherit-product, build/target/product/full.mk)
-
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_encore
-PRODUCT_DEVICE := encore
-#TARGET_BUILD_TYPE:=debug
-
-# POWERVR_SGX530_v125-binaries -- TI's GFX accel -- built and licensed by cicadman
-
+# POWERVR_SGX530_v125-binaries -- TI's GFX accel
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/GFX/system/bin/eglinfo:/system/bin/eglinfo \
     device/bn/encore/prebuilt/GFX/system/bin/framebuffer_test:/system/bin/framebuffer_test \
@@ -200,3 +128,31 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/GFX/system/lib/libsrv_um.so:/system/lib/libsrv_um.so \
     device/bn/encore/prebuilt/GFX/system/lib/libsrv_um.so.1.1.15.2766:/system/lib/libsrv_um.so.1.1.15.2766
 
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+	LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
+else
+	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+
+# Set property overrides
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.com.google.locationfeatures=1 \
+    ro.com.google.networklocation=1 \
+    ro.setupwizard.enable_bypass=1 \
+	com.ti.omap_enhancement=true \
+	opencore.asmd=1 \
+	keyguard.no_require_sim=1 \
+	wifi.interface=tiwlan0 \
+	alsa.mixer.playback.master=DAC2 Analog \
+	alsa.mixer.capture.master=Analog \
+	dalvik.vm.heapsize=32m \
+	ro.opengles.version=131072
+
+$(call inherit-product, build/target/product/full.mk)
+
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+PRODUCT_NAME := full_encore
+PRODUCT_DEVICE := encore
