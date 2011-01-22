@@ -31,7 +31,7 @@ TARGET_PREBUILT_KERNEL := device/bn/encore/uImage
 
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/default_recovery_ui.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 
 BOARD_USES_GENERIC_AUDIO := true
 
