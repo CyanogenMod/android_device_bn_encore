@@ -1,0 +1,143 @@
+#!/usr/bin/env python
+#
+# Copyright (C) 2008 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import sys
+import os
+import encore_common as common
+
+
+LOCAL_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+RELEASETOOLS_DIR = os.path.abspath(os.path.join(LOCAL_DIR, '../../../build/tools/releasetools'))
+
+# Add releasetools directory to python path
+sys.path.append(RELEASETOOLS_DIR)
+
+# Import the existing file so we just have to rewrite the modules we need.
+# This is a nasty hack as the filename doesn't end in .py, but it works
+filename = os.path.join(RELEASETOOLS_DIR, "ota_from_target_files")
+ota_from_target_files = common.load_module_from_file('ota_from_target_files', filename)
+
+from ota_from_target_files import *
+import encore_edify_generator as edify_generator
+
+__doc__ = ota_from_target_files.__doc__
+
+def CopyBootFiles(input_zip, output_zip):
+    output_zip.writestr("kernel", input_zip.read("BOOT/kernel"))
+    output_zip.writestr("ramdisk.img", input_zip.read("BOOT/ramdisk.img"))
+
+def WriteFullOTAPackage(input_zip, output_zip):
+  # TODO: how to determine this?  We don't know what version it will
+  # be installed on top of.  For now, we expect the API just won't
+  # change very often.
+  script = edify_generator.EdifyGenerator(3, OPTIONS.info_dict)
+
+  metadata = {"post-build": GetBuildProp("ro.build.fingerprint", input_zip),
+              "pre-device": GetBuildProp("ro.product.device", input_zip),
+              "post-timestamp": GetBuildProp("ro.build.date.utc", input_zip),
+              }
+
+  device_specific = common.DeviceSpecificParams(
+      input_zip=input_zip,
+      input_version=OPTIONS.info_dict["recovery_api_version"],
+      output_zip=output_zip,
+      script=script,
+      input_tmp=OPTIONS.input_tmp,
+      metadata=metadata,
+      info_dict=OPTIONS.info_dict)
+
+#  if not OPTIONS.omit_prereq:
+#    ts = GetBuildProp("ro.build.date.utc", input_zip)
+#    script.AssertOlderBuild(ts)
+
+  AppendAssertions(script, input_zip)
+  device_specific.FullOTA_Assertions()
+  if OPTIONS.backuptool:
+    script.RunBackup("backup")
+
+  script.ShowProgress(0.5, 0)
+
+  if OPTIONS.wipe_user_data:
+    script.FormatPartition("/data")
+
+  script.FormatPartition("/system")
+  script.Mount("/system")
+  script.UnpackPackageDir("recovery", "/system")
+  script.UnpackPackageDir("system", "/system")
+
+  symlinks = CopySystemFiles(input_zip, output_zip)
+  script.MakeSymlinks(symlinks)
+
+  # -- encore build change starting
+  #boot_img = common.File("boot.img", common.BuildBootableImage(
+  #    os.path.join(OPTIONS.input_tmp, "BOOT")))
+  #recovery_img = common.File("recovery.img", common.BuildBootableImage(
+  #    os.path.join(OPTIONS.input_tmp, "RECOVERY")))
+  #MakeRecoveryPatch(output_zip, recovery_img, boot_img)
+  # -- encore build change done
+
+  Item.GetMetadata(input_zip)
+  Item.Get("system").SetPermissions(script)
+
+  # -- encore build change starting
+  #common.CheckSize(boot_img.data, "boot.img", OPTIONS.info_dict)
+  #common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
+  # -- encore build change done
+  script.ShowProgress(0.2, 0)
+
+  if OPTIONS.backuptool:
+    script.ShowProgress(0.2, 10)
+    script.RunBackup("restore")
+
+  script.RunVerifyCachePartitionSize()
+
+  script.ShowProgress(0.2, 10)
+  # -- encore build change starting
+  #script.WriteRawImage("/boot", "boot.img")
+
+  CopyBootFiles(input_zip, output_zip)
+
+  # This mimics how the official B&N updates work and seems pretty elegant to me
+  script.Mount("/boot")
+  script.UnpackPackageFile("kernel", "/boot/uImage")
+  script.UnpackPackageFile("ramdisk.img", "/boot/uRamdisk")
+  # -- encore build change done
+
+  script.ShowProgress(0.1, 0)
+  device_specific.FullOTA_InstallEnd()
+
+  if OPTIONS.extra_script is not None:
+    script.AppendExtra(OPTIONS.extra_script)
+
+  script.UnmountAll()
+  script.AddToZip(input_zip, output_zip)
+  WriteMetadata(metadata, output_zip)
+ota_from_target_files.WriteFullOTAPackage = WriteFullOTAPackage
+
+
+def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
+    print "Incremental OTA Packages are not support on the B&N encore at this time"
+    sys.exit(1)
+ota_from_target_files.WriteIncrementalOTAPackage = WriteIncrementalOTAPackage
+
+if __name__ == '__main__':
+  try:
+    main(sys.argv[1:])
+  except common.ExternalError, e:
+    print
+    print "   ERROR: %s" % (e,)
+    print
+    sys.exit(1)
