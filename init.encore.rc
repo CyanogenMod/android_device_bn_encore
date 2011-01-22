@@ -40,17 +40,16 @@ on boot
     # Enable Power Management - thanks NookieFroyo for this
 
     # Mount Debug file system
-    mkdir /debug
-    mount debugfs debugfs /debug
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
         
     # Enabling sleep in idle path
-    write /debug/pm_debug/sleep_while_idle 1
+    write /sys/kernel/debug/pm_debug/sleep_while_idle 1
             
     # Enabling Voltage OFF in idle path
-    write /debug/pm_debug/voltage_off_while_idle 1
+    write /sys/kernel/debug/pm_debug/voltage_off_while_idle 1
                 
     # Enabling OFF mode
-    write /debug/pm_debug/enable_off_mode 1
+    write /sys/kernel/debug/pm_debug/enable_off_mode 1
                     
     # Enablig DVFS with ondemand governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
