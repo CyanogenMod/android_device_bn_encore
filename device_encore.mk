@@ -69,11 +69,11 @@ PRODUCT_LOCALES += mdpi
 
 # VOLD
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vold.encore.fstab:system/etc/vold.fstab
+    $(LOCAL_PATH)/etc/vold.encore.fstab:system/etc/vold.fstab
 
 # Media Profile
 PRODUCT_COPY_FILES += \
-    device/bn/encore/media_profiles.xml:system/etc/media_profiles.xml
+   $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 # Misc # TODO: Find a better home for this
 PRODUCT_COPY_FILES += \
