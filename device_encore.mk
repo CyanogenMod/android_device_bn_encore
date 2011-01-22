@@ -77,7 +77,7 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/bn/encore/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -112,7 +112,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_LOCALES += hdpi
 
 PRODUCT_COPY_FILES += \
-    device/bn/encore/vold.fstab:system/etc/vold.fstab
+    $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab
 
 # cicadaman says /etc/wifi is the place for wifi drivers on TI machines...
 # this driver is from TI.  Source at https://gforge.ti.com/gf/project/wilink_driver
