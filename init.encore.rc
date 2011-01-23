@@ -64,7 +64,6 @@ on boot
     # load wifi module
     insmod /system/etc/wifi/tiwlan_drv.ko
 
-
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
     
@@ -88,8 +87,7 @@ service clearboot /system/bin/clear_bootcnt.sh
 # OMAP stuff:
 # most of this is unused for the moment.
 
-# load DSP firmware
-
+# load DSP firmwarevpl
 service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
     user root
     group audio
