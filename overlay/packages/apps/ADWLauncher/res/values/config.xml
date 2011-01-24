@@ -50,8 +50,8 @@
     <bool name="config_new_selectors">false</bool>
     <integer name="config_drawer_color">0xFF000000</integer>
     <!-- config_desktopColumns/Rows min value is 3, so it will add 3 to whatever value you set here -->
-    <integer name="config_desktopColumns">5</integer>
-    <integer name="config_desktopRows">3</integer>
+    <integer name="config_desktopColumns">3</integer>
+    <integer name="config_desktopRows">5</integer>
     <bool name="config_autosizeIcons">false</bool>
     <bool name="config_drawerLabels">true</bool>
     <bool name="config_fadeDrawerLabels">false</bool>
