@@ -79,6 +79,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
+# SD ramdisk packer script - by request - execute manually as-needed
+
+PRODUCT_COPY_FILES += \
+        $(LOCAL_PATH)/sd_ramdisk_packer.sh:sd_ramdisk_packer.sh
+
 # POWERVR_SGX530_v125-binaries -- TI's GFX accel
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/GFX/system/bin/eglinfo:/system/bin/eglinfo \
