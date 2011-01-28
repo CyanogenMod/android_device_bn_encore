@@ -72,7 +72,10 @@ on boot
 
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
-    
+
+    # verify permissions on su.  Necessary (for now) as it keeps getting dropped
+    chmod 4755 /system/xbin/su
+
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
     user root
