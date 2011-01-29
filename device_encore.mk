@@ -63,7 +63,8 @@ PRODUCT_PACKAGES += \
     libOMX.TI.Video.Decoder \
     libOMX.TI.Video.encoder \
     libVendor_ti_omx \
-    sensors.encore
+    sensors.encore \
+    lights.encore
 
 # Use medium-density artwork where available
 PRODUCT_LOCALES += mdpi
