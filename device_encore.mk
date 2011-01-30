@@ -64,7 +64,9 @@ PRODUCT_PACKAGES += \
     libOMX.TI.Video.encoder \
     libVendor_ti_omx \
     sensors.encore \
-    lights.encore
+    lights.encore \
+    alsa.default \
+    acoustics.default
 
 # Use medium-density artwork where available
 PRODUCT_LOCALES += mdpi
