@@ -34,7 +34,6 @@ on post-fs
 
 on boot
     # wireless
-
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
@@ -66,9 +65,6 @@ on boot
         
     # Permissions for setting the DSP Frequency
     chown media root /sys/power/dsp_freq
-
-    # load wifi module
-    insmod /system/etc/wifi/tiwlan_drv.ko
 
     # SGX driver
     chmod 0666 /dev/pvrsrvkm

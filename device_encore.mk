@@ -25,7 +25,7 @@ PRODUCT_COPY_FILES += \
 
 # Place wifi files
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/etc/wifi/tiwlan_drv.ko \
+    device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/lib/modules/tiwlan_drv.ko \
     device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
     device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
 
