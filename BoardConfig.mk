@@ -41,6 +41,9 @@ TARGET_NO_RADIOIMAGE := true
 # HW Graphics
 OMAP3_GL := true
 
+# use pre-kernel.35 vold usb mounting
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+
 # Wifi
 USES_TI_WL1271 := true
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
