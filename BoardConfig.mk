@@ -33,13 +33,16 @@ BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 
-BOARD_USES_GENERIC_AUDIO := true
+BOARD_USES_GENERIC_AUDIO := false
 
 # Modem
 TARGET_NO_RADIOIMAGE := true
 
 # HW Graphics
 OMAP3_GL := true
+
+# use pre-kernel.35 vold usb mounting
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 
 # Wifi
 USES_TI_WL1271 := true
@@ -50,7 +53,7 @@ BOARD_SOFTAP_DEVICE         := wl1271
 endif
 #BOARD_WLAN_DEVICE           := tiwlan0
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
-WIFI_DRIVER_MODULE_PATH     := "/system/etc/wifi/tiwlan_drv.ko"
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
 WIFI_DRIVER_MODULE_ARG      := ""
@@ -63,7 +66,7 @@ BOARD_HAVE_FAKE_GPS := true
 USE_CAMERA_STUB := true
 BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
-BOARD_USES_TI_OMAP_MODEM_AUDIO := true
+BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 BOARD_HAS_NO_MISC_PARTITION := true
 HARDWARE_OMX := true
 

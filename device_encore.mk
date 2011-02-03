@@ -25,7 +25,7 @@ PRODUCT_COPY_FILES += \
 
 # Place wifi files
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/etc/wifi/tiwlan_drv.ko \
+    device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/lib/modules/tiwlan_drv.ko \
     device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
     device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
 
@@ -62,7 +62,11 @@ PRODUCT_PACKAGES += \
     libOMX_Core \
     libOMX.TI.Video.Decoder \
     libOMX.TI.Video.encoder \
-    libVendor_ti_omx
+    libVendor_ti_omx \
+    sensors.encore \
+    lights.encore \
+    alsa.default \
+    acoustics.default
 
 # Use medium-density artwork where available
 PRODUCT_LOCALES += mdpi
@@ -156,7 +160,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	opencore.asmd=1 \
 	keyguard.no_require_sim=1 \
 	wifi.interface=tiwlan0 \
-	alsa.mixer.playback.master=DAC2 Analog \
+	alsa.mixer.playback.master=default \
 	alsa.mixer.capture.master=Analog \
 	dalvik.vm.heapsize=32m \
 	ro.opengles.version=131072

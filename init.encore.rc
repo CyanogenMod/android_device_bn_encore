@@ -34,7 +34,6 @@ on post-fs
 
 on boot
     # wireless
-
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
@@ -49,13 +48,13 @@ on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
         
     # Enabling sleep in idle path
-    write /sys/kernel/debug/pm_debug/sleep_while_idle 1
+    write /sys/power/sleep_while_idle 1
             
     # Enabling Voltage OFF in idle path
-    write /sys/kernel/debug/pm_debug/voltage_off_while_idle 1
+    write /sys/power/voltage_off_while_idle 1
                 
     # Enabling OFF mode
-    write /sys/kernel/debug/pm_debug/enable_off_mode 1
+    write /sys/power/enable_off_mode 1
                     
     # Enablig DVFS with ondemand governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
@@ -67,8 +66,8 @@ on boot
     # Permissions for setting the DSP Frequency
     chown media root /sys/power/dsp_freq
 
-    # load wifi module
-    insmod /system/etc/wifi/tiwlan_drv.ko
+    # Permissions for DSP bridge device
+    chmod 0777 /dev/DspBridge
 
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
@@ -97,6 +96,18 @@ service clearboot /system/bin/clear_bootcnt.sh
 service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
     user root
     group audio
+    oneshot
+
+# DSP recovery
+service bridged /system/bin/bridged
+    user root
+    group system
+    oneshot
+
+service omx_pm /system/bin/OMXPolicyManager
+    oneshot
+
+service omx_rm /system/bin/OMXResourceManager
     oneshot
 
 #service pppd_gprs /etc/init.gprs-pppd /dev/pts/1

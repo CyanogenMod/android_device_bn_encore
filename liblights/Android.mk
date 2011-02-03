@@ -13,31 +13,19 @@
 # limitations under the License.
 
 
-LOCAL_PATH := $(call my-dir)
-
-ifneq ($(TARGET_SIMULATOR),true)
-
-# HAL module implemenation, not prelinked, and stored in
-# hw/<SENSORS_HARDWARE_MODULE_ID>.<ro.product.board>.so
+LOCAL_PATH:= $(call my-dir)
+# HAL module implemenation, not prelinked and stored in
+# hw/<COPYPIX_HARDWARE_MODULE_ID>.<ro.board.platform>.so
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := sensors.encore
+LOCAL_SRC_FILES := lights.c
 
+LOCAL_PRELINK_MODULE := false
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 
-LOCAL_MODULE_TAGS := optional
+LOCAL_SHARED_LIBRARIES := liblog
 
-LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
-LOCAL_SRC_FILES := \
-	sensors.c \
-	nusensors.cpp \
-	InputEventReader.cpp \
-	SensorBase.cpp \
-	Kxtf9.cpp
-				
-LOCAL_SHARED_LIBRARIES := liblog libcutils
-LOCAL_PRELINK_MODULE := false
+LOCAL_MODULE := lights.encore
+LOCAL_MODULE_TAGS:= optional
 
 include $(BUILD_SHARED_LIBRARY)
-
-endif # !TARGET_SIMULATOR
