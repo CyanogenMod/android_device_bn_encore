@@ -39,8 +39,8 @@
        <item><xliff:g id="id">volume</xliff:g></item>
        <item><xliff:g id="id">headset</xliff:g></item>
        <item><xliff:g id="id">wifi</xliff:g></item>
-       <item><xliff:g id="id">cdma_eri</xliff:g></item>
-       <item><xliff:g id="id">data_connection</xliff:g></item>
+       <!-- item><xliff:g id="id">cdma_eri</xliff:g></item -->
+       <!-- item><xliff:g id="id">data_connection</xliff:g></item -->
        <item><xliff:g id="id">phone_evdo_signal</xliff:g></item>
        <item><xliff:g id="id">phone_signal</xliff:g></item>
        <item><xliff:g id="id">battery</xliff:g></item>
@@ -58,7 +58,7 @@
     <!-- Flag indicating whether the surface flinger is inefficient
          at performing a blur.  Used by parts of the UI to turn off
          the blur effect where it isn't worth the performance hit. -->
-    <bool name="config_sf_slowBlur">false</bool>
+    <bool name="config_sf_slowBlur">true</bool>
     
     <!-- The duration (in milliseconds) of a short animation. -->
     <integer name="config_shortAnimTime">150</integer>
@@ -242,19 +242,19 @@
     <!-- Vibrator pattern for feedback about booting with safe mode disabled -->
     <integer-array name="config_safeModeEnabledVibePattern">
         <item>0</item>
-        <item>1</item>
-        <item>20</item>
-        <item>21</item>
-        <item>500</item>
-        <item>600</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
     </integer-array>
 
     <!-- Vibrator pattern for feedback about hitting a scroll barrier -->
     <integer-array name="config_scrollBarrierVibePattern">
         <item>0</item>
-        <item>15</item>
-        <item>10</item>
-        <item>10</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
     </integer-array>
 
     <!-- Vibrator pattern for feedback about on a key release -->
