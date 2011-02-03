@@ -46,7 +46,7 @@
       <value>300000</value>
   </array>
   <!-- Power consumption when CPU is idle -->
-  <item name="cpu.idle"cc>4</item>
+  <item name="cpu.idle">4</item>
   <!-- Power consumption at different speeds -->
   <array name="cpu.active">
       <value>280</value>
