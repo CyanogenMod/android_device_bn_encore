@@ -22,7 +22,8 @@
         android:summary="@string/airplane_mode_summary"
         android:persistent="false"
         android:disableDependentsState="true"
-	android:enabled="false" />
+	android:enabled="true"
+	android:selectable="false" />
 
     <!-- Programmatically will have dynamic summary, but we provide the fallback summary. -->
     <CheckBoxPreference
@@ -61,7 +62,8 @@
         android:key="tether_settings"
         android:title="@string/tether_settings_title_both"
         android:summary="@string/tether_settings_summary_both"
-        android:enabled="false">
+        android:selectable="false"
+	android:shouldDisableView="true">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="com.android.settings"
@@ -83,13 +85,15 @@
         android:title="@string/nfc_quick_toggle_title"
         android:summary="@string/nfc_quick_toggle_summary"
         android:persistent="false"
-        android:enabled="false" />
+        android:selectable="false"
+        android:shouldDisableView="true" />
 
     <PreferenceScreen
         android:title="@string/network_settings_title"
         android:summary="@string/network_settings_summary"
         android:dependency="toggle_airplane"
-        android:enabled="false">
+        android:selectable="false"
+        android:shouldDisableView="true">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="com.android.phone"
