@@ -16,12 +16,12 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- CheckBoxPreference
+    <CheckBoxPreference
         android:key="toggle_airplane"
         android:title="@string/airplane_mode"
         android:summary="@string/airplane_mode_summary"
         android:persistent="false"
-        android:disableDependentsState="true" /   **REMOVE THIS OPTION FROM ENCORE** -->
+        android:disableDependentsState="true" />
 
     <!-- Programmatically will have dynamic summary, but we provide the fallback summary. -->
     <CheckBoxPreference
@@ -56,7 +56,7 @@
             android:targetClass="com.android.settings.bluetooth.BluetoothSettings" />
     </PreferenceScreen>
 
-    <!-- PreferenceScreen
+    <PreferenceScreen
         android:key="tether_settings"
         android:title="@string/tether_settings_title_both"
         android:summary="@string/tether_settings_summary_both">
@@ -80,9 +80,9 @@
         android:key="toggle_nfc"
         android:title="@string/nfc_quick_toggle_title"
         android:summary="@string/nfc_quick_toggle_summary"
-        android:persistent="false" / -->
+        android:persistent="false" />
 
-    <!-- PreferenceScreen
+    <PreferenceScreen
         android:title="@string/network_settings_title"
         android:summary="@string/network_settings_summary"
         android:dependency="toggle_airplane">
@@ -90,6 +90,6 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="com.android.phone"
             android:targetClass="com.android.phone.Settings" />
-    </PreferenceScreen -->
+    </PreferenceScreen>
 
 </PreferenceScreen>
