@@ -22,7 +22,9 @@
         android:summary="@string/airplane_mode_summary"
         android:persistent="false"
         android:disableDependentsState="true"
-	android:enabled="true"
+	android:enabled="false"
+	android:shouldDisableView="true"
+	android:defaultValue="true"
 	android:selectable="false" />
 
     <!-- Programmatically will have dynamic summary, but we provide the fallback summary. -->
