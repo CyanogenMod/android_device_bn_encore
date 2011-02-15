@@ -42,6 +42,9 @@ on boot
     setprop wifi.interface tiwlan0
     setprop wlan.driver.status "ok"
 
+    # Temporary workaround for SOD
+    write /sys/power/wake_lock 1
+
     # Enable Power Management - thanks NookieFroyo for this
 
     # Mount Debug file system
