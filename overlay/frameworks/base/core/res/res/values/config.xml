@@ -383,9 +383,9 @@
     <bool name="config_flashlight_affects_lightsensor">false</bool>
 
     <!-- Enable the screen-on animation -->
-    <bool name="config_enableScreenOnAnimation">true</bool>
+    <bool name="config_enableScreenOnAnimation">false</bool>
 
     <!-- Enable the screen-off animation -->
-    <bool name="config_enableScreenOffAnimation">true</bool>
+    <bool name="config_enableScreenOffAnimation">false</bool>
 
 </resources>
