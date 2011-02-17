@@ -19,6 +19,8 @@ common_ti_dirs := libsensors
 
 include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 
+$(call inherit-product, build/target/product/full_base.mk)
+
 # Get a proper init file
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc
@@ -164,8 +166,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	alsa.mixer.capture.master=Analog \
 	dalvik.vm.heapsize=32m \
 	ro.opengles.version=131072
-
-$(call inherit-product, build/target/product/full.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_encore
