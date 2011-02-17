@@ -1,0 +1,3 @@
+<resources>
+   <bool name="config_statusbar_buttons">true</bool>
+</resources>
