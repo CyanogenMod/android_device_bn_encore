@@ -68,8 +68,8 @@ PRODUCT_PACKAGES += \
     alsa.default \
     acoustics.default
 
-# Use medium-density artwork where available
-PRODUCT_LOCALES += mdpi
+# Default to US English
+PRODUCT_LOCALES += en_US
 
 # Vold
 PRODUCT_COPY_FILES += \
