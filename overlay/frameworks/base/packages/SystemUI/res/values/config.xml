@@ -1,3 +1,4 @@
 <resources>
    <bool name="config_statusbar_buttons">true</bool>
+   <bool name="config_statusbar_hide_home">true</bool>
 </resources>
