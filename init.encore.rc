@@ -1,4 +1,8 @@
 on init
+
+    # setup global environment
+    export PHONE_STORAGE /mnt/media
+
     # create mountpoints
     mkdir /mnt/media 0000 system system
 
@@ -10,7 +14,7 @@ on init
     mkdir /media 0777 system system
 
     # for encore
-    #write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
+    write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
 
 on fs
     # mount mtd partitions
@@ -20,6 +24,7 @@ on fs
     mount ext4 /dev/block/mmcblk0p5 /system ro remount
     mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev
     mount ext4 /dev/block/mmcblk0p7 /cache nosuid nodev
+    mount vfat /dev/block/mmcblk0p8 /media 
 
 on post-fs
     # change permissions for alsa nodes
@@ -33,6 +38,7 @@ on post-fs
     chown audio audio /dev/timer
 
 on boot
+
     # wireless
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi

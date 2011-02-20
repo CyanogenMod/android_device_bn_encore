@@ -33,8 +33,10 @@ PRODUCT_COPY_FILES += \
 
 # Place permission files
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
@@ -153,11 +155,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y \
+    ro.com.google.locationfeatures=1 \
+    ro.com.google.networklocation=1 \
     ro.allow.mock.location=0 \
     ro.sf.lcd_density=160 \
     ro.setupwizard.enable_bypass=1 \
     ro.sf.hwrotation=270 \
-    ro.com.google.networklocation=1 \
     ro.setupwizard.enable_bypass=1 \
 	com.ti.omap_enhancement=true \
 	opencore.asmd=1 \
