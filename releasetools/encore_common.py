@@ -30,6 +30,3 @@ def load_module_from_file(module_name, filename):
     f.close()
     return module
 
-# Add vfat to the partition types
-PARTITION_TYPES['vfat'] = "EMMC"
-PARTITION_TYPES['ext2'] = "EMMC"
