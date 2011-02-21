@@ -17,13 +17,22 @@ on init
     write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
 
 on fs
-    # mount mtd partitions
+    # mount vfat partitions
     mount vfat /dev/block/mmcblk0p2 /rom sync noatime nodiratime uid=1000,gid=1000,fmask=117,dmask=007
+
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     mount ext4 /dev/block/mmcblk0p5 /system
     mount ext4 /dev/block/mmcblk0p5 /system ro remount
+
+    # Make sure we are using ext4.  Recovery formats as ext3 for backwards compatibility
+    exec /system/bin/tune2fs -O extent,large_file,dir_index /dev/block/mmcblk0p6
+    exec /system/bin/tune2fs -O extent,large_file,dir_index /dev/block/mmcblk0p7
+
+    # Mount /data and /cache
     mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev
     mount ext4 /dev/block/mmcblk0p7 /cache nosuid nodev
+
+    # Mount /media  - XXX: This needs to be handled by vold!
     mount vfat /dev/block/mmcblk0p8 /media 
 
 on post-fs
