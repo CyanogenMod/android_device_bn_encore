@@ -11,4 +11,6 @@
 ######################
 
 dev_mount sdcard /mnt/sdcard auto /devices/platform/mmci-omap-hs.0/mmc_host/mmc1
-dev_mount media /mnt/media auto /devices/platform/mmci-omap-hs.1/mmc_host/mmc0
+
+## nookcolor has two fat32 partitions, p1 is boot p8 is internal storage, so we have to specify here
+dev_mount emmc /mnt/emmc 8 /devices/platform/mmci-omap-hs.1/mmc_host/mmc0
