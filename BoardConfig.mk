@@ -31,7 +31,6 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 
 TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
-BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 
@@ -43,8 +42,13 @@ TARGET_NO_RADIOIMAGE := true
 # HW Graphics
 OMAP3_GL := true
 
+# Storage
+BOARD_HAS_SDCARD_INTERNAL := true
 # use pre-kernel.35 vold usb mounting
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
+BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk0p8
+BOARD_SDCARD_DEVICE_INTERNAL := /dev/block/mmcblk0p8
 
 # Wifi
 USES_TI_WL1271 := true
@@ -89,3 +93,4 @@ COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT
 endif
 
 BOARD_USES_MKIMAGE := true
+

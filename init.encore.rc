@@ -1,17 +1,14 @@
 on init
 
     # setup global environment
-    export PHONE_STORAGE /mnt/media
+    export PHONE_STORAGE /mnt/emmc
 
     # create mountpoints
-    mkdir /mnt/media 0000 system system
-
-    # Backwards Compat - XXX: Going away in G*
-    symlink /mnt/media /media
+    mkdir /mnt/emmc 0000 system system
+    symlink /mnt/emmc /emmc
 
     # for encore
     mkdir /rom 0777 root root
-    mkdir /media 0777 system system
 
     # for encore
     write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
@@ -24,7 +21,6 @@ on fs
     mount ext4 /dev/block/mmcblk0p5 /system ro remount
     mount ext4 /dev/block/mmcblk0p6 /data nosuid nodev
     mount ext4 /dev/block/mmcblk0p7 /cache nosuid nodev
-    mount vfat /dev/block/mmcblk0p8 /media 
 
 on post-fs
     # change permissions for alsa nodes
