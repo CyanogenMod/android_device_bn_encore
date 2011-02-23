@@ -74,7 +74,7 @@ PRODUCT_PACKAGES += \
     acoustics.default
 
 # Use medium-density artwork where available
-PRODUCT_LOCALES += mdpi
+PRODUCT_LOCALES += hdpi
 
 # Vold
 PRODUCT_COPY_FILES += \
@@ -158,12 +158,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.allow.mock.location=0 \
-    ro.sf.lcd_density=160 \
+    ro.sf.lcd_density=180 \
     ro.setupwizard.enable_bypass=1 \
     ro.sf.hwrotation=270 \
     ro.setupwizard.enable_bypass=1 \
 	com.ti.omap_enhancement=true \
-	opencore.asmd=1 \
 	keyguard.no_require_sim=1 \
 	wifi.interface=tiwlan0 \
 	alsa.mixer.playback.master=default \
