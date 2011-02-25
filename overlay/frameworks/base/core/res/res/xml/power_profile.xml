@@ -41,6 +41,7 @@
   <!-- Different CPU speeds as reported in
        /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state -->
   <array name="cpu.speeds">
+      <value>925000</value> <!-- 800 MHz CPU speed -->
       <value>800000</value> <!-- 800 MHz CPU speed -->
       <value>600000</value>
       <value>300000</value>
@@ -49,6 +50,7 @@
   <item name="cpu.idle">4</item>
   <!-- Power consumption at different speeds -->
   <array name="cpu.active">
+      <value>300</value>
       <value>280</value>
       <value>200</value>
       <value>160</value>
