@@ -77,7 +77,7 @@ PRODUCT_PACKAGES += \
     libreference-ril
 
 # Use medium-density artwork where available
-PRODUCT_LOCALES += hdpi
+PRODUCT_LOCALES += mdpi
 
 # Vold
 PRODUCT_COPY_FILES += \
@@ -161,7 +161,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.allow.mock.location=0 \
-    ro.sf.lcd_density=180 \
+    ro.sf.lcd_density=160 \
     ro.setupwizard.enable_bypass=1 \
     ro.sf.hwrotation=270 \
     ro.setupwizard.enable_bypass=1 \
@@ -172,6 +172,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=32m \
     ro.opengles.version=131072
+
+# we have enough storage space to hold precise GC data
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_encore
