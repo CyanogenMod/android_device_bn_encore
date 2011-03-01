@@ -7,3 +7,5 @@ dalvik.vm.heapsize=32m
 
 rild.libpath=/system/lib/libreference-ril.so
 rild.libargs=-d /dev/ttyS0
+
+ro.additionalmounts=/mnt/emmc

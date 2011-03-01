@@ -44,11 +44,10 @@ OMAP3_GL := true
 
 # Storage
 BOARD_HAS_SDCARD_INTERNAL := true
-# use pre-kernel.35 vold usb mounting
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
 BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk0p8
 BOARD_SDCARD_DEVICE_INTERNAL := /dev/block/mmcblk0p8
+BOARD_VOLD_MAX_PARTITIONS := 8
 
 # Wifi
 USES_TI_WL1271 := true
