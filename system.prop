@@ -5,5 +5,8 @@ wifi.interface=tiwlan0
 wifi.supplicant_scan_interval = 15
 dalvik.vm.heapsize=32m
 
+ro.additionalmounts=/mnt/emmc
+
 rild.libpath=/system/lib/libreference-ril.so
 rild.libargs=-d /dev/ttyS0
+
