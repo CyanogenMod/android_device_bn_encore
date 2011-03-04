@@ -116,9 +116,19 @@
     use cases -->
     <bool name="config_bluetooth_sco_off_call">true</bool>
 
-      <!-- The default iface on which to monitor data use -->
+    <!-- The default iface on which to monitor data use -->
     <string name="config_datause_iface">tiwlan0</string>
 
     <!-- Enable the screen-off animation -->
     <bool name="config_enableScreenOffAnimation">false</bool>
+
+    <!-- Configure rotary bottom margin -->
+    <integer name="config_rotaryMarginBottomDIP">200</integer>
+
+    <!-- Configure rotary outer radius -->
+    <integer name="config_rotaryOuterRadiusDIP">1020</integer>
+
+    <!-- Configure rotary stroke width -->
+    <integer name="config_rotaryStrokeWidthDIP">83</integer>
+
 </resources>
