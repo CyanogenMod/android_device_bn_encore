@@ -114,7 +114,7 @@
 
     <!-- Boolean indicating if current platform supports bluetooth SCO for off call
     use cases -->
-    <bool name="config_bluetooth_sco_off_call">false</bool>
+    <bool name="config_bluetooth_sco_off_call">true</bool>
 
       <!-- The default iface on which to monitor data use -->
     <string name="config_datause_iface">tiwlan0</string>
