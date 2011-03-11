@@ -20,4 +20,19 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- On the keyguard screen, it shows the carrier the phone is connected to.  This is displayed if the phone is not connected to a carrier.-->
          <string name="lockscreen_carrier_default"></string>
+	 
+    <!-- Title for the Phone Options dialog to lock the screen, turn off the phone etc. -->
+    <string name="power_dialog">Tablet options</string>
+
+    <!-- Button to reboot the phone, within the Phone Options dialog -->
+    <string name="reboot_system">Reboot Tablet</string>
+
+    <!-- Shutdown Confirmation Dialog.  When the user chooses to power off the phone, there will be a confirmation dialog.  This is the message. -->
+    <string name="shutdown_confirm">Your tablet will shut down.</string>
+
+    <!-- Reboot Confirmation Dialog.  When the user chooses to reboot the phone, there will be a confirmation dialog.  This is the message. -->
+    <string name="reboot_confirm">Your tablet will reboot.</string>
+    
+    <!-- Title of the Global Actions Dialog -->
+    <string name="global_actions">Tablet options</string>
 </resources>
