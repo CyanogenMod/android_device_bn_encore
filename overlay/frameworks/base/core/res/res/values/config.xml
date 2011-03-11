@@ -116,9 +116,13 @@
     use cases -->
     <bool name="config_bluetooth_sco_off_call">true</bool>
 
-      <!-- The default iface on which to monitor data use -->
+    <!-- The default iface on which to monitor data use -->
     <string name="config_datause_iface">tiwlan0</string>
 
     <!-- Enable the screen-off animation -->
     <bool name="config_enableScreenOffAnimation">false</bool>
+
+    <!-- The duration (in milliseconds) that the radio will scan for a signal
+    when there's no network connection. If the scan doesn't timeout, use zero -->
+    <integer name="config_radioScanningTimeout">1</integer>
 </resources>
