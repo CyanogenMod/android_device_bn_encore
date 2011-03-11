@@ -13,6 +13,10 @@ on init
     # for encore
     write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
 
+    # for bluetooth
+    symlink /system/lib /lib
+    write /sys/class/rfkill/rfkill0/state 1
+
 on fs
     # mount partitions
     mount vfat /dev/block/mmcblk0p2 /rom sync noatime nodiratime uid=1000,gid=1000,fmask=117,dmask=007
@@ -38,6 +42,13 @@ on boot
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+
+# bluetooth power up/down interface
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+# bluetooth uart
+    chown bluetooth bluetooth /dev/ttyS1
 
     setprop wifi.interface tiwlan0
     setprop wlan.driver.status "ok"
@@ -128,26 +139,16 @@ service omx_rm /system/bin/OMXResourceManager
 #   user media
 #   group system camera
 
-#service uim /system/xbin/uim /dev/ttyO1 3000000 1 /sys/uim/pid 21
-#   user root
-#   group media bluetooth
-#   oneshot
+service uim /system/xbin/uim /dev/ttyS1 3000000 1 /sys/uim/pid 19
+   user root
+   group media bluetooth
+   oneshot
 
-#service hciattach /system/bin/hciattach -l
-#   user root
-    # changing user to root from bluetooth is a potential security issue
-    # service hciattach_legacy is used instead of hciattach because, we dont
-    # have nodes named ttyHS0
-#   group bluetooth net_bt_admin misc
-#   disabled
-#   oneshot
-
-#service hciattach_legacy /system/bin/hciattach -n /dev/ttyS1 texas 3000000
-#   user root
-    # changing user to root from bluetooth is a potential security issue
-#   group bluetooth net_bt_admin misc
-#   disabled
-#   oneshot
+service hciattach /system/bin/hciattach -n -t 10 -s 115200 /dev/ttyS1 texasalt 3000000 flow
+   user bluetooth
+   group bluetooth net_bt_admin misc
+   disabled
+   oneshot
 
 service wlan_loader /system/bin/wlan_loader \
     -f /system/etc/wifi/firmware.bin \
