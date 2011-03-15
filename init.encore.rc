@@ -144,7 +144,7 @@ service uim /system/xbin/uim /dev/ttyS1 3000000 1 /sys/uim/pid 19
    group media bluetooth
    oneshot
 
-service hciattach /system/bin/hciattach -n -t 10 -s 115200 /dev/ttyS1 texasalt 3000000 flow
+service hciattach /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt 3000000 flow
    user bluetooth
    group bluetooth net_bt_admin misc
    disabled
