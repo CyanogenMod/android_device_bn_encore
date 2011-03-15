@@ -35,6 +35,23 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/wl1271.bin:/system/etc/firmware/wl1271.bin
 
+# Place DSP firmware
+PRODUCT_COPY_FILES += \
+    device/bn/encore/firmware/dsp/baseimage.dof:/system/lib/dsp/baseimage.dof \
+    device/bn/encore/firmware/dsp/conversions.dll64P:/system/lib/dsp/conversions.dll64P \
+    device/bn/encore/firmware/dsp/dctn_dyn.dll64P:/system/lib/dsp/dctn_dyn.dll64P \
+    device/bn/encore/firmware/dsp/h264vdec_sn.dll64P:/system/lib/dsp/h264vdec_sn.dll64P \
+    device/bn/encore/firmware/dsp/jpegdec_sn.dll64P:/system/lib/dsp/jpegdec_sn.dll64P \
+    device/bn/encore/firmware/dsp/jpegenc_sn.dll64P:/system/lib/dsp/jpegenc_sn.dll64P \
+    device/bn/encore/firmware/dsp/m4venc_sn.dll64P:/system/lib/dsp/m4venc_sn.dll64P \
+    device/bn/encore/firmware/dsp/mp4vdec_sn.dll64P:/system/lib/dsp/mp4vdec_sn.dll64P \
+    device/bn/encore/firmware/dsp/mpeg4aacdec_sn.dll64P:/system/lib/dsp/mpeg4aacdec_sn.dll64P \
+    device/bn/encore/firmware/dsp/postprocessor_dualout.dll64P:/system/lib/dsp/postprocessor_dualout.dll64P \
+    device/bn/encore/firmware/dsp/qosdyn_3430.dll64P:/system/lib/dsp/qosdyn_3430.dll64P \
+    device/bn/encore/firmware/dsp/ringio.dll64P:/system/lib/dsp/ringio.dll64P \
+    device/bn/encore/firmware/dsp/usn.dll64P:/system/lib/dsp/usn.dll64P \
+    device/bn/encore/firmware/dsp/vpp_sn.dll64P:/system/lib/dsp/vpp_sn.dll64P
+
 # Place permission files
 PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -56,7 +73,6 @@ PRODUCT_PACKAGES += \
     tiwlan.ini \
     dspexec \
     libbridge \
-    overlay.omap3 \
     wlan_cu \
     libtiOsLib \
     wlan_loader \
@@ -132,6 +148,7 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/GFX/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.15.2766:/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.15.2766 \
     device/bn/encore/prebuilt/GFX/system/lib/hw/gralloc.omap3.so:/system/lib/hw/gralloc.omap3.so \
     device/bn/encore/prebuilt/GFX/system/lib/hw/gralloc.omap3.so.1.1.15.2766:/system/lib/hw/gralloc.omap3.so.1.1.15.2766 \
+    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so \
     device/bn/encore/prebuilt/GFX/system/lib/libfakehal.so:/system/lib/libfakehal.so \
     device/bn/encore/prebuilt/GFX/system/lib/libfakehal.so.1.1.15.2766:/system/lib/libfakehal.so.1.1.15.2766 \
     device/bn/encore/prebuilt/GFX/system/lib/libglslcompiler.so:/system/lib/libglslcompiler.so \
