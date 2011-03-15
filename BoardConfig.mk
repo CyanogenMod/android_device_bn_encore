@@ -42,6 +42,9 @@ TARGET_NO_RADIOIMAGE := true
 # HW Graphics
 OMAP3_GL := true
 
+# Workaround for eglconfig error
+BOARD_NO_RGBX_8888 := true
+
 # Storage
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
