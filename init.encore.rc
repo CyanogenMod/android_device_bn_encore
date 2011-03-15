@@ -113,21 +113,9 @@ service clearboot /system/bin/clear_bootcnt.sh
 # most of this is unused for the moment.
 
 # load DSP firmwarevpl
-service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
+service baseimage /system/bin/dspexec /system/lib/dsp/baseimage.dof
     user root
     group audio
-    oneshot
-
-# DSP recovery
-service bridged /system/bin/bridged
-    user root
-    group system
-    oneshot
-
-service omx_pm /system/bin/OMXPolicyManager
-    oneshot
-
-service omx_rm /system/bin/OMXResourceManager
     oneshot
 
 #service pppd_gprs /etc/init.gprs-pppd /dev/pts/1
