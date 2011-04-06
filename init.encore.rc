@@ -91,6 +91,10 @@ on boot
 
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
+
+    #Set read_ahead buffers
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
+    write /sys/block/mmcblk1/bdi/read_ahead_kb 1024
     
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
