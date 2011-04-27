@@ -7,6 +7,5 @@ dalvik.vm.heapsize=32m
 
 ro.additionalmounts=/mnt/emmc
 
-rild.libpath=/system/lib/libreference-ril.so
-rild.libargs=-d /dev/ttyS0
-
+# Set the default network type to GSM for Android Market access
+ro.telephony.default_network=0
