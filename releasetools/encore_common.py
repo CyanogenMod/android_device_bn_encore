@@ -30,3 +30,4 @@ def load_module_from_file(module_name, filename):
     f.close()
     return module
 
+PARTITION_TYPES["ext2"] = "EMMC"
