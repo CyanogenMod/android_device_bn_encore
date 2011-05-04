@@ -33,6 +33,7 @@ TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
+TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 ; echo 'recovery' >> /rom/bcb"
 
 BOARD_USES_GENERIC_AUDIO := false
 
