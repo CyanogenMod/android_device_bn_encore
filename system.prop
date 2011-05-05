@@ -2,7 +2,7 @@
 # system.prop for encore
 #
 wifi.interface=tiwlan0
-wifi.supplicant_scan_interval = 15
+wifi.supplicant_scan_interval = 30
 dalvik.vm.heapsize=32m
 
 ro.additionalmounts=/mnt/emmc

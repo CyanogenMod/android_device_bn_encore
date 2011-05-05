@@ -14,7 +14,7 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_BOOTLOADER_BOARD_NAME := encore
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USERIMAGES_USE_EXT4 := true
-OMAP_ENHANCEMENT := true
+#OMAP_ENHANCEMENT := true
 
 TARGET_PROVIDES_RELEASETOOLS := true
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_img_from_target_files
@@ -47,6 +47,9 @@ OMAP3_GL := true
 # Workaround for eglconfig error
 BOARD_NO_RGBX_8888 := true
 
+# use pre-kernel.35 vold usb mounting
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+
 # Storage
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
@@ -70,7 +73,6 @@ WIFI_DRIVER_MODULE_ARG      := ""
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-HCI_DEV_ID := 1
 
 BOARD_HAVE_FAKE_GPS := true
 
