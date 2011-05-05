@@ -13,10 +13,6 @@ on init
     # for encore
     write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
 
-    # for bluetooth
-    symlink /system/lib /lib
-    write /sys/class/rfkill/rfkill0/state 1
-
 on fs
     # mount partitions
     mount vfat /dev/block/mmcblk0p2 /rom sync noatime nodiratime uid=1000,gid=1000,fmask=117,dmask=007
@@ -101,11 +97,6 @@ service pvrsrvinit /system/bin/pvrsrvinit
     user root
     oneshot
 
-# Initialize the PowerVR SGX530 driver
-service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
-     user root
-     oneshot
-
 # OMAP specific services start here
 
 service clearboot /system/bin/clear_bootcnt.sh
@@ -131,15 +122,9 @@ service baseimage /system/bin/dspexec /system/lib/dsp/baseimage.dof
 #   user media
 #   group system camera
 
-service uim /system/xbin/uim /dev/ttyS1 3000000 1 /sys/uim/pid 19
+service uim /system/bin/uim-sysfs
    user root
    group media bluetooth
-   oneshot
-
-service hciattach /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt 3000000 flow
-   user bluetooth
-   group bluetooth net_bt_admin misc
-   disabled
    oneshot
 
 service wlan_loader /system/bin/wlan_loader \

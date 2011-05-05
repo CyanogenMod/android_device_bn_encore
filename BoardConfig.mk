@@ -69,7 +69,6 @@ WIFI_DRIVER_MODULE_ARG      := ""
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-HCI_DEV_ID := 1
 
 BOARD_HAVE_FAKE_GPS := true
 
