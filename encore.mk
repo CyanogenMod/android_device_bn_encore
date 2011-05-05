@@ -33,24 +33,11 @@ PRODUCT_COPY_FILES += \
 
 # Place bluetooth firmware
 PRODUCT_COPY_FILES += \
-    device/bn/encore/firmware/wl1271.bin:/system/etc/firmware/wl1271.bin
+    device/bn/encore/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
 
-# Place DSP firmware
+# Place prebuilt overlay(omapzoom)
 PRODUCT_COPY_FILES += \
-    device/bn/encore/firmware/dsp/baseimage.dof:/system/lib/dsp/baseimage.dof \
-    device/bn/encore/firmware/dsp/conversions.dll64P:/system/lib/dsp/conversions.dll64P \
-    device/bn/encore/firmware/dsp/dctn_dyn.dll64P:/system/lib/dsp/dctn_dyn.dll64P \
-    device/bn/encore/firmware/dsp/h264vdec_sn.dll64P:/system/lib/dsp/h264vdec_sn.dll64P \
-    device/bn/encore/firmware/dsp/jpegdec_sn.dll64P:/system/lib/dsp/jpegdec_sn.dll64P \
-    device/bn/encore/firmware/dsp/jpegenc_sn.dll64P:/system/lib/dsp/jpegenc_sn.dll64P \
-    device/bn/encore/firmware/dsp/m4venc_sn.dll64P:/system/lib/dsp/m4venc_sn.dll64P \
-    device/bn/encore/firmware/dsp/mp4vdec_sn.dll64P:/system/lib/dsp/mp4vdec_sn.dll64P \
-    device/bn/encore/firmware/dsp/mpeg4aacdec_sn.dll64P:/system/lib/dsp/mpeg4aacdec_sn.dll64P \
-    device/bn/encore/firmware/dsp/postprocessor_dualout.dll64P:/system/lib/dsp/postprocessor_dualout.dll64P \
-    device/bn/encore/firmware/dsp/qosdyn_3430.dll64P:/system/lib/dsp/qosdyn_3430.dll64P \
-    device/bn/encore/firmware/dsp/ringio.dll64P:/system/lib/dsp/ringio.dll64P \
-    device/bn/encore/firmware/dsp/usn.dll64P:/system/lib/dsp/usn.dll64P \
-    device/bn/encore/firmware/dsp/vpp_sn.dll64P:/system/lib/dsp/vpp_sn.dll64P
+	device/bn/encore/prebuilt/GFX/overlay.omap3.so:/system/lib/hw/overlay.omap3.so
 
 # Place permission files
 PRODUCT_COPY_FILES += \
@@ -114,56 +101,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/sd_ramdisk_packer.sh:sd_ramdisk_packer.sh
 
-# POWERVR_SGX530_v125-binaries -- TI's GFX accel
-PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/GFX/system/bin/eglinfo:/system/bin/eglinfo \
-    device/bn/encore/prebuilt/GFX/system/bin/framebuffer_test:/system/bin/framebuffer_test \
-    device/bn/encore/prebuilt/GFX/system/bin/gles1test1:/system/bin/gles1test1 \
-    device/bn/encore/prebuilt/GFX/system/bin/gles2test1:/system/bin/gles2test1 \
-    device/bn/encore/prebuilt/GFX/system/bin/glsltest1_fragshaderA.txt:/system/bin/glsltest1_fragshaderA.txt \
-    device/bn/encore/prebuilt/GFX/system/bin/glsltest1_fragshaderB.txt:/system/bin/glsltest1_fragshaderB.txt \
-    device/bn/encore/prebuilt/GFX/system/bin/glsltest1_vertshader.txt:/system/bin/glsltest1_vertshader.txt \
-    device/bn/encore/prebuilt/GFX/system/bin/hal_client_test:/system/bin/hal_client_test \
-    device/bn/encore/prebuilt/GFX/system/bin/hal_server_test:/system/bin/hal_server_test \
-    device/bn/encore/prebuilt/GFX/system/bin/pvr2d_test:/system/bin/pvr2d_test \
-    device/bn/encore/prebuilt/GFX/system/bin/pvrsrvinit:/system/bin/pvrsrvinit \
-    device/bn/encore/prebuilt/GFX/system/bin/services_test:/system/bin/services_test \
-    device/bn/encore/prebuilt/GFX/system/bin/sgx/omaplfb.ko:/system/bin/sgx/omaplfb.ko \
-    device/bn/encore/prebuilt/GFX/system/bin/sgx/pvrsrvkm.ko:/system/bin/sgx/pvrsrvkm.ko \
-    device/bn/encore/prebuilt/GFX/system/bin/sgx/rc.pvr:/system/bin/sgx/rc.pvr \
-    device/bn/encore/prebuilt/GFX/system/bin/sgx_blit_test:/system/bin/sgx_blit_test \
-    device/bn/encore/prebuilt/GFX/system/bin/sgx_flip_test:/system/bin/sgx_flip_test \
-    device/bn/encore/prebuilt/GFX/system/bin/sgx_init_test:/system/bin/sgx_init_test \
-    device/bn/encore/prebuilt/GFX/system/bin/sgx_render_flip_test:/system/bin/sgx_render_flip_test \
-    device/bn/encore/prebuilt/GFX/system/bin/texture_benchmark:/system/bin/texture_benchmark \
-    device/bn/encore/prebuilt/GFX/system/bin/xmultiegltest:/system/bin/xmultiegltest \
-    device/bn/encore/prebuilt/GFX/system/lib/egl/egl.cfg:/system/lib/egl/egl.cfg \
-    device/bn/encore/prebuilt/GFX/system/lib/egl/libEGL_POWERVR_SGX530_125.so:/system/lib/egl/libEGL_POWERVR_SGX530_125.so \
-    device/bn/encore/prebuilt/GFX/system/lib/egl/libEGL_POWERVR_SGX530_125.so.1.1.15.2766:/system/lib/egl/libEGL_POWERVR_SGX530_125.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so:/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so \
-    device/bn/encore/prebuilt/GFX/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so.1.1.15.2766:/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so:/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so \
-    device/bn/encore/prebuilt/GFX/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.15.2766:/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/hw/gralloc.omap3.so:/system/lib/hw/gralloc.omap3.so \
-    device/bn/encore/prebuilt/GFX/system/lib/hw/gralloc.omap3.so.1.1.15.2766:/system/lib/hw/gralloc.omap3.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libfakehal.so:/system/lib/libfakehal.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libfakehal.so.1.1.15.2766:/system/lib/libfakehal.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/libglslcompiler.so:/system/lib/libglslcompiler.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libglslcompiler.so.1.1.15.2766:/system/lib/libglslcompiler.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/libIMGegl.so:/system/lib/libIMGegl.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libIMGegl.so.1.1.15.2766:/system/lib/libIMGegl.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/libpvr2d.so:/system/lib/libpvr2d.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libpvr2d.so.1.1.15.2766:/system/lib/libpvr2d.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/libpvrANDROID_WSEGL.so:/system/lib/libpvrANDROID_WSEGL.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libpvrANDROID_WSEGL.so.1.1.15.2766:/system/lib/libpvrANDROID_WSEGL.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/libPVRScopeServices.so:/system/lib/libPVRScopeServices.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libPVRScopeServices.so.1.1.15.2766:/system/lib/libPVRScopeServices.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/libsfutil.so:/system/lib/libsfutil.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libsfutil.so.1.1.15.2766:/system/lib/libsfutil.so.1.1.15.2766 \
-    device/bn/encore/prebuilt/GFX/system/lib/libsrv_um.so:/system/lib/libsrv_um.so \
-    device/bn/encore/prebuilt/GFX/system/lib/libsrv_um.so.1.1.15.2766:/system/lib/libsrv_um.so.1.1.15.2766
-
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
 else
@@ -180,7 +117,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.allow.mock.location=0 \
-    ro.sf.lcd_density=161 \
+    qemu.sf.lcd_density=161 \
     ro.setupwizard.enable_bypass=1 \
     ro.sf.hwrotation=270 \
     ro.setupwizard.enable_bypass=1 \
