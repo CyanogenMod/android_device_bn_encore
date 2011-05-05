@@ -2,6 +2,8 @@ on init
 
     # setup global environment
     export PHONE_STORAGE /mnt/emmc
+    export DSP_PATH /system/lib/dsp
+    export DEFAULT_BASEIMAGE /system/lib/dsp/baseimage.dof
 
     # create mountpoints
     mkdir /mnt/emmc 0000 system system
@@ -9,13 +11,6 @@ on init
 
     # for encore
     mkdir /rom 0777 root root
-
-    # for encore
-    write /sys/devices/omapdss/display0/timings 68000,1024/70/200/40,600/10/11/10
-
-    # for bluetooth
-    symlink /system/lib /lib
-    write /sys/class/rfkill/rfkill0/state 1
 
 on fs
     # mount partitions
@@ -54,7 +49,8 @@ on boot
     setprop wlan.driver.status "ok"
 
     # Temporary workaround for SOD
-    write /sys/power/wake_lock 1
+    # Only needed for 2.6.29
+    #write /sys/power/wake_lock 1
 
     # Enable Power Management - thanks NookieFroyo for this
 
@@ -62,16 +58,16 @@ on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
         
     # Enabling sleep in idle path
-    write /sys/power/sleep_while_idle 1
+    write /sys/kernel/debug/pm_debug/sleep_while_idle 1
             
     # Enabling Voltage OFF in idle path
-    write /sys/power/voltage_off_while_idle 1
+    write /sys/kernel/debug/pm_debug/voltage_off_while_idle 1
                 
     # Enabling OFF mode
-    write /sys/power/enable_off_mode 1
+    write /sys/kernel/debug/pm_debug/enable_off_mode 1
                     
     # Enablig DVFS with ondemand governor
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
 
     # Enabling SmartReflex for Zoom3 OMAP3630
     write  /sys/power/sr_vdd1_autocomp 1
@@ -89,22 +85,42 @@ on boot
     chmod 0777 /dev/omap-resizer
     chmod 0777 /dev/omap-previewer
 
+    # change permissions for overlay managers and display devices
+    chmod 0777 /sys/devices/platform/omapdss/manager0/name
+    chmod 0777 /sys/devices/platform/omapdss/manager1/name
+
+    chmod 0777 /sys/devices/platform/omapdss/display0/name
+
+    chmod 0777 /sys/devices/platform/omapdss/display0/enabled
+
+    chmod 0777 /sys/devices/platform/omapdss/display0/timings
+
+    chmod 0777 /sys/devices/platform/omapdss/overlay0/manager
+    chmod 0777 /sys/devices/platform/omapdss/overlay1/manager
+    chmod 0777 /sys/devices/platform/omapdss/overlay2/manager
+
+    chmod 0777 /sys/devices/platform/omapdss/overlay0/enabled
+    chmod 0777 /sys/devices/platform/omapdss/overlay1/enabled
+    chmod 0777 /sys/devices/platform/omapdss/overlay2/enabled
+
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
 
     #Set read_ahead buffers
     write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
     write /sys/block/mmcblk1/bdi/read_ahead_kb 1024
+
+    # There's no back seek penalty on MMC
+    write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/back_seek_penalty 0
+    # Allow us to seek up to 1GB back
+    write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/back_seek_max 1048576
+    # Only pick one request from each queue at each round robin
+    write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/quantum 1
     
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
     user root
     oneshot
-
-# Initialize the PowerVR SGX530 driver
-service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
-     user root
-     oneshot
 
 # OMAP specific services start here
 
@@ -131,15 +147,9 @@ service baseimage /system/bin/dspexec /system/lib/dsp/baseimage.dof
 #   user media
 #   group system camera
 
-service uim /system/xbin/uim /dev/ttyS1 3000000 1 /sys/uim/pid 19
+service uim /system/bin/uim-sysfs
    user root
    group media bluetooth
-   oneshot
-
-service hciattach /system/bin/hciattach -n -t 10 /dev/ttyS1 texasalt 3000000 flow
-   user bluetooth
-   group bluetooth net_bt_admin misc
-   disabled
    oneshot
 
 service wlan_loader /system/bin/wlan_loader \
