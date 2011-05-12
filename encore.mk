@@ -94,6 +94,9 @@ PRODUCT_PACKAGES += \
     alsa.default \
     acoustics.default
 
+PRODUCT_PACKAGES += \
+    libreference-ril
+
 # Use medium-density artwork where available
 PRODUCT_LOCALES += mdpi
 
@@ -189,6 +192,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=tiwlan0 \
     alsa.mixer.playback.master=default \
     alsa.mixer.capture.master=Analog \
+    dalvik.vm.heapsize=32m \
     ro.opengles.version=131072
 
 # we have enough storage space to hold precise GC data
