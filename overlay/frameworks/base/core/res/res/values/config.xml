@@ -26,9 +26,10 @@
          attributes.  This is used by the connectivity manager to decide which networks can coexist
          based on the hardware -->
     <!-- An Array of "[Connection name],[ConnectivityManager connection type],
-         [associated ga -type],[priority]  -->
+         [associated radio-type],[priority]  -->
     <string-array translatable="false" name="networkAttributes">
         <item>"wifi,1,1,1"</item>
+        <item>"mobile,0,0,0"</item>
     </string-array>
 
     <!-- Boolean indicating if we require the use of DUN on mobile for tethering.
