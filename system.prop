@@ -10,3 +10,4 @@ ro.additionalmounts=/mnt/emmc
 rild.libpath=/system/lib/libreference-ril.so
 rild.libargs=-d /dev/ttyS0
 
+ro.recovery.format_ignore_partitions=/boot
