@@ -117,8 +117,24 @@ else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
+ifeq ($(TARGET_PREBUILT_BOOTLOADER),)
+    LOCAL_BOOTLOADER := device/bn/encore/prebuilt/boot/MLO
+else
+    LOCAL_BOOTLOADER := $(TARGET_PREBUILT_BOOTLOADER)
+endif
+
+ifeq ($(TARGET_PREBUILT_2NDBOOTLOADER),)
+    LOCAL_2NDBOOTLOADER := device/bn/encore/prebuilt/boot/u-boot.bin
+else
+    LOCAL_2NDBOOTLOADER := $(TARGET_PREBUILT_2NDBOOTLOADER)
+endif
+
+
+# Boot files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
+    $(LOCAL_KERNEL):kernel \
+    $(LOCAL_BOOTLOADER):bootloader \
+    $(LOCAL_2NDBOOTLOADER):2ndbootloader
 
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
