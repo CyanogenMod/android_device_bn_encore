@@ -4,7 +4,6 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/bn/encore/BoardConfigVendor.mk
 
-TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := omap3
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
