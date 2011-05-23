@@ -43,7 +43,7 @@ PRODUCT_COPY_FILES += \
 
 # Place prebuilt from omapzoom
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/GFX/overlay.omap3.so:/system/lib/hw/overlay.omap3.so
+    device/bn/encore/prebuilt/GFX/overlay.omap3.so:/system/lib/hw/overlay.omap3.so \
     device/bn/encore/prebuilt/alsa/alsa.omap3.so:/system/lib/hw/alsa.omap3.so
 
 # Place permission files
