@@ -129,6 +129,11 @@ service pvrsrvinit /system/bin/pvrsrvinit
     user root
     oneshot
 
+# Update the battery data heuristics every hour
+service logbatterydata /system/bin/log_battery_data.sh
+    user root
+    group root
+
 # OMAP specific services start here
 
 service clearboot /system/bin/clear_bootcnt.sh
