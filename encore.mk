@@ -106,6 +106,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
+# update the battery log info
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/log_battery_data.sh:/system/bin/log_battery_data.sh
+
 # SD ramdisk packer script - by request - execute manually as-needed
 
 PRODUCT_COPY_FILES += \
