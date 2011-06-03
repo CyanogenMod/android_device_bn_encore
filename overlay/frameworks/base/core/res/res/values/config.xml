@@ -119,8 +119,6 @@
     <!-- Enable the screen-off animation -->
     <bool name="config_enableScreenOffAnimation">true</bool>
 
-    <bool name="config_enableScreenOnAnimation">true</bool>
-
     <bool name="config_animateScreenLights">false</bool>
 
     <!-- The duration (in milliseconds) that the radio will scan for a signal
