@@ -1,5 +1,4 @@
 BUILD_NETD := false
-USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
 -include vendor/bn/encore/BoardConfigVendor.mk
@@ -75,7 +74,10 @@ BOARD_HAVE_BLUETOOTH := true
 
 BOARD_HAVE_FAKE_GPS := true
 
-USE_CAMERA_STUB := true
+
+# Camera
+BOARD_CAMERA_LIBRARIES := libcamera
+
 BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
 BOARD_USES_TI_OMAP_MODEM_AUDIO := false
@@ -91,7 +93,6 @@ OMX_VENDOR_INCLUDES := \
 OMX_VENDOR_WRAPPER := TI_OMX_Wrapper
 BOARD_OPENCORE_LIBRARIES := libOMX_Core
 BOARD_OPENCORE_FLAGS := -DHARDWARE_OMX=1
-BOARD_CAMERA_LIBRARIES := libcamera
 endif
       
 ifdef OMAP_ENHANCEMENT

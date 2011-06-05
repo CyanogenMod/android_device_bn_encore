@@ -23,7 +23,8 @@ $(call inherit-product, build/target/product/full_base.mk)
 
 # Get a proper init file
 PRODUCT_COPY_FILES += \
-    device/bn/encore/init.encore.rc:root/init.encore.rc
+    device/bn/encore/init.encore.rc:root/init.encore.rc \
+    device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc
 
 # Place wifi files
 PRODUCT_COPY_FILES += \
@@ -90,6 +91,9 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libreference-ril
+
+PRODUCT_PACKAGES += \
+    libcamera
 
 # Use medium-density artwork where available
 PRODUCT_LOCALES += mdpi
