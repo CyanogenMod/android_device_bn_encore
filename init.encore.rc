@@ -1,3 +1,6 @@
+on early-init
+    start hwprops
+
 on init
 
     # setup global environment
@@ -38,7 +41,6 @@ on post-fs
     chown audio audio /dev/timer
 
 on boot
-
     # wireless
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -123,7 +125,12 @@ on boot
     write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/back_seek_max 1048576
     # Only pick one request from each queue at each round robin
     write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/quantum 1
-    
+
+service hwprops /sbin/hwprops
+    critical
+	disabled
+	oneshot
+
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
     user root

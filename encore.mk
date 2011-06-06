@@ -86,7 +86,8 @@ PRODUCT_PACKAGES += \
     sensors.encore \
     lights.encore \
     alsa.default \
-    acoustics.default
+    acoustics.default \
+    hwprops
 
 PRODUCT_PACKAGES += \
     libreference-ril
