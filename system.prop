@@ -9,5 +9,5 @@ ro.additionalmounts=/mnt/emmc
 
 rild.libpath=/system/lib/libreference-ril.so
 rild.libargs=-d /dev/ttyS0
-
+ro.pm.awake_on_usb=1
 ro.cwm.forbid_format=/boot
