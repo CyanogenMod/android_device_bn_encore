@@ -10,7 +10,9 @@ on init
 
     # create mountpoints
     mkdir /mnt/emmc 0000 system system
+    mkdir /mnt/usb 0000 system system
     symlink /mnt/emmc /emmc
+    symlink /mnt/usb /usb
 
     # for encore
     mkdir /rom 0777 root root
