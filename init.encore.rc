@@ -10,6 +10,7 @@ on init
 
     # create mountpoints
     mkdir /mnt/emmc 0000 system system
+    mkdir /mnt/sdcard/usb 0000 system system
     symlink /mnt/emmc /emmc
 
     # for encore
