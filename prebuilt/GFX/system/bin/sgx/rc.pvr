@@ -1,0 +1,68 @@
+#!/system/bin/sh
+
+# PowerVR SGX DDK for Embedded Linux - installation script
+#
+# Copyright	2004-2006 by Imagination Technologies Limited.
+#				All rights reserved.  No part of this software, either
+#				material or conceptual may be copied or distributed,
+#				transmitted, transcribed, stored in a retrieval system
+#				or translated into any human or computer language in any
+#				form by any means, electronic, mechanical, manual or
+#				other-wise, or disclosed to third parties without the
+#				express written permission of Imagination Technologies
+#				Limited, Unit 8, HomePark Industrial Estate,
+#				King's Langley, Hertfordshire, WD4 8LZ, U.K.
+
+# Auto-generated for omap4430_android from 
+#	$RCSfile: common.m4 $ $Revision: 1.8 $
+#	$RCSfile: rc.pvr.m4 $ $Revision: 1.26 $
+#	$RCSfile: rc.pvr.m4 $ $Revision: 1.5 $
+#
+
+load_pvr()
+{
+	
+	/system/bin/devmem2 0x48004B48 w 0x2
+	/system/bin/devmem2 0x48004B10 w 0x1
+	/system/bin/devmem2 0x48004B00 w 0x2
+	
+	insmod /system/bin/sgx/pvrsrvkm.ko
+	insmod /system/bin/sgx/omaplfb.ko
+	sleep 1
+	chmod 0666 /dev/pvrsrvkm
+	/system/bin/pvrsrvinit
+	echo "Loaded PowerVR consumer services."
+	return 0;
+}
+
+unload_pvr()
+{
+if rmmod omaplfb; then :; else return 1; fi
+if rmmod pvrsrvkm; then :; else return 1; fi
+	echo "Unloaded PowerVR consumer services."
+	return 0;
+}
+
+# Deal with the type of invocation we get.
+#
+case "$1" in
+"start")
+	load_pvr
+	;;
+stop)
+	if ! unload_pvr; then
+		echo "Couldn't unload modules" >&2;
+	fi
+	;;
+reload|restart)
+	if unload_pvr; then
+		load_pvr
+	else
+		echo "Couldn't unload modules" >&2;
+	fi
+	;;
+*)
+	echo "$0: unknown argument $1." >&2;
+	;;
+esac
+
