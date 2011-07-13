@@ -85,6 +85,10 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
+# Copy Nook Color Tweaks app
+PRODUCT_COPY_FILES += \
+    device/bn/encore/prebuilt/nooktweaks/NookColorTweaks.apk:/system/app/NookColorTweaks.apk
+
 $(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
