@@ -31,7 +31,6 @@ on post-fs
     #insmod /system/lib/modules/dm-crypt.ko
     #insmod /system/lib/modules/tun.ko
 
-
     # change permissions for alsa nodes
     symlink /dev/snd/pcmC0D0c /dev/pcmC0D0c
     symlink /dev/snd/pcmC0D0p /dev/pcmC0D0p
@@ -135,6 +134,11 @@ service hwprops /sbin/hwprops
 
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
+    user root
+    oneshot
+
+# Start of SGX driver
+service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
     user root
     oneshot
 

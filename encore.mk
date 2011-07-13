@@ -21,6 +21,13 @@ include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 
 $(call inherit-product, build/target/product/full_base.mk)
 
+# Place kernels to enable switching between 16 and 32 bit framebuffers
+# 16 bit can be use for a large increase in GFX performance
+# 32 bit is default
+PRODUCT_COPY_FILES += \
+    device/bn/encore/prebuilt/boot/kernel16:/system/bin/kernel/uImage16 \
+    device/bn/encore/prebuilt/boot/kernel32:/system/bin/kernel/uImage32
+
 # Get a proper init file
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc
@@ -35,6 +42,25 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
 
+# Place SGX SDK/DDK
+PRODUCT_COPY_FILES += \
+    device/bn/encore/prebuilt/GFX/omaplfb.ko:/system/bin/sgx/omaplfb.ko \
+    device/bn/encore/prebuilt/GFX/pvrsrvkm.ko:/system/bin/sgx/pvrsrvkm.ko \
+    device/bn/encore/prebuilt/GFX/system/bin/pvrsrvinit:/system/bin/pvrsrvinit \
+    device/bn/encore/prebuilt/GFX/system/bin/sgx/rc.pvr:/system/bin/sgx/rc.pvr \
+    device/bn/encore/prebuilt/GFX/system/lib/libglslcompiler.so.1.1.17.4352:/system/lib/libglslcompiler.so \
+    device/bn/encore/prebuilt/GFX/system/lib/libIMGegl.so.1.1.17.4352:/system/lib/libIMGegl.so \
+    device/bn/encore/prebuilt/GFX/system/lib/libpvr2d.so.1.1.17.4352:/system/lib/libpvr2d.so \
+    device/bn/encore/prebuilt/GFX/system/lib/libpvrANDROID_WSEGL.so.1.1.17.4352:/system/lib/libpvrANDROID_WSEGL.so \
+    device/bn/encore/prebuilt/GFX/system/lib/libPVRScopeServices.so.1.1.17.4352:/system/lib/libPVRScopeServices.so \
+    device/bn/encore/prebuilt/GFX/system/lib/libsrv_init.so.1.1.17.4352:/system/lib/libsrv_init.so \
+    device/bn/encore/prebuilt/GFX/system/lib/libsrv_um.so.1.1.17.4352:/system/lib/libsrv_um.so \
+    device/bn/encore/prebuilt/GFX/system/lib/libusc.so.1.1.17.4352:/system/lib/libusc.so \
+    device/bn/encore/prebuilt/GFX/system/lib/hw/gralloc.omap3.so.1.1.17.4352:/system/lib/hw/gralloc.omap3.so \
+    device/bn/encore/prebuilt/GFX/system/lib/egl/libEGL_POWERVR_SGX530_125.so.1.1.17.4352:/system/lib/egl/libEGL_POWERVR_SGX530_125.so \
+    device/bn/encore/prebuilt/GFX/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so.1.1.17.4352:/system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so \
+    device/bn/encore/prebuilt/GFX/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.17.4352:/system/lib/egl/libGLESv2_POWERVR_SGX530_125.so
+
 # Place kernel modules
 #PRODUCT_COPY_FILES += \
 #    device/bn/encore/prebuilt/modules/dm-mod.ko:/system/lib/modules/dm-mod.ko \
@@ -43,7 +69,7 @@ PRODUCT_COPY_FILES += \
 
 # Place prebuilt from omapzoom
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/GFX/overlay.omap3.so:/system/lib/hw/overlay.omap3.so \
+    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so \
     device/bn/encore/prebuilt/alsa/alsa.omap3.so:/system/lib/hw/alsa.omap3.so
 
 # Place permission files
@@ -117,7 +143,7 @@ PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/sd_ramdisk_packer.sh:sd_ramdisk_packer.sh
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
+    LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel32
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
