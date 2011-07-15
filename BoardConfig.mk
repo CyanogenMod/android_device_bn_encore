@@ -44,7 +44,7 @@ TARGET_NO_RADIOIMAGE := true
 OMAP3_GL := true
 
 # Workaround for eglconfig error
-#BOARD_NO_RGBX_8888 := true
+BOARD_NO_RGBX_8888 := true
 
 # use pre-kernel.35 vold usb mounting
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
