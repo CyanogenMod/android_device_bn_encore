@@ -113,6 +113,9 @@ on boot
     chmod 0777 /sys/devices/platform/omapdss/overlay1/enabled
     chmod 0777 /sys/devices/platform/omapdss/overlay2/enabled
 
+    # USB Serial Device
+    chmod 0666 /dev/ttyUSB0
+
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
 
