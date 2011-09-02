@@ -30,7 +30,8 @@ PRODUCT_COPY_FILES += \
 
 # Get a proper init file
 PRODUCT_COPY_FILES += \
-    device/bn/encore/init.encore.rc:root/init.encore.rc
+    device/bn/encore/init.encore.rc:root/init.encore.rc \
+    device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc
 
 # Place wifi files
 PRODUCT_COPY_FILES += \
