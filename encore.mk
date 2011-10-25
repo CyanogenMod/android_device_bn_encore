@@ -45,8 +45,7 @@ PRODUCT_COPY_FILES += \
 
 # Place prebuilt from omapzoom
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so \
-    device/bn/encore/prebuilt/alsa/alsa.omap3.so:/system/lib/hw/alsa.omap3.so
+    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so 
 
 # Place permission files
 PRODUCT_COPY_FILES += \
@@ -88,7 +87,9 @@ PRODUCT_PACKAGES += \
     sensors.encore \
     lights.encore \
     alsa.default \
+    alsa.omap3 \
     acoustics.default \
+    libomap_mm_library_jni \
     hwprops
 
 PRODUCT_PACKAGES += \
@@ -159,6 +160,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=32m \
     ro.opengles.version=131072
+
+FRAMEWORKS_BASE_SUBDIRS += \
+            $(addsuffix /java, \
+	    omapmmlib \
+	 )
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
