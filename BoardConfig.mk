@@ -36,7 +36,7 @@ BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; sync"
 
-BOARD_USES_GENERIC_AUDIO := false
+# BOARD_USES_GENERIC_AUDIO := true
 
 # Modem
 TARGET_NO_RADIOIMAGE := true
@@ -59,17 +59,17 @@ BOARD_VOLD_MAX_PARTITIONS := 8
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 # Wifi
-USES_TI_WL1271 := true
-BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
-ifdef USES_TI_WL1271
-BOARD_WLAN_DEVICE           := wl1271
-BOARD_SOFTAP_DEVICE         := wl1271
-endif
-WPA_SUPPLICANT_VERSION      := VER_0_6_X
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
-WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
-WIFI_FIRMWARE_LOADER        := "wlan_loader"
-WIFI_DRIVER_MODULE_ARG      := ""
+#USES_TI_WL1271 := true
+#BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
+#ifdef USES_TI_WL1271
+#BOARD_WLAN_DEVICE           := wl1271
+#BOARD_SOFTAP_DEVICE         := wl1271
+#endif
+#WPA_SUPPLICANT_VERSION      := VER_0_6_X
+#WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
+#WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
+#WIFI_FIRMWARE_LOADER        := "wlan_loader"
+#WIFI_DRIVER_MODULE_ARG      := ""
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true

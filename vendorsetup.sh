@@ -22,4 +22,4 @@
 
 #add_lunch_combo generic_encore-userdebug
 add_lunch_combo full_encore-eng
-add_lunch_combo cyanogen_encore-eng
+#add_lunch_combo cyanogen_encore-eng

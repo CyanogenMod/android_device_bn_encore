@@ -4,7 +4,7 @@
 #
 
 # This is the OMAP3 ALSA module for OMAP3
-ifeq ($(strip $(TARGET_BOOTLOADER_BOARD_NAME)),encore)
+ifeq ($(strip $(TARGET_BOOTLOADER_BOARD_NAME)),notencore)
 ifeq ($(strip $(BOARD_USES_ALSA_AUDIO)),true)
   LOCAL_PATH := $(call my-dir)
 
