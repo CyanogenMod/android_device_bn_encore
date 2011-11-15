@@ -36,6 +36,8 @@ import encore_edify_generator as edify_generator
 __doc__ = ota_from_target_files.__doc__
 
 def CopyBootFiles(input_zip, output_zip):
+    output_zip.writestr("MLO", input_zip.read("BOOT/bootloader"))
+    output_zip.writestr("u-boot.bin", input_zip.read("BOOT/second"))
     output_zip.writestr("kernel", input_zip.read("BOOT/kernel"))
     output_zip.writestr("ramdisk.img", input_zip.read("BOOT/ramdisk.img"))
 
@@ -112,6 +114,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   # This mimics how the official B&N updates work and seems pretty elegant to me
   script.Mount("/boot")
+  script.UnpackPackageFile("MLO", "/boot/MLO")
+  script.UnpackPackageFile("u-boot.bin", "/boot/u-boot.bin")
   script.UnpackPackageFile("kernel", "/boot/uImage")
   script.UnpackPackageFile("ramdisk.img", "/boot/uRamdisk")
   # -- encore build change done

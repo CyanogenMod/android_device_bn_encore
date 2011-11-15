@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/device_encore.mk
+    $(LOCAL_DIR)/encore.mk

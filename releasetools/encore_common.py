@@ -29,6 +29,3 @@ def load_module_from_file(module_name, filename):
     module = imp.load_module(module_name, f, filename, ('', 'U', 1))
     f.close()
     return module
-
-# Add vfat to the partition types
-PARTITION_TYPES['vfat'] = "EMMC"
