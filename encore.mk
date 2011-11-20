@@ -20,6 +20,7 @@ common_ti_dirs := libsensors
 include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 
 $(call inherit-product, build/target/product/full_base.mk)
+$(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 
 # Place kernels to enable switching between 16 and 32 bit framebuffers
 # 16 bit can be use for a large increase in GFX performance
@@ -27,6 +28,8 @@ $(call inherit-product, build/target/product/full_base.mk)
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/boot/kernel16:/system/bin/kernel/uImage16 \
     device/bn/encore/prebuilt/boot/kernel32:/system/bin/kernel/uImage32
+
+PRODUCT_CHARACTERISTICS := tablet,sdcard
 
 # Get a proper init file
 PRODUCT_COPY_FILES += \
@@ -90,7 +93,10 @@ PRODUCT_PACKAGES += \
     alsa.omap3 \
     acoustics.default \
     libomap_mm_library_jni \
-    hwprops
+    hwprops \
+    make_ext4fs \
+    com.android.future.usb.accessory
+
 
 PRODUCT_PACKAGES += \
     libreference-ril

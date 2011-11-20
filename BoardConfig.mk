@@ -42,7 +42,7 @@ BOARD_USES_GENERIC_AUDIO := true
 TARGET_NO_RADIOIMAGE := true
 
 # HW Graphics
-OMAP3_GL := true
+OMAP3_GL := false
 
 # Workaround for eglconfig error
 BOARD_NO_RGBX_8888 := true
