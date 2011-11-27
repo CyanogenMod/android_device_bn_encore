@@ -103,4 +103,6 @@ BOARD_USES_UBOOT := true
 
 BOARD_USES_SECURE_SERVICES := true
 
+BOARD_USE_LEGACY_TOUCHSCREEN := true
+
 BOARD_EGL_CFG := device/bn/encore/egl.cfg
