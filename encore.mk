@@ -40,7 +40,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/lib/modules/tiwlan_drv.ko \
     device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
-    device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin
+    device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
+    device/bn/encore/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc
 
 # Place bluetooth firmware
 PRODUCT_COPY_FILES += \
