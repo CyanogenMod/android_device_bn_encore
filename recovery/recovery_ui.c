@@ -73,7 +73,6 @@ int device_handle_key(int key_code, int visible) {
             case KEY_LEFTBRACE:
             case KEY_ENTER:
             case BTN_MOUSE:
-            case KEY_CENTER:
             case KEY_CAMERA:
             case KEY_F21:
             case KEY_SEND:
