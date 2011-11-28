@@ -182,8 +182,8 @@ service uim /system/bin/uim-sysfs
    oneshot
 
 service wlan_loader /system/bin/wlan_loader \
-    -f /system/etc/firmware/ti-connectivity/firmware.bin \
-    -i /system/etc/firmware/ti-connectivity/tiwlan.ini \
+    -f /system/etc/wifi/firmware.bin \
+    -i /system/etc/wifi/tiwlan.ini \
     -e /rom/DevConf/WiFiBackupCalibration
     disabled
     oneshot
