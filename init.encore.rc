@@ -13,6 +13,8 @@ on init
     mkdir /mnt/usbdisk 0000 system system
     symlink /mnt/emmc /emmc
     symlink /mnt/usbdisk /usbdisk
+    symlink /system/vendor /vendor
+    symlink /mnt/sdcard /sdcard
 
     # for encore
     mkdir /rom 0777 root root
@@ -95,8 +97,6 @@ on boot
     chmod 0777 /dev/omap-resizer
     chmod 0777 /dev/omap-previewer
 
-<<<<<<< HEAD
-=======
     # change permissions for overlay managers and display devices
     chmod 0777 /sys/devices/platform/omapdss/manager0/name
     chmod 0777 /sys/devices/platform/omapdss/manager1/name
@@ -115,7 +115,6 @@ on boot
     chmod 0777 /sys/devices/platform/omapdss/overlay1/enabled
     chmod 0777 /sys/devices/platform/omapdss/overlay2/enabled
 
->>>>>>> upstream/gingerbread
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
 
@@ -137,8 +136,10 @@ service hwprops /sbin/hwprops
 
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
-    user root
-    oneshot
+	class core
+	user root
+	group root
+	oneshot
 
 # Start of SGX driver
 service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
@@ -181,26 +182,29 @@ service uim /system/bin/uim-sysfs
    oneshot
 
 service wlan_loader /system/bin/wlan_loader \
-    -f /system/etc/wifi/firmware.bin \
-    -i /system/etc/wifi/tiwlan.ini \
+    -f /system/etc/firmware/ti-connectivity/firmware.bin \
+    -i /system/etc/firmware/ti-connectivity/tiwlan.ini \
     -e /rom/DevConf/WiFiBackupCalibration
     disabled
     oneshot
     
-service ifcfg_ti /system/bin/ifconfig tiwlan0 up
+service ifcfg_ti /system/bin/netcfg tiwlan0 up
     disabled
     oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    class main
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
+service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL
+    class main
     disabled
     oneshot
 
 service iprenew_tiwlan0 /system/bin/dhcpcd -n
+    class main
     disabled
     oneshot
