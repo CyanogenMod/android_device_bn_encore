@@ -128,7 +128,8 @@ PRODUCT_COPY_FILES += \
 # SD ramdisk packer script - by request - execute manually as-needed
 
 PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/sd_ramdisk_packer.sh:sd_ramdisk_packer.sh
+        $(LOCAL_PATH)/sd_ramdisk_packer.sh:sd_ramdisk_packer.sh \
+        $(LOCAL_PATH)/ramdisk_packer.sh:ramdisk_packer.sh
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel32
