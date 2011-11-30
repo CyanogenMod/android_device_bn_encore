@@ -38,6 +38,11 @@ TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev
 
 BOARD_USES_GENERIC_AUDIO := true
 
+# for now
+TARGET_NO_RECOVERY := true
+TARGET_NO_BOOTLOADER := true
+#HARDWARE_OMX := true
+
 # Modem
 TARGET_NO_RADIOIMAGE := true
 
@@ -81,7 +86,6 @@ USE_CAMERA_STUB := true
 #BUILD_WITH_ALSA_UTILS := true
 BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 BOARD_HAS_NO_MISC_PARTITION := true
-HARDWARE_OMX := true
 
 ifdef HARDWARE_OMX
 OMX_JPEG := true
