@@ -146,7 +146,8 @@ on boot
     write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/quantum 1
 
 service hwprops /sbin/hwprops
-    critical
+        class core
+        critical
 	disabled
 	oneshot
 
@@ -172,6 +173,7 @@ service logbatterydata /system/bin/log_battery_data.sh
 # OMAP specific services start here
 
 service clearboot /system/bin/clear_bootcnt.sh
+    class core
     user root
     group root
     oneshot
@@ -196,6 +198,7 @@ service baseimage /system/bin/dspexec /system/lib/dsp/baseimage.dof
 #   group system camera
 
 service uim /system/bin/uim-sysfs
+   class main
    user root
    group media bluetooth
    oneshot
