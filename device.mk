@@ -47,7 +47,7 @@ PRODUCT_COPY_FILES += \
 # Place key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
     device/bn/encore/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \
-    device/bn/encore/prebuilt/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl
+    device/bn/encore/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
 # Place bluetooth firmware
 PRODUCT_COPY_FILES += \
