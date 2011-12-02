@@ -1,5 +1,7 @@
 #
 # Copyright (C) 2009 The Android Open Source Project
+# Copyright (C) 2011 fattire
+# Copyright (C) 2011 Gerad Munsch <gmunsch@unforgivendevelopment.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +21,7 @@ common_ti_dirs := libsensors
 
 include $(call all-named-subdir-makefiles, $(common_ti_dirs))
 
-$(call inherit-product, build/target/product/full_base.mk)
+#$(call inherit-product, build/target/product/full_base.mk)
 $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 
 # Place kernels to enable switching between 16 and 32 bit framebuffers
