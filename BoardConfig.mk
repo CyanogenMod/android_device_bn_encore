@@ -68,7 +68,9 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 # HW Graphics
-OMAP3_GL := false
+USE_OPENGL_RENDERER := true
+BOARD_GL_OES_EGL_IMG_EXTERNAL_HACK := true
+BOARD_EGL_CFG := device/bn/encore/egl.cfg
 
 # Workaround for eglconfig error
 BOARD_NO_RGBX_8888 := true
@@ -129,5 +131,3 @@ BOARD_USES_UBOOT := true
 BOARD_USES_SECURE_SERVICES := true
 
 BOARD_USE_LEGACY_TOUCHSCREEN := true
-
-BOARD_EGL_CFG := device/bn/encore/egl.cfg
