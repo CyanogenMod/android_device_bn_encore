@@ -37,8 +37,9 @@ ROOT=root
 INIT=root/init.encore.rc
 
 # Replace partition names in init
-sed -i '' 's/mmcblk0p5/mmcblk0p9/' $INIT 
-sed -i '' 's/mmcblk0p6/mmcblk0p10/' $INIT
+sed -i 's/mmcblk0p5/mmcblk0p9/' $INIT 
+sed -i 's/mmcblk0p6/mmcblk0p10/' $INIT
+sed -i 's/mmcblk0p7/mmcblk0p11/' $INIT
 
 # Enter initramfs (ramdisk) root
 cd $ROOT
@@ -47,7 +48,7 @@ cd $ROOT
 find . -regex "./.*"| cpio -ov -H newc | gzip > ../repacked-ramdisk.cpio.gz 
 
 # Create initramfs (ramdisk) image
-mkimage  -A ARM -T RAMDisk -n Image -d ../repacked-ramdisk.cpio.gz ../ramdisk.img
+mkimage  -A ARM -T RAMDisk -n Image -d ../repacked-ramdisk.cpio.gz ../ramdisk-alt.img
 
 # Clean up our mess
 rm ../repacked-ramdisk.cpio.gz
@@ -59,7 +60,7 @@ echo "mount -o rw,remount /"
 echo "mkdir -p /mnt/boot"
 echo "mount -t vfat /dev/block/mmcblk0p1 /mnt/boot"
 echo "exit"
-echo "adb push ramdisk.img /mnt/boot/uAltRam"
+echo "adb push ramdisk-alt.img /mnt/boot/uAltRam"
 echo "adb shell sync"
 echo "adb reboot"
 echo -e "\n\n\033[1mPlease keep in mind, you need uAltImg in place as well.\033[0m"
