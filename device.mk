@@ -127,11 +127,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/log_battery_data.sh:/system/bin/log_battery_data.sh
 
-# SD ramdisk packer script - by request - execute manually as-needed
-
+# ramdisk_tools.sh -- use on-demand for various ramdisk operations, such as
+# repacking the ramdisk for use on an SD card or alternate emmc partitions
 PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/sd_ramdisk_packer.sh:sd_ramdisk_packer.sh \
-        $(LOCAL_PATH)/ramdisk_packer.sh:ramdisk_packer.sh
+        $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel32
