@@ -56,9 +56,12 @@ ALT_USERDATA="mmcblk0p10"
 ALT_CACHE="mmcblk0p11"
 
 # strings
-INT_NAME="internal emmc"
-SD_NAME="SD card"
-ALT_NAME="alternate internal"
+INT_NAME_1="internal"
+INT_NAME_2="emmc"
+SD_NAME_1="SD"
+SD_NAME_2="card"
+ALT_NAME_1="alternate"
+ALT_NAME_2="internal/emmc"
 INT_BOOT="mmcblk0p1"
 SD_BOOT="mmcblk1p1"
 ALT_BOOT="mmcblk0p1"
@@ -127,13 +130,13 @@ function cleanup_mess {
 
 ## display helpful info
 function output_info {
-    echo -e "\n\033[1m* Created ramdisk for $1 boot. To install this ramdisk on your device, boot into your NC, then:\033[0m"
+    echo -e "\n\033[1m* Created ramdisk for $1 $2 boot. To install this ramdisk on your device, boot into your NC, then:\033[0m"
     echo -e "adb shell"
     echo -e "mount -o rw,remount /"
     echo -e "mkdir -p /mnt/boot"
-    echo -e "mount -t vfat /dev/block/$2 /mnt/boot"
+    echo -e "mount -t vfat /dev/block/$3 /mnt/boot"
     echo -e "exit"
-    echo -e "adb push $3 /mnt/boot/$4"
+    echo -e "adb push $4 /mnt/boot/$5"
     echo -e "adb shell sync"
     echo -e "adb reboot"
 } # end function 'output_info' #
@@ -168,7 +171,7 @@ case $1 in
     update_init $INT_SYSTEM $INT_USERDATA $INT_CACHE
     create_ramdisk $INT_OUT
     cleanup_mess
-    output_info $INT_NAME $INT_BOOT $INT_OUT $INT_RAMDISK_NAME
+    output_info $INT_NAME_1 $INT_NAME_2 $INT_BOOT $INT_OUT $INT_RAMDISK_NAME
 ;; # end case '--internal' #
 
 --sdcard)
@@ -177,7 +180,7 @@ case $1 in
     update_init $SD_SYSTEM $SD_USERDATA $SD_CACHE
     create_ramdisk $SD_OUT
     cleanup_mess
-    output_info $SD_NAME $SD_BOOT $SD_OUT $SD_RAMDISK_NAME
+    output_info $SD_NAME_1 $SD_NAME_2 $SD_BOOT $SD_OUT $SD_RAMDISK_NAME
 ;; # end case '--sdcard' #
 
 --alternate)
@@ -186,7 +189,7 @@ case $1 in
     update_init $ALT_SYSTEM $ALT_USERDATA $ALT_CACHE
     create_ramdisk $ALT_OUT
     cleanup_mess
-    output_info $ALT_NAME $ALT_BOOT $ALT_OUT $ALT_RAMDISK_NAME
+    output_info $ALT_NAME_1 $ALT_NAME_2 $ALT_BOOT $ALT_OUT $ALT_RAMDISK_NAME
     alt_boot_info
 ;; # end case '--alternate' #
 
