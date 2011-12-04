@@ -54,7 +54,7 @@ touch.pressure.source = default
 touch.pressure.scale = 0.01
 
 # Size
-touch.size.calibration = normalized
+touch.size.calibration = default
 
 # Orientation
 touch.orientation.calibration = none
