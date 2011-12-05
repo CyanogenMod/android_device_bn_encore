@@ -168,7 +168,6 @@ case $1 in
 --internal)
     # rebuild ramdisk for use on standard emmc partitions
     check_mkimage
-    update_init $INT_SYSTEM $INT_USERDATA $INT_CACHE
     create_ramdisk $INT_OUT
     cleanup_mess
     output_info $INT_NAME_1 $INT_NAME_2 $INT_BOOT $INT_OUT $INT_RAMDISK_NAME
