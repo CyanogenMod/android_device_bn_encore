@@ -198,7 +198,7 @@ service baseimage /system/bin/dspexec /system/lib/dsp/baseimage.dof
 #   group system camera
 
 service uim /system/bin/uim-sysfs
-   class main
+   class core
    user root
    group media bluetooth
    oneshot
@@ -217,7 +217,7 @@ service ifcfg_ti /system/bin/netcfg tiwlan0 up
     oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
-    -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
+    -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class main
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
