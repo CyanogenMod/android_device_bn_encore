@@ -12,3 +12,6 @@ rild.libpath=/system/lib/libreference-ril.so
 rild.libargs=-d /dev/ttyS0
 ro.pm.awake_on_usb=1
 ro.cwm.forbid_format=/boot
+ro.config.disable_hw_accel=true
+com.ti.omap_enhancement=true
+
