@@ -94,6 +94,7 @@ function check_mkimage {
         echo -e "Please install mkimage from your distributions repositories, or elsewhere.\n"
         echo -e "Older Debian/Ubuntu: \033[1m(sudo) apt-get install uboot-mkimage\033[0m"
         echo -e "Newer Debian/Ubuntu: \033[1m(sudo) apt-get install u-boot-tools\033[0m\n"
+	echo -e "Mac users          : Not available via ports.  You'll need to compile it.\n"
         echo -e "Please try again once mkimage is accessible from your path/shell, and try again."
         return 1
     else
@@ -158,14 +159,14 @@ function alt_boot_info {
 ### END FUNCTION DEFINITIONS ###
 ### MAIN PROGRAM ###
 
-# check for arguments -- if none exist, display "help" information
+# check for arguments -- if none exist, assume --internal
 if [ $# -lt 1 ]; then
-    display_help
+    $1 = "--internal"
 fi
 
 case $1 in
 
---internal)
+--internal|-internal|-int|-i)
     # rebuild ramdisk for use on standard emmc partitions
     check_mkimage
     create_ramdisk $INT_OUT
@@ -173,7 +174,7 @@ case $1 in
     output_info $INT_NAME_1 $INT_NAME_2 $INT_BOOT $INT_OUT $INT_RAMDISK_NAME
 ;; # end case '--internal' #
 
---sdcard)
+--sdcard|-sdcard|-s|-sd)
     # rebuild ramdisk for use on SD card
     check_mkimage
     update_init $SD_SYSTEM $SD_USERDATA $SD_CACHE
@@ -182,7 +183,7 @@ case $1 in
     output_info $SD_NAME_1 $SD_NAME_2 $SD_BOOT $SD_OUT $SD_RAMDISK_NAME
 ;; # end case '--sdcard' #
 
---alternate)
+--alternate|-alternate|-alt|-a)
     # rebuild ramdisk for use on alternate emmc partitions
     check_mkimage
     update_init $ALT_SYSTEM $ALT_USERDATA $ALT_CACHE
@@ -192,7 +193,7 @@ case $1 in
     alt_boot_info
 ;; # end case '--alternate' #
 
---help)
+--help|-help|-h)
     # display help
     display_help
 ;; # end case '--help' #
