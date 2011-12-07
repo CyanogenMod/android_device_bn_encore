@@ -172,7 +172,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     alsa.mixer.playback.master=default \
     alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=32m \
-    ro.opengles.version=131072
+    ro.opengles.version=131072 \
+    net.dns1=8.8.8.8 \
+    net.dns2=8.8.4.4 \
+    hwui.render_dirty_regions=false
 
 FRAMEWORKS_BASE_SUBDIRS += \
             $(addsuffix /java, \
