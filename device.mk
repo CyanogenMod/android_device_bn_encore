@@ -28,8 +28,8 @@ $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 # 16 bit can be use for a large increase in GFX performance
 # 32 bit is default
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/boot/kernel16:/system/bin/kernel/uImage16 \
-    device/bn/encore/prebuilt/boot/kernel32:/system/bin/kernel/uImage32
+    device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage16 \
+    device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage32
 
 PRODUCT_CHARACTERISTICS := tablet,sdcard
 
@@ -133,7 +133,7 @@ PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel32
+    LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
