@@ -18,7 +18,6 @@ on init
     symlink /mnt/emmc /emmc
     symlink /mnt/usbdisk /usbdisk
     symlink /system/vendor /vendor
-    symlink /mnt/sdcard /sdcard
 
     # for encore
     mkdir /rom 0777 root root
