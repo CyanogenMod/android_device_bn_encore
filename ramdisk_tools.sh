@@ -112,6 +112,11 @@ function update_init {
 
 ## create new ramdisk from ./root/ folder
 function create_ramdisk {
+
+    if [ ! -d "$ROOT" ]; then
+    echo "Whoops!  The directory ./$ROOT, which is used to make the ramdisk, is missing.  Are you running this script from the right place?"
+    exit 1
+    fi
     # enter initramfs (ramdisk) root
     cd $ROOT
 
