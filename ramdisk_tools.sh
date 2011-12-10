@@ -88,13 +88,13 @@ function display_help {
 
 ## check for existance of mkimage
 function check_mkimage {
-    mkimage=`which mkimage`
-    if [ -z $mkimage ]; then
+    which mkimage &> /dev/null
+    if [ $? -ne 0 ]; then
         echo -e "\n\033[1mY U NO have mkimage??\033[0m\n"
         echo -e "Please install mkimage from your distributions repositories, or elsewhere.\n"
         echo -e "Older Debian/Ubuntu: \033[1m(sudo) apt-get install uboot-mkimage\033[0m"
         echo -e "Newer Debian/Ubuntu: \033[1m(sudo) apt-get install u-boot-tools\033[0m\n"
-	echo -e "Mac users          : Not available via ports.  You'll need to compile it.\n"
+		echo -e "Mac users          : Not available via ports.  You'll need to compile it.\n"
         echo -e "Please try again once mkimage is accessible from your path/shell, and try again."
         return 1
     else
@@ -161,10 +161,12 @@ function alt_boot_info {
 
 # check for arguments -- if none exist, assume --internal
 if [ $# -lt 1 ]; then
-    $1 = "--internal"
+    cmd="--internal"
+else
+	cmd=$1
 fi
 
-case $1 in
+case $cmd in
 
 --internal|-internal|-int|-i)
     # rebuild ramdisk for use on standard emmc partitions
