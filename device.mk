@@ -28,8 +28,8 @@ $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 # 16 bit can be use for a large increase in GFX performance
 # 32 bit is default
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/boot/kernel16:/system/bin/kernel/uImage16 \
-    device/bn/encore/prebuilt/boot/kernel32:/system/bin/kernel/uImage32
+    device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage16 \
+    device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage32
 
 PRODUCT_CHARACTERISTICS := tablet,sdcard
 
@@ -133,7 +133,7 @@ PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel32
+    LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
@@ -172,7 +172,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     alsa.mixer.playback.master=default \
     alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=32m \
-    ro.opengles.version=131072
+    ro.opengles.version=131072 \
+    net.dns1=8.8.8.8 \
+    net.dns2=8.8.4.4 \
+    hwui.render_dirty_regions=false
 
 FRAMEWORKS_BASE_SUBDIRS += \
             $(addsuffix /java, \

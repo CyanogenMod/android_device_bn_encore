@@ -57,7 +57,11 @@ BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; sync"
 
+# audio stuff
 BOARD_USES_GENERIC_AUDIO := true
+#BOARD_USES_AUDIO_LEGACY := true
+#BOARD_USES_ALSA_AUDIO := true
+#BUILD_WITH_ALSA_UTILS := true
 
 # for now
 TARGET_NO_RECOVERY := true
@@ -67,10 +71,13 @@ TARGET_NO_BOOTLOADER := true
 # Modem
 TARGET_NO_RADIOIMAGE := true
 
-# HW Graphics
-USE_OPENGL_RENDERER := true
-BOARD_GL_OES_EGL_IMG_EXTERNAL_HACK := true
+# HW Graphics (EGL fixes + webkit fix)
+# USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/bn/encore/egl.cfg
+COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE \
+			-DMISSING_EGL_PIXEL_FORMAT_YV12 \
+			-DMISSING_GRALLOC_BUFFERS \
+			-DBOARD_GL_OES_EGL_IMG_EXTERNAL_HACK
 
 # Workaround for eglconfig error
 BOARD_NO_RGBX_8888 := true
@@ -91,7 +98,7 @@ USES_TI_WL1271 := true
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 ifdef USES_TI_WL1271
 BOARD_WLAN_DEVICE           := wl1271
-BOARD_SOFTAP_DEVICE         := wl1271
+#BOARD_SOFTAP_DEVICE         := wl1271
 endif
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
