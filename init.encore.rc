@@ -1,3 +1,5 @@
+import init.encore.usb.rc
+
 on early-init
     start hwprops
     export EXTERNAL_STORAGE /mnt/sdcard
