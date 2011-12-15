@@ -1,4 +1,4 @@
-#import init.encore.usb.rc
+import init.encore.usb.rc
 
 on early-init
     start hwprops
