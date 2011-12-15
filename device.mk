@@ -72,7 +72,7 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
-$(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
+$(call inherit-product-if-exists, vendor/bn/encore/device-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
