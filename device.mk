@@ -104,7 +104,9 @@ PRODUCT_PACKAGES += \
     libomap_mm_library_jni \
     hwprops \
     make_ext4fs \
-    com.android.future.usb.accessory
+    com.android.future.usb.accessory \
+    mkimage \
+    uim-sysfs
 
 PRODUCT_PACKAGES += \
     libreference-ril
