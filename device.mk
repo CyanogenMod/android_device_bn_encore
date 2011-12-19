@@ -27,15 +27,17 @@ $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 # Place kernels to enable switching between 16 and 32 bit framebuffers
 # 16 bit can be use for a large increase in GFX performance
 # 32 bit is default
+
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage16 \
     device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage32
 
 PRODUCT_CHARACTERISTICS := tablet,sdcard
 
-# Get a proper init file
+# Get proper init file(s)
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc \
+    device/bn/encore/init.encore.usb.rc:root/init.encore.usb.rc \
     device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc
 
 # Place wifi files
@@ -70,7 +72,7 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
-$(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
+$(call inherit-product-if-exists, vendor/bn/encore/device-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
@@ -102,8 +104,9 @@ PRODUCT_PACKAGES += \
     libomap_mm_library_jni \
     hwprops \
     make_ext4fs \
-    com.android.future.usb.accessory
-
+    com.android.future.usb.accessory \
+    mkimage \
+    uim-sysfs
 
 PRODUCT_PACKAGES += \
     libreference-ril

@@ -12,7 +12,7 @@ LOCAL_SRC_FILES:= \
 LOCAL_CFLAGS:= -g -c -W -Wall -O2 -D_POSIX_SOURCE
 LOCAL_SHARED_LIBRARIES:= libnetutils libcutils
 LOCAL_MODULE:=uim-sysfs
-LOCAL_MODULE_TAGS:= eng
+LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)
 
 
