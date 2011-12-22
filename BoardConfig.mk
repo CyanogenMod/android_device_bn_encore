@@ -1,6 +1,6 @@
+#
 # Copyright (C) 2007 The Android Open Source Project
-# Copyright (C) 2011 fattire
-# Copyright (C) 2011 Gerad Munsch <gmunsch@unforgivendevelopment.com>
+# Copyright (C) 2011 The Cyanogenmod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,9 +37,11 @@ TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USERIMAGES_USE_EXT4 := true
 OMAP_ENHANCEMENT := true
 
-TARGET_PROVIDES_RELEASETOOLS := true
+BOARD_CUSTOM_BOOTIMG_MK := device/bn/encore/uboot-bootimg.mk
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_img_from_target_files
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_ota_from_target_files
+# Include a 2ndbootloader
+TARGET_BOOTLOADER_IS_2ND := true
 
 BOARD_KERNEL_CMDLINE := no_console_suspend=1 msmsdcc_sdioirq=1 wire.search_count=5
 BOARD_KERNEL_BASE := 0x20000000
@@ -63,9 +65,6 @@ BOARD_USES_GENERIC_AUDIO := true
 #BOARD_USES_ALSA_AUDIO := true
 #BUILD_WITH_ALSA_UTILS := true
 
-# for now
-TARGET_NO_RECOVERY := true
-TARGET_NO_BOOTLOADER := true
 #HARDWARE_OMX := true
 
 # Modem
@@ -132,7 +131,5 @@ endif
 ifdef OMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT
 endif
-
-BOARD_USES_UBOOT := true
 
 BOARD_USES_SECURE_SERVICES := true
