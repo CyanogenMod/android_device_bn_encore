@@ -15,103 +15,58 @@
 # limitations under the License.
 #
 
-# include cicada's sensors library
-common_ti_dirs := libsensors
+# These is the hardware-specific overlay, which points to the location
+# of hardware-specific resource overrides, typically the frameworks and
+# application settings that are stored in resourced.
+DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
-include $(call all-named-subdir-makefiles, $(common_ti_dirs))
-
-#$(call inherit-product, build/target/product/full_base.mk)
 $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 
 # Place kernels to enable switching between 16 and 32 bit framebuffers
 # 16 bit can be use for a large increase in GFX performance
 # 32 bit is default
-
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage16 \
     device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage32
 
-PRODUCT_CHARACTERISTICS := tablet,sdcard
-
-# Get proper init file(s)
+# Init files
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc \
     device/bn/encore/init.encore.usb.rc:root/init.encore.usb.rc \
     device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc
 
-# Place wifi files
+# Wifi
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/lib/modules/tiwlan_drv.ko \
     device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
     device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin
 
-# Place key mapping and touchscreen files
+# key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
     device/bn/encore/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \
     device/bn/encore/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
-# Place bluetooth firmware
+# Bluetooth
 PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
 
-# Place prebuilt from omapzoom
+# Overlay (omapzoom)
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so 
 
 # Place permission files
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/base/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
-    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
-
-$(call inherit-product-if-exists, vendor/bn/encore/device-vendor.mk)
-
-DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
-
-PRODUCT_PACKAGES += \
-    librs_jni \
-    tiwlan.ini \
-    dspexec \
-    libbridge \
-    wlan_cu \
-    libtiOsLib \
-    wlan_loader \
-    libCustomWifi \
-    wpa_supplicant.conf \
-    dhcpcd.conf \
-    libOMX.TI.AAC.encode \
-    libOMX.TI.AMR.encode \
-    libOMX.TI.WBAMR.encode \
-    libOMX.TI.JPEG.Encoder \
-    libLCML \
-    libOMX_Core \
-    libOMX.TI.Video.Decoder \
-    libOMX.TI.Video.encoder \
-    libVendor_ti_omx \
-    sensors.encore \
-    lights.encore \
-    alsa.default \
-    alsa.omap3 \
-    acoustics.default \
-    libomap_mm_library_jni \
-    hwprops \
-    make_ext4fs \
-    com.android.future.usb.accessory \
-    mkimage \
-    uim-sysfs
-
-PRODUCT_PACKAGES += \
-    libreference-ril
-
-# Use medium-density artwork where available
-PRODUCT_LOCALES += mdpi
+    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
+#    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
 
 # Vold
 PRODUCT_COPY_FILES += \
@@ -121,18 +76,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml
 
-# Misc # TODO: Find a better home for this
+# Clears the boot counter
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
 # update the battery log info
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/log_battery_data.sh:/system/bin/log_battery_data.sh
-
-# ramdisk_tools.sh -- use on-demand for various ramdisk operations, such as
-# repacking the ramdisk for use on an SD card or alternate emmc partitions
-PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
@@ -152,39 +102,69 @@ else
     LOCAL_2NDBOOTLOADER := $(TARGET_PREBUILT_2NDBOOTLOADER)
 endif
 
-
 # Boot files
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
     $(LOCAL_BOOTLOADER):bootloader \
     $(LOCAL_2NDBOOTLOADER):2ndbootloader
 
-# Set property overrides
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dexopt-flags=m=y \
-    ro.com.google.locationfeatures=1 \
-    ro.com.google.networklocation=1 \
-    ro.allow.mock.location=1 \
-    qemu.sf.lcd_density=160 \
-    ro.setupwizard.enable_bypass=1 \
-    keyguard.no_require_sim=1 \
-    wifi.interface=tiwlan0 \
-    alsa.mixer.playback.master=default \
-    alsa.mixer.capture.master=Analog \
-    dalvik.vm.heapsize=32m \
-    ro.opengles.version=131072 \
-    net.dns1=8.8.8.8 \
-    net.dns2=8.8.4.4 \
-    hwui.render_dirty_regions=false
+# ramdisk_tools.sh -- use on-demand for various ramdisk operations, such as
+# repacking the ramdisk for use on an SD card or alternate emmc partitions
+PRODUCT_COPY_FILES += \
+        $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
 
-FRAMEWORKS_BASE_SUBDIRS += \
-            $(addsuffix /java, \
-	    omapmmlib \
-	 )
+# Product specfic packages
+PRODUCT_PACKAGES += \
+    hwprops \
+    lights.encore \
+    sensors.encore \
+    uim-sysfs
+
+PRODUCT_PACKAGES += \
+    acoustics.default \
+    alsa.default \
+    alsa.omap3 \
+    com.android.future.usb.accessory \
+    dhcpcd.conf \
+    dspexec \
+    libCustomWifi \
+    libLCML \
+    libOMX.TI.AAC.encode \
+    libOMX.TI.AMR.encode \
+    libOMX.TI.JPEG.Encoder \
+    libOMX.TI.Video.Decoder \
+    libOMX.TI.Video.encoder \
+    libOMX.TI.WBAMR.encode \
+    libOMX_Core \
+    libVendor_ti_omx \
+    libbridge \
+    libomap_mm_library_jni \
+    librs_jni \
+    libtiOsLib \
+    make_ext4fs \
+    tiwlan.ini \
+    wlan_cu \
+    wlan_loader \
+    wpa_supplicant.conf
+
+PRODUCT_CHARACTERISTICS := tablet
+
+$(warning PRODUCT_CHARACTERISTICS)
+
+# Screen size is "large", density is "mdpi"
+PRODUCT_AAPT_CONFIG := large mdpi
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_encore
-PRODUCT_DEVICE := encore
+# Set property overrides
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=tiwlan0 \
+    alsa.mixer.playback.master=default \
+    alsa.mixer.capture.master=Analog \
+    dalvik.vm.heapsize=128m \
+    ro.opengles.version=131072 \
+    hwui.render_dirty_regions=false
+
+$(call inherit-product-if-exists, vendor/bn/encore/device-vendor.mk)
+$(call inherit-product-if-exists, vendor/bn/encore/device-vendor-blobs.mk)
