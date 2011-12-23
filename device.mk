@@ -149,8 +149,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_CHARACTERISTICS := tablet
 
-$(warning PRODUCT_CHARACTERISTICS)
-
 # Screen size is "large", density is "mdpi"
 PRODUCT_AAPT_CONFIG := large mdpi
 
