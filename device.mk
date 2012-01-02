@@ -163,7 +163,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=128m \
     ro.opengles.version=131072 \
-    hwui.render_dirty_regions=false
 
 $(call inherit-product-if-exists, vendor/bn/encore/device-vendor.mk)
 $(call inherit-product-if-exists, vendor/bn/encore/device-vendor-blobs.mk)
