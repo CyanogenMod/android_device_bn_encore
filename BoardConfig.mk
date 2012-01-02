@@ -81,9 +81,6 @@ COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE \
 # Workaround for eglconfig error
 BOARD_NO_RGBX_8888 := true
 
-# use pre-kernel.35 vold usb mounting
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-
 # Storage
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
