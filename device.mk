@@ -68,7 +68,6 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
-
 # Vold
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/vold.encore.fstab:system/etc/vold.fstab
@@ -113,6 +112,10 @@ PRODUCT_COPY_FILES += \
 # repacking the ramdisk for use on an SD card or alternate emmc partitions
 PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/ramdisk_tools.sh:ramdisk_tools.sh
+
+# postrecoveryboot for cwm
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 # Product specfic packages
 PRODUCT_PACKAGES += \
