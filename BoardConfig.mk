@@ -20,7 +20,6 @@
 #
 
 BUILD_NETD := false
-USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
 -include vendor/bn/encore/BoardConfigVendor.mk
