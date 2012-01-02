@@ -32,6 +32,8 @@
 # --alternate : create ramdisk-alternate.img for use on the alternate
 #               internal emmc partitions (9,10,11)
 #
+# --recovery  : creates a recovery image
+#
 # Place the resultant file in the appropriate /boot partition, with
 # the appropriate name, reboot, and enjoy!
 
@@ -43,6 +45,8 @@ INIT="root/init.encore.rc"
 INT_OUT="ramdisk-internal.img"
 SD_OUT="ramdisk-sdcard.img"
 ALT_OUT="ramdisk-alternate.img"
+REC_OUT="recovery.img"
+REC_ROOT="recovery/root"
 
 # partitions
 INT_SYSTEM="mmcblk0p5"
@@ -68,6 +72,10 @@ ALT_BOOT="mmcblk0p1"
 INT_RAMDISK_NAME="uRamdisk"
 SD_RAMDISK_NAME="uRamdisk"
 ALT_RAMDISK_NAME="uAltRam"
+REC_NAME_1="recovery"
+REC_NAME_2="internal/emmc"
+REC_BOOT="mmcblk0p1"
+REC_RAMDISK_NAME="uRecRam"
 
 ### END CONSTANTS ###
 ### FUNCTION DEFINITIONS ###
@@ -199,6 +207,16 @@ case $cmd in
     output_info $ALT_NAME_1 $ALT_NAME_2 $ALT_BOOT $ALT_OUT $ALT_RAMDISK_NAME
     alt_boot_info
 ;; # end case '--alternate' #
+
+--recovery|-recovery|-rec|-r)
+    # rebuild recovery
+    check_mkimage
+    ROOT=$REC_ROOT
+    create_ramdisk $REC_OUT
+    cleanup_mess
+    mv ../${REC_OUT} ../../${REC_OUT}
+    output_info $REC_NAME_1 $REC_NAME_2 $REC_BOOT $REC_OUT $REC_RAMDISK_NAME
+;; # end case '--recovery' #
 
 --help|-help|-h)
     # display help
