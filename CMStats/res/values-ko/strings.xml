@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CMStats</string>
+
+    <!-- Main -->
+    <string name="main_title">익명 사용 데이터</string>
+    <string name="main_desc">익명 사용 데이터 전송에 참여하여 CyanogenMod의 개발자가 다양한 장비에 대한 설치를 추적할 수 있도록 도울 수 있습니다. 전송되는 정보에는 개인 정보가 포함되지 않는 고유 식별자와 장치 종류, 버전 정보가 포함됩니다. 데이터는 장치를 시작할 때 전송됩니다. 전송되는 데이터의 예제를 보고 싶으시면 아래의 미리보기 버튼을 누르시면 됩니다.</string>
+    <string name="main_optin">전송 허용</string>
+    <string name="main_btn_preview">데이터 미리보기</string>
+    <string name="main_btn_save">설정 저장</string>
+    <string name="main_show_stats">통계 보기</string>
+
+    <!-- Preview -->
+    <string name="preview_id_lbl">고유 식별자</string>
+    <string name="preview_device_lbl">장치</string>
+    <string name="preview_version_lbl">버전</string>
+    <string name="preview_done_btn">확인</string>
+    <string name="preview_country_lbl">국가</string>
+    <string name="preview_carrier_lbl">통신사</string>
+
+    <!-- Notification -->
+    <string name="notification_ticker">익명 데이터 전송 요청</string>
+    <string name="notification_title">CyanogenMod 통계</string>
+    <string name="notification_desc">익명 데이터 전송 활성화</string>
+</resources>

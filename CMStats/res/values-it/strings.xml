@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">CMStats</string>
+
+        <!-- Main -->
+        <string name="main_title">Dati di Utilizzo Anonimi</string>
+        <string name="main_desc">Accettando l\'invio dei dati di utilizzo
+                anonimi
+                consenti agli sviluppatori di CyanogenMod di tenere traccia
+                delle installazioni sui vari dispositivi.
+                Le informazioni inviate includono un identificatore unico,
+                che non viola la tua privacy, il tipo di dispositivo e la
+                versione.
+                I dati vengono inviati ad ogni avvio del dispositivo, per
+                un esempio dei dati che verranno inviati clicca in basso
+                su Anteprima Dati.</string>
+        <string name="main_optin">Attiva Reporting</string>
+        <string name="main_btn_preview">Anteprima Dati</string>
+        <string name="main_btn_save">Salva Preferenze</string>
+        <string name="main_show_stats">Visualizza Statistiche</string>
+
+        <!-- Preview -->
+        <string name="preview_id_lbl">ID Unico</string>
+        <string name="preview_device_lbl">Dispositivo</string>
+        <string name="preview_version_lbl">Versione</string>
+        <string name="preview_done_btn">Fatto</string>
+        <string name="preview_country_lbl">Nazione</string>
+        <string name="preview_carrier_lbl">Operatore</string>
+
+        <!-- Notification -->
+        <string name="notification_ticker">Statistiche Inviate</string>
+        <string name="notification_title">Statistiche CyanogenMod</string>
+        <string name="notification_desc">Attiva o disattiva Statistiche Anonime</string>
+        <string name="main_link">&lt;a href=&quot;http://www.cyanogenmod.com/blog/cmstats-what-it-is-and-why-you-should-opt-in&quot;&gt;Per saperne di più&lt;/a&gt;</string>
+</resources>

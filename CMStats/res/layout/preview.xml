@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <LinearLayout android:orientation="vertical"
+        android:layout_weight="1" android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:padding="10dip">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/preview_id_lbl"
+            android:textColor="#FFFFFF" android:paddingRight="10dip"
+            android:textStyle="bold" android:text="@string/preview_id_lbl"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/preview_id_value"
+            android:paddingBottom="10dip"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textColor="#FFFFFF"
+            android:id="@+id/preview_device_lbl" android:textStyle="bold"
+            android:text="@string/preview_device_lbl"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/preview_device_value"
+            android:paddingBottom="10dip"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textColor="#FFFFFF"
+            android:id="@+id/preview_version_lbl" android:textStyle="bold"
+            android:text="@string/preview_version_lbl"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/preview_version_value"
+            android:paddingBottom="10dip"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textColor="#FFFFFF"
+            android:id="@+id/preview_country_lbl" android:textStyle="bold"
+            android:text="@string/preview_country_lbl"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/preview_country_value"
+            android:paddingBottom="10dip"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textColor="#FFFFFF"
+            android:id="@+id/preview_carrier_lbl" android:textStyle="bold"
+            android:text="@string/preview_carrier_lbl"></TextView>
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/preview_carrier_value"
+            android:paddingBottom="10dip"></TextView>
+        </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:gravity="center"
+        android:padding="5dip" android:background="@android:drawable/bottom_bar">
+        <Button android:text="@string/preview_done_btn" android:id="@+id/preview_done_btn"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:paddingLeft="30dip" android:paddingRight="30dip"></Button>
+    </LinearLayout>
+</LinearLayout>

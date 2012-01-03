@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CMStats</string>
+
+    <!-- Main -->
+    <string name="main_title">Anonimowe Dane</string>
+    <string name="main_desc">Zezwalanie na anonimowe przesyłanie danych pozwala
+        autorom CyanogenMod śledzić ilość jego instalacji. 
+        Informacje te zawierają unikalny identyfikator,
+        który nie narusza twojej prywatności, model urządzenia oraz
+        informację o wersji oprogramowania.
+        Dane są wysyłane przy każdym uruchomieniu systemu. By uzyskać przykład 
+        wysyłanch danych, wciśnij przycisk Podgląd.</string>
+    <string name="main_optin">Włącz przesyłanie</string>
+    <string name="main_btn_preview">Podgląd</string>
+    <string name="main_btn_save">Zapisz ustawienia</string>
+    <string name="main_show_stats">Pokaż statystyki</string>
+
+    <!-- Preview -->
+    <string name="preview_id_lbl">Unikalny ID</string>
+    <string name="preview_device_lbl">Urządzenie</string>
+    <string name="preview_version_lbl">Wersja</string>
+    <string name="preview_done_btn">Zakończ</string>
+    <string name="preview_country_lbl">Kraj</string>
+    <string name="preview_carrier_lbl">Operator</string>
+
+    <!-- Notification -->
+    <string name="notification_ticker">Prośba o wysyłanie anonimowych informacji</string>
+    <string name="notification_title">Statystyki CyanogenMod</string>
+    <string name="notification_desc">Włącz przesyłanie anonimowych danych.</string>
+</resources>

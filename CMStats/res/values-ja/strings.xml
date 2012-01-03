@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CMStats</string>
+
+    <!-- Main -->
+    <string name="main_title">匿名利用状況データ</string>
+    <string name="main_desc">匿名利用状況の送信を許諾することによって、
+                CyanogenModの開発者がデバイス単位のユニークインストール数を
+                追跡することができます。
+                送信される情報にはユニークIDが含まれますが、これはあなたの
+                個人情報、端末のタイプ及びバージョン情報とは結びつきません。
+                データ送信は端末の起動時に毎回行われ、送信されるデータの例は
+                プレビューをクリックすることにより確認できます。</string>
+    <string name="main_optin">報告を有効にする</string>
+    <string name="main_btn_preview">データのプレビュー</string>
+    <string name="main_btn_save">設定の保存</string>
+    <string name="main_show_stats">ステータスを表示</string>
+
+    <!-- Preview -->
+    <string name="preview_id_lbl">ユニークID</string>
+    <string name="preview_device_lbl">デバイス</string>
+    <string name="preview_version_lbl">バージョン</string>
+    <string name="preview_done_btn">完了</string>
+    <string name="preview_country_lbl">国</string>
+    <string name="preview_carrier_lbl">キャリア</string>
+
+    <!-- Notification -->
+    <string name="notification_ticker">匿名データリクエストを許諾</string>
+    <string name="notification_title">CyanogenModステータス</string>
+    <string name="notification_desc">匿名利用状況レポートを有効にする</string>
+</resources>

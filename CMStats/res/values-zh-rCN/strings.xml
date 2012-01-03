@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CyanogenMod 统计系统</string>
+
+    <!-- Main -->
+    <string name="main_title">匿名使用数据</string>
+    <string name="main_desc">选择此项将向CyanogenMod服务器提交匿名使用统计数据。这样可以帮助CyanogenMod的开发者跟踪此系统在各设备上的使用情况。向服务器提交的信息中包含一个唯一的辨识字串，该字串中不会含有任何您的隐私信息，并且包含您的设备类型以及版本。数据将在每次设备启动时提交，若想查看所提交数据的内容，请点下面的“预览”键。</string>
+    <string name="main_optin">打开数据统计</string>
+    <string name="main_btn_preview">预览数据</string>
+    <string name="main_btn_save">保存设置</string>
+    <string name="main_show_stats">查看统计数据</string>
+
+    <!-- Preview -->
+    <string name="preview_id_lbl">唯一识别字符串</string>
+    <string name="preview_device_lbl">设备</string>
+    <string name="preview_version_lbl">版本</string>
+    <string name="preview_done_btn">完成</string>
+    <string name="preview_country_lbl">国家</string>
+    <string name="preview_carrier_lbl">运营商</string>
+
+    <!-- Notification -->
+    <string name="notification_ticker">匿名使用统计数据请求</string>
+    <string name="notification_title">CyanogenMod 统计</string>
+    <string name="notification_desc">打开匿名数据统计</string>
+</resources>

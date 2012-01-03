@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CMStats</string>
+
+    <!-- Main -->
+    <string name="main_title">Ανώνυμα Δεδομένα Χρήσης</string>
+    <string name="main_desc">Με το να συμφωνήσετε στην ανώνυμη υποβολή δεδομένων χρήσης
+        επιτρέπετε
+        στους προγραμματιστές του CyanogenMod να καταγράψουν μοναδικές εγκαταστάσεις
+        μεταξύ
+        συσκευών. Οι πληροφορίες που αποστέλλονται περιλαμβάνουν ένα μοναδικό ID,
+        το οποίο
+        δεν παραβιάζει την ιδιωτική σας ασφάλεια, τον τύπο της συσκευής και τις
+        πληροφορίες έκδοσης.
+        Τα δεδομένα αποστέλλονται σε κάθε εκκίνηση της συσκευής, για ένα παράδειγμα
+        των δεδομένων,
+        παρακαλώ πατήστε Προεπισκόπηση.</string>
+    <string name="main_optin">Ενεργοποίηση Αναφοράς</string>
+    <string name="main_btn_preview">Προεπισκόπηση Δεδομένων</string>
+    <string name="main_btn_save">Αποθήκευση Επιλογής</string>
+    <string name="main_show_stats">Προβολή Στατιστικών</string>
+
+    <!-- Preview -->
+    <string name="preview_id_lbl">Μοναδικό ID</string>
+    <string name="preview_device_lbl">Συσκευή</string>
+    <string name="preview_version_lbl">Έκδοση</string>
+    <string name="preview_done_btn">Τέλος</string>
+    <string name="preview_country_lbl">Χώρα</string>
+    <string name="preview_carrier_lbl">Πάροχος</string>
+
+    <!-- Notification -->
+    <string name="notification_ticker">Συμφωνήσατε με την αποστολή στατιστικών</string>
+    <string name="notification_title">Στατιστικά CyanogenMod</string>
+    <string name="notification_desc">Ενεργοποίηση ή Απενεργοποίηση Ανώνυμων Στατιστικών</string>
+    <string name="main_link">&lt;a href=&quot;http://www.cyanogenmod.com/blog/cmstats-what-it-is-and-why-you-should-opt-in&quot;&gt;Learn More&lt;/a&gt;</string>
+</resources>

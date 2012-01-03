@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">CMStats</string>
+
+  <!-- Main -->
+  <string name="main_title">Anonymné dáta použitia</string>
+  <string name="main_desc">
+    Prihlásenie na odosielanie anonymných dát
+    použitia umožní vývojárom CyanogenMod získať
+    prehľad o inštaláciách na zariadeniach.
+    Posielané dáta obsahujú unikátny identifikátor,
+    ktorý žiadnym spôsobom neohrozí Vaše súkromie,
+    alebo nezverejní typ zariadenia alebo informácie
+    o verzii.
+    Dáta sú zasielané pri každom štarte zariadenia.
+    Stlačením tlačidla \'Náhľad na dáta\' nižšie
+    uvidíte príklad dát, ktorá sú odosielané.
+  </string>
+  <string name="main_optin">Povoliť zasielanie</string>
+  <string name="main_btn_preview">Náhľad na dáta</string>
+  <string name="main_btn_save">Uložiť nastavenie</string>
+  <string name="main_show_stats">Zobraziť štatistiku</string>
+
+  <!-- Preview -->
+  <string name="preview_title">Náhľad na odosielané dáta</string>
+  <string name="preview_id_lbl">Unikátne ID</string>
+  <string name="preview_device_lbl">Zariadenie</string>
+  <string name="preview_version_lbl">Verzia</string>
+  <string name="preview_done_btn">Hotovo</string>
+  <string name="preview_country_lbl">Krajina</string>
+  <string name="preview_carrier_lbl">Operátor</string>
+
+  <!-- Notification -->
+  <string name="notification_ticker">Štatistika odoslaná</string>
+  <string name="notification_title">Štatistika CyanogenMod</string>
+  <string name="notification_desc">Povoliť alebo zakázať anonymnú štatistiku</string>
+  <string name="main_link">&lt;a
+    href=&quot;http://www.cyanogenmod.com/blog/cmstats-what-it-is-and-why-you-should-opt-in&quot;&gt;Ďalšie
+    informácie&lt;/a&gt;</string>
+</resources>
