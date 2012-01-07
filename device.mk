@@ -22,13 +22,6 @@ DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
 $(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
 
-# Place kernels to enable switching between 16 and 32 bit framebuffers
-# 16 bit can be use for a large increase in GFX performance
-# 32 bit is default
-PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage16 \
-    device/bn/encore/prebuilt/boot/kernel:/system/bin/kernel/uImage32
-
 # Init files
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc \
