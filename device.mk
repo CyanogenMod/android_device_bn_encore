@@ -80,6 +80,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
+# Art
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/poetry/poem.txt:root/sbin/poem.txt
+
 # update the battery log info
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/log_battery_data.sh:/system/bin/log_battery_data.sh
@@ -123,7 +127,13 @@ PRODUCT_PACKAGES += \
     CMStats \
     lights.encore \
     sensors.encore \
-    uim-sysfs
+    uim-sysfs \
+    libaudioutils \
+    audio.a2dp.default \
+    libaudiohw_legacy \
+    audio.primary.omap3 \
+    libaudiopolicy_legacy2 \
+    audio.primary.encore
 
 PRODUCT_PACKAGES += \
     acoustics.default \

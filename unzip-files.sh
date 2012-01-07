@@ -32,6 +32,7 @@ if [ ! -f "$1" ]; then
 fi
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
 
 # DSP related libs and firmware
 unzip -j -o $ZIPFILE system/lib/dsp/g729enc_sn.dll64P -d ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
@@ -167,6 +168,37 @@ mv ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libEGL_POWERVR_SGX530_125.s
 unzip -j -o $ZIPFILE system/lib/egl/libGLESv2_POWERVR_SGX530_125.so.1.1.16.4061 -d ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 mv ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libGLESv2_POWERVR_SGX530_125.so.1.1.16.4061 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary/libGLESv2_POWERVR_SGX530_125.so
 
+# legacy audio
+unzip -j -o $ZIPFILE system/lib/libaudio.so -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/lib/libaudiopolicy.so -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/lib/libasound.so -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/lib/liba2dp.so -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/lib/hw/alsa.omap3.so -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/lib/liba2dp.so -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/lib/libasound.so -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/init/hda -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/init/00main -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/init/help -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/init/default -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/init/info -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/init/test -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/surround51.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/surround41.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/default.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/dmix.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/modem.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/side.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/front.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/iec958.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/surround50.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/surround40.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/surround71.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/dpl.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/dsnoop.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/rear.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/pcm/center_lfe.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/cards/aliases.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
+unzip -j -o $ZIPFILE system/usr/share/alsa/alsa.conf -d ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/device-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -299,6 +331,34 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libOpenVG.so:/system/lib/libOpenVG.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libpvr2d.so:/system/lib/libpvr2d.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libsrv_init.so:/system/lib/libsrv_init.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/libaudio.so:/system/lib/libaudio.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/libaudiopolicy.so:/system/lib/libaudiopolicy.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/alsa.omap3.so:/system/lib/hw/alsa.omap3.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/liba2dp.so:/system/lib/liba2dp.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/libasound.so:/system/lib/libasound.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/hda:/system/usr/share/alsa/init/hda \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/00main:/system/usr/share/alsa/init/00main \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/help:/system/usr/share/alsa/init/help \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/default:/system/usr/share/alsa/init/default \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/info:/system/usr/share/alsa/init/info \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/test:/system/usr/share/alsa/init/test \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround51.conf:/system/usr/share/alsa/pcm/surround51.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround41.conf:/system/usr/share/alsa/pcm/surround41.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/default.conf:/system/usr/share/alsa/pcm/default.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/dmix.conf:/system/usr/share/alsa/pcm/dmix.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/modem.conf:/system/usr/share/alsa/pcm/modem.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/side.conf:/system/usr/share/alsa/pcm/side.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/front.conf:/system/usr/share/alsa/pcm/front.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/iec958.conf:/system/usr/share/alsa/pcm/iec958.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround50.conf:/system/usr/share/alsa/pcm/surround50.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround40.conf:/system/usr/share/alsa/pcm/surround40.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround71.conf:/system/usr/share/alsa/pcm/surround71.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/dpl.conf:/system/usr/share/alsa/pcm/dpl.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/dsnoop.conf:/system/usr/share/alsa/pcm/dsnoop.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/rear.conf:/system/usr/share/alsa/pcm/rear.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/center_lfe.conf:/system/usr/share/alsa/pcm/center_lfe.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/aliases.conf:/system/usr/share/alsa/cards/aliases.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/alsa.conf:/system/usr/share/alsa/alsa.conf \\
 
 EOF
 

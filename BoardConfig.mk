@@ -59,10 +59,7 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.
 TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; sync"
 
 # audio stuff
-BOARD_USES_GENERIC_AUDIO := true
-#BOARD_USES_AUDIO_LEGACY := true
-#BOARD_USES_ALSA_AUDIO := true
-#BUILD_WITH_ALSA_UTILS := true
+BOARD_USES_AUDIO_LEGACY := true
 
 #HARDWARE_OMX := true
 

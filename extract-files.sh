@@ -18,6 +18,7 @@ DEVICE=encore
 MANUFACTURER=bn
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/prebuilt
 
 # DSP related libs and firmware
 adb pull /system/lib/dsp/g729enc_sn.dll64P ../../../vendor/bn/encore/proprietary/g729enc_sn.dll64P
@@ -138,6 +139,36 @@ adb pull /system/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so ../../../vendor/bn/e
 adb pull /system/lib/egl/libEGL_POWERVR_SGX530_125.so ../../../vendor/bn/encore/proprietary/libEGL_POWERVR_SGX530_125.so
 adb pull /system/lib/egl/libGLESv2_POWERVR_SGX530_125.so ../../../vendor/bn/encore/proprietary/libGLESv2_POWERVR_SGX530_125.so
 
+# audio legacy
+
+adb pull /system/lib/libaudiopolicy.so ../../../vendor/bn/encore/prebuilt/libaudiopolicy.so
+adb pull /system/lib/libaudio.so ../../../vendor/bn/encore/prebuilt/libaudio.so
+adb pull /system/lib/libasound.so ../../../vendor/bn/encore/prebuilt/libasound.so
+adb pull /system/lib/liba2dp.so ../../../vendor/bn/encore/prebuilt/liba2dp.so
+adb pull /system/lib/hw/alsa.omap3.so ../../../vendor/bn/encore/prebuilt/alsa.omap3.so
+adb pull /system/usr/share/alsa/init/hda ../../../vendor/bn/encore/prebuilt/hda
+adb pull /system/usr/share/alsa/init/00main ../../../vendor/bn/encore/prebuilt/00main
+adb pull /system/usr/share/alsa/init/help ../../../vendor/bn/encore/prebuilt/help
+adb pull /system/usr/share/alsa/init/default ../../../vendor/bn/encore/prebuilt/default
+adb pull /system/usr/share/alsa/init/info ../../../vendor/bn/encore/prebuilt/info
+adb pull /system/usr/share/alsa/init/test ../../../vendor/bn/encore/prebuilt/test
+adb pull /system/usr/share/alsa/pcm/surround51.conf ../../../vendor/bn/encore/prebuilt/surround51.conf
+adb pull /system/usr/share/alsa/pcm/surround41.conf ../../../vendor/bn/encore/prebuilt/surround41.conf
+adb pull /system/usr/share/alsa/pcm/default.conf ../../../vendor/bn/encore/prebuilt/default.conf
+adb pull /system/usr/share/alsa/pcm/dmix.conf ../../../vendor/bn/encore/prebuilt/dmix.conf
+adb pull /system/usr/share/alsa/pcm/modem.conf ../../../vendor/bn/encore/prebuilt/modem.conf
+adb pull /system/usr/share/alsa/pcm/side.conf ../../../vendor/bn/encore/prebuilt/side.conf
+adb pull /system/usr/share/alsa/pcm/front.conf ../../../vendor/bn/encore/prebuilt/front.conf
+adb pull /system/usr/share/alsa/pcm/iec958.conf ../../../vendor/bn/encore/prebuilt/iec958.conf
+adb pull /system/usr/share/alsa/pcm/surround50.conf ../../../vendor/bn/encore/prebuilt/surround50.conf
+adb pull /system/usr/share/alsa/pcm/surround40.conf ../../../vendor/bn/encore/prebuilt/surround40.conf
+adb pull /system/usr/share/alsa/pcm/surround71.conf ../../../vendor/bn/encore/prebuilt/surround71.conf
+adb pull /system/usr/share/alsa/pcm/dpl.conf ../../../vendor/bn/encore/prebuilt/dpl.conf
+adb pull /system/usr/share/alsa/pcm/dsnoop.conf ../../../vendor/bn/encore/prebuilt/dsnoop.conf
+adb pull /system/usr/share/alsa/pcm/rear.conf ../../../vendor/bn/encore/prebuilt/rear.conf
+adb pull /system/usr/share/alsa/pcm/center_lfe.conf ../../../vendor/bn/encore/prebuilt/center_lfe.conf
+adb pull /system/usr/share/alsa/cards/aliases.conf ../../../vendor/bn/encore/prebuilt/aliases.conf
+adb pull /system/usr/share/alsa/alsa.conf ../../../vendor/bn/encore/prebuilt/alsa.conf
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/device-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -270,6 +301,35 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libOpenVG.so:/system/lib/libOpenVG.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libpvr2d.so:/system/lib/libpvr2d.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libsrv_init.so:/system/lib/libsrv_init.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/libaudio.so:/system/lib/libaudio.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/libaudiopolicy.so:/system/lib/libaudiopolicy.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/alsa.omap3.so:/system/lib/hw/alsa.omap3.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/libaudio.so:/system/lib/libaudio.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/liba2dp.so:/system/lib/liba2dp.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/libasound.so:/system/lib/libasound.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/hda:/system/usr/share/alsa/init/hda \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/00main:/system/usr/share/alsa/init/00main \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/help:/system/usr/share/alsa/init/help \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/default:/system/usr/share/alsa/init/default \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/info:/system/usr/share/alsa/init/info \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/test:/system/usr/share/alsa/init/test \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround51.conf:/system/usr/share/alsa/pcm/surround51.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround41.conf:/system/usr/share/alsa/pcm/surround41.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/default.conf:/system/usr/share/alsa/pcm/default.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/dmix.conf:/system/usr/share/alsa/pcm/dmix.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/modem.conf:/system/usr/share/alsa/pcm/modem.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/side.conf:/system/usr/share/alsa/pcm/side.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/front.conf:/system/usr/share/alsa/pcm/front.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/iec958.conf:/system/usr/share/alsa/pcm/iec958.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround50.conf:/system/usr/share/alsa/pcm/surround50.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround40.conf:/system/usr/share/alsa/pcm/surround40.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/surround71.conf:/system/usr/share/alsa/pcm/surround71.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/dpl.conf:/system/usr/share/alsa/pcm/dpl.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/dsnoop.conf:/system/usr/share/alsa/pcm/dsnoop.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/rear.conf:/system/usr/share/alsa/pcm/rear.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/center_lfe.conf:/system/usr/share/alsa/pcm/center_lfe.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/aliases.conf:/system/usr/share/alsa/cards/aliases.conf \\
+    vendor/__MANUFACTURER__/__DEVICE__/prebuilt/alsa.conf:/system/usr/share/alsa/alsa.conf \\
 
 EOF
 

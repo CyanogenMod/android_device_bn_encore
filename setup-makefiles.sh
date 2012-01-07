@@ -16,6 +16,7 @@
 
 DEVICE=encore
 MANUFACTURER=bn
+OUTDIR=vendor/$MANUFACTURER/$DEVICE
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE
 
@@ -39,6 +40,9 @@ mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE
 # Pick up overlay for features that depend on non-open-source files
 DEVICE_PACKAGE_OVERLAYS := vendor/__MANUFACTURER__/__DEVICE__/overlay
 
+PRODUCT_COPY_FILES := \\
+    $OUTDIR/prebuilt/libaudio.so:obj/lib/libaudio.so \\
+    $OUTDIR/prebuilt/libaudiopolicy.so:obj/lib/libaudiopolicy.so
 
 \$(call inherit-product, vendor/__MANUFACTURER__/__DEVICE__/device-vendor-blobs.mk)
 EOF
