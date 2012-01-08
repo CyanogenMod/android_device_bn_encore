@@ -24,15 +24,15 @@
 # Run this file script from $OUT -- (basically) the place you found it.
 #
 # Arguments:
-# --internal  : creates ramdisk-internal.img for use on standard internal
-#              emmc partitions
+# --internal  : creates ramdisk.ub for use on standard internal
+#               emmc partitions
 #
-# --sdcard    : creates ramdisk-sdcard.img for use on SD card setups
+# --sdcard    : creates ramdisk-sdcard.ub for use on SD card setups
 #
-# --alternate : create ramdisk-alternate.img for use on the alternate
+# --alternate : create ramdisk-alternate.ub for use on the alternate
 #               internal emmc partitions (9,10,11)
 #
-# --recovery  : creates a recovery image
+# --recovery  : creates a recovery image (ramdisk-recovery.ub)
 #
 # Place the resultant file in the appropriate /boot partition, with
 # the appropriate name, reboot, and enjoy!
@@ -42,10 +42,10 @@
 # files
 ROOT="root"
 INIT="root/init.encore.rc"
-INT_OUT="ramdisk-internal.img"
-SD_OUT="ramdisk-sdcard.img"
-ALT_OUT="ramdisk-alternate.img"
-REC_OUT="recovery.img"
+INT_OUT="ramdisk.ub"
+SD_OUT="ramdisk-sdcard.ub"
+ALT_OUT="ramdisk-alternate.ub"
+REC_OUT="ramdisk-recovery.ub"
 REC_ROOT="recovery/root"
 
 # partitions
@@ -88,9 +88,9 @@ function display_help {
     echo -e "for its input. The init file, \033[1minit.encore.rc\033[0m will automatically be modified to contain the"
     echo -e "appropriate mount points.\n"
     echo -e "\033[1mUSAGE:\033[0m"
-    echo -e "\033[1m$0 --internal\033[0m  - rebuilds your ramdisk, setup for the default internal emmc partitions.\n    Output: \033[1mramdisk-internal.img\033[0m"
-    echo -e "\033[1m$0 --sdcard\033[0m    - rebuilds your ramdisk, setup for installations on MicroSD cards.\n    Output: \033[1mramdisk-sdcard.img\033[0m"
-    echo -e "\033[1m$0 --alternate\033[0m - rebuilds your ramdisk, setup for the alternate internal emmc partitions.\n    Output: \033[1mramdisk-alternate.img\033[0m"
+    echo -e "\033[1m$0 --internal\033[0m  - rebuilds your ramdisk, setup for the default internal emmc partitions.\n    Output: \033[1mramdisk.ub\033[0m"
+    echo -e "\033[1m$0 --sdcard\033[0m    - rebuilds your ramdisk, setup for installations on MicroSD cards.\n    Output: \033[1mramdisk-sdcard.ub\033[0m"
+    echo -e "\033[1m$0 --alternate\033[0m - rebuilds your ramdisk, setup for the alternate internal emmc partitions.\n    Output: \033[1mramdisk-alternate.ub\033[0m"
     return 0
 } # end function 'help_info' #
 
