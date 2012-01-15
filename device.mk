@@ -119,7 +119,6 @@ PRODUCT_COPY_FILES += \
 # Product specfic packages
 PRODUCT_PACKAGES += \
     hwprops \
-    CMStats \
     lights.encore \
     sensors.encore \
     uim-sysfs \
