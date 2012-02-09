@@ -12,7 +12,7 @@ jpeg.libskiahw.encoder.enable=0
 
 ro.pm.awake_on_usb=1
 ro.cwm.forbid_format=/boot
-ro.config.disable_hw_accel=true
+#ro.config.disable_hw_accel=true
 persist.sys.usb.config=mtp,adb
 
 ro.emmc=1
