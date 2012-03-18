@@ -17,7 +17,7 @@
 $(call inherit-product, device/bn/encore/full_encore.mk)
 
 PRODUCT_RELEASE_NAME := NookColor
-TARGET_BOOTANIMATION_NAME := horizontal-1024x768
+TARGET_BOOTANIMATION_NAME := horizontal-1024x600
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
