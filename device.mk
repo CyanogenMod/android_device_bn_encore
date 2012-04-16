@@ -83,12 +83,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/log_battery_data.sh:/system/bin/log_battery_data.sh
 
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/bn/encore/prebuilt/boot/kernel
-else
-    LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
 ifeq ($(TARGET_PREBUILT_BOOTLOADER),)
     LOCAL_BOOTLOADER := device/bn/encore/prebuilt/boot/MLO
 else
