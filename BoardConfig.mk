@@ -51,6 +51,11 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 461942784
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
 
+# Inline kernel building config
+TARGET_KERNEL_CONFIG := omap3621_fattire-ics_defconfig
+BOARD_USES_UBOOT := true
+
+# Fallback prebuilt kernel
 TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 BOARD_HAS_LARGE_FILESYSTEM := true
