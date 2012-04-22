@@ -88,6 +88,7 @@ BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk0p8
 BOARD_SDCARD_DEVICE_INTERNAL := /dev/block/mmcblk0p8
 BOARD_VOLD_MAX_PARTITIONS := 8
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
 
 # Wifi
 USES_TI_WL1271 := true
