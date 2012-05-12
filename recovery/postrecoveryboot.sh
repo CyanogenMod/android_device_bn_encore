@@ -3,6 +3,7 @@
 # Resets the boot counter and the bcb instructions
 mkdir /rom
 mount /dev/block/mmcblk0p2 /rom
+mount -o rw,remount /rom
 
 # Zero out the boot counter
 dd if=/dev/zero of=/rom/devconf/BootCnt bs=1 count=4
