@@ -138,11 +138,11 @@ on boot
     write /sys/block/mmcblk1/bdi/read_ahead_kb 1024
 
     # There's no back seek penalty on MMC
-    write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/back_seek_penalty 0
+    write /sys/devices/platform/omap/omap_hsmmc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/back_seek_penalty 0
     # Allow us to seek up to 1GB back
-    write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/back_seek_max 1048576
+    write /sys/devices/platform/omap/omap_hsmmc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/back_seek_max 1048576
     # Only pick one request from each queue at each round robin
-    write /sys/devices/platform/mmci-omap-hs.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/quantum 1
+    write /sys/devices/platform/omap/omap_hsmmc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/iosched/quantum 1
 
 service hwprops /sbin/hwprops
         class core
