@@ -32,7 +32,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/lib/modules/tiwlan_drv.ko \
     device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
-    device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin
+    device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
+    device/bn/encore/firmware/ducati-m3.bin:/system/vendor/firmware/ducati-m3.bin \
+    device/bn/encore/firmware/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin.orig \
+    device/bn/encore/firmware/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
+    device/bn/encore/firmware/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin
+
 
 # key mapping and touchscreen files
 PRODUCT_COPY_FILES += \

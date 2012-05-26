@@ -1,7 +1,7 @@
 #
 # system.prop for encore
 #
-wifi.interface=tiwlan0
+wifi.interface=wlan0
 wifi.supplicant_scan_interval=30
 
 ro.additionalmounts=/mnt/emmc;/mnt/usbdisk
