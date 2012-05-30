@@ -9,11 +9,6 @@ on early-init
 
 on init
 
-    # Enable Smart Reflex in debugfs
-    write /sys/kernel/debug/pm_debug/smartreflex/sr_core/autocomp 1
-    write /sys/kernel/debug/pm_debug/smartreflex/sr_iva/autocomp 1
-    write /sys/kernel/debug/pm_debug/smartreflex/sr_mpu/autocomp 1
-
     # setup global environment
     export PHONE_STORAGE /mnt/emmc
     export DSP_PATH /system/lib/dsp
@@ -131,10 +126,9 @@ on boot
     write /sys/devices/system/cpu/cpufreq/hotplug/boost_timeout 60000000
     write /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq 1
 
-    # Enabling SmartReflex for Zoom3 OMAP3630
-    write  /sys/power/sr_vdd1_autocomp 1
-    write  /sys/power/sr_vdd2_autocomp 1
-
+    # Enable SmartReflex autocompensation on VDD1 & VDD2
+    write /sys/kernel/debug/smartreflex/sr_core/autocomp 1
+    #write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
 
     # change permissions for i2c-2 device
     chmod 0660 /dev/i2c-2
