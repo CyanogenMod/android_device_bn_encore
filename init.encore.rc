@@ -142,11 +142,8 @@ on boot
     chmod 0777 /dev/ion
         
     # Permissions for Overlay
-    chmod 0777 /dev/video1
-    chmod 0777 /dev/video2
-    chmod 0777 /dev/video3
-    chmod 0777 /dev/omap-resizer
-    chmod 0777 /dev/omap-previewer
+    chmod 0777 /dev/video6
+    chmod 0777 /dev/video10
 
     # change permissions for overlay managers and display devices
     chmod 0777 /sys/devices/platform/omapdss/manager0/name

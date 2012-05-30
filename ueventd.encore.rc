@@ -11,9 +11,8 @@
 /dev/tf_ctrl              0660   drmrpc    drmrpc
 
 /dev/pvrsrvkm             0666   system     system
-/dev/video0               0660   system     camera
-/dev/video1               0660   system     camera
-/dev/video2               0660   system     camera
+/dev/video6               0660   system     camera
+/dev/video10               0660   system     camera
 /dev/s3c-jpg              0660   system     camera
 /dev/s3c-mem              0660   system     system
 /dev/s3c-mfc              0660   system     graphics

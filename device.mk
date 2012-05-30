@@ -28,17 +28,6 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.usb.rc:root/init.encore.usb.rc \
     device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc
 
-# Wifi
-PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/wifi/tiwlan_drv.ko:/system/lib/modules/tiwlan_drv.ko \
-    device/bn/encore/prebuilt/wifi/tiwlan.ini:/system/etc/wifi/tiwlan.ini \
-    device/bn/encore/prebuilt/wifi/firmware.bin:/system/etc/wifi/firmware.bin \
-    device/bn/encore/firmware/ducati-m3.bin:/system/vendor/firmware/ducati-m3.bin \
-    device/bn/encore/firmware/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin.orig \
-    device/bn/encore/firmware/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
-    device/bn/encore/firmware/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin
-
-
 # key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
     device/bn/encore/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \
@@ -149,11 +138,7 @@ PRODUCT_PACKAGES += \
     libomap_mm_library_jni \
     librs_jni \
     libtiOsLib \
-    make_ext4fs \
-    tiwlan.ini \
-    wlan_cu \
-    wlan_loader \
-    wpa_supplicant.conf
+    make_ext4fs
 
 PRODUCT_CHARACTERISTICS := tablet
 
@@ -165,7 +150,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=tiwlan0 \
+    wifi.interface=wlan0 \
     alsa.mixer.playback.master=default \
     alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=128m \
