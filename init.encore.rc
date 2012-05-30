@@ -61,26 +61,33 @@ on post-fs-data
 
 on boot
 
-    # wireless
-    mkdir /system/etc/wifi 0770 wifi wifi
-    chmod 0770 /system/etc/wifi
-    chmod 0660 /system/etc/wifi/wpa_supplicant.conf
-    chown wifi wifi /system/etc/wifi/wpa_supplicant.conf
-    mkdir /data/misc/wifi 0770 wifi wifi
-    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-    chown wifi wifi /data/misc/wifi/wpa_supplicant.conf
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
+   # wi-fi
+     mkdir /data/misc/wifi 0770 wifi wifi
+     mkdir /data/misc/wifi/sockets 0770 wifi wifi
+     mkdir /data/misc/dhcp 0770 dhcp dhcp
+     insmod /system/lib/modules/compat.ko
+     insmod /system/lib/modules/cfg80211.ko
+     insmod /system/lib/modules/mac80211.ko
+     insmod /system/lib/modules/wl12xx.ko debug_level=0x63c0
 
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-    chmod 0666 /dev/pvrsrvkm
+     mkdir /data/local 0771 shell shell
+     mkdir /data/local/tmp 0771 shell shell
+     mkdir /data/data 0771 system system
+     mkdir /data/app-private 0771 system system
+     mkdir /data/app 0771 system system
+     # We chown/chmod /data/app again in case it was created at build-time
+     chown system system /data/app
+     chmod 0771 /data/app
+     mkdir /data/property 0700 root root
 
-# load modules
+   # create dalvik-cache and double-check the perms
+     mkdir /data/dalvik-cache 0771 system system
+     chown system system /data/dalvik-cache
+     chmod 0771 /data/dalvik-cache
 
-    insmod /system/lib/modules/compat.ko
-    insmod /system/lib/modules/cfg80211.ko
-    insmod /system/lib/modules/mac80211.ko
-    insmod /system/lib/modules/wl12xx.ko
+     mount debugfs /sys/kernel/debug /sys/kernel/debug
+     chmod 0666 /dev/pvrsrvkm
+
 
 
 # bluetooth power up/down interface
@@ -299,14 +306,6 @@ service uim /system/bin/uim-sysfs
    group media bluetooth
    oneshot
 
-#service wlan_loader /system/bin/wlan_loader \
-#    -f /system/etc/wifi/firmware.bin \
-#    -i /system/etc/wifi/wlan.ini \
-#    -e /rom/DevConf/WiFiBackupCalibration
-#    class main
-#    disabled
-#    oneshot
-    
 #service ifcfg_ti /system/bin/netcfg wlan0 up
 #    class main
 #    disabled
@@ -319,24 +318,15 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -dd
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
+    service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
+       class main
+       disabled
+       oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
-
-#service wpa_supplicant /system/bin/wpa_supplicant \
-#    -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-#    class main
-#    socket wpa_tiwlan0 dgram 660 wifi wifi
-#    disabled
-#    oneshot
-
-
+    service iprenew_bnep0 /system/bin/dhcpcd -n
+       class main
+       disabled
+       oneshot
 
 #service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL
 #    class main
