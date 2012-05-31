@@ -309,12 +309,12 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -dd
     disabled
     oneshot
 
-    service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
+    service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
        class main
        disabled
        oneshot
 
-    service iprenew_bnep0 /system/bin/dhcpcd -n
+    service iprenew_wlan0 /system/bin/dhcpcd -n
        class main
        disabled
        oneshot
