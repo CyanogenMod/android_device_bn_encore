@@ -23,6 +23,7 @@ on init
 
     # for encore
     mkdir /rom 0777 root root
+    export DSP_PATH /system/lib/dsp
 
 on fs
     # mount partitions
@@ -83,7 +84,8 @@ on boot
      mount debugfs /sys/kernel/debug /sys/kernel/debug
      chmod 0666 /dev/pvrsrvkm
 
-
+     # change permissions for bridge.  Symlink search directory
+     chmod 0777 /dev/DspBridge
 
 # bluetooth power up/down interface
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
@@ -128,7 +130,9 @@ on boot
 
     # Enable SmartReflex autocompensation on VDD1 & VDD2
     write /sys/kernel/debug/smartreflex/sr_core/autocomp 1
-    #write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
+    write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
+    write /debug/smartreflex/sr_core/autocomp 1
+    write /debug/smartreflex/sr_mpu_iva/autocomp 1
 
     # change permissions for i2c-2 device
     chmod 0660 /dev/i2c-2
@@ -144,6 +148,8 @@ on boot
     # Permissions for Overlay
     chmod 0777 /dev/video6
     chmod 0777 /dev/video10
+
+    chmod 0777 /sys/devices/platform/dsscomp/isprsz/enable
 
     # change permissions for overlay managers and display devices
     chmod 0777 /sys/devices/platform/omapdss/manager0/name
@@ -297,13 +303,20 @@ service uim /system/bin/uim-sysfs
    group media bluetooth
    oneshot
 
+# load DSP firmware
+service baseimage /system/bin/cexec.out -v /system/lib/dsp/baseimage.dof
+     class core
+     user root
+     group root
+     oneshot
+
 #service ifcfg_ti /system/bin/netcfg wlan0 up
 #    class main
 #    disabled
 #    oneshot
 
 
-service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -dd
+service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
