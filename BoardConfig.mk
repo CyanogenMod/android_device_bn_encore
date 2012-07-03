@@ -26,11 +26,21 @@ BUILD_NETD := false
 
 TARGET_BOARD_PLATFORM := omap3
 TARGET_CPU_ABI := armeabi-v7a
+ARCH_ARM_HAVE_ARMV7A := true
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp 
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp 
+TARGET_GLOBAL_CFLAGS +=  -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+#			-fmodulo-sched -fmodulo-sched-allow-regmoves
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+#			-fmodulo-sched -fmodulo-sched-allow-regmoves
+TARGET_arm_CFLAGS   := -O3 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops \
+                       -fmodulo-sched -fmodulo-sched-allow-regmoves
+TARGET_thumb_CFLAGS :=  -mthumb \
+                        -Os \
+                        -fomit-frame-pointer \
+                        -fstrict-aliasing
+#TARGET_TOOLS_PREFIX=/home/fattire/Development/linaro/android-toolchain-eabi-4.7/bin/arm-linux-androideabi-
 TARGET_BOOTLOADER_BOARD_NAME := encore
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -69,6 +79,7 @@ endif
 
 WIFI_MODULES:
 	make -C kernel/bn/encore/external/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
+#	make -C kernel/bn/encore/external/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm EXTRA_CFLAGS=-fno-pic CROSS_COMPILE=~/Development/linaro/android-toolchain-eabi-4.7/bin/arm-linux-androideabi-
 	mv $(KERNEL_OUT)/lib/crc7.ko $(KERNEL_MODULES_OUT)
 	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
@@ -85,12 +96,6 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; sync"
-
-# audio stuff
-#BOARD_USES_AUDIO_LEGACY := true
-BOARD_USES_GENERIC_AUDIO := true
-
-HARDWARE_OMX := true
 
 # Modem
 TARGET_NO_RADIOIMAGE := true
@@ -123,10 +128,21 @@ BOARD_HAVE_FAKE_GPS := true
 USE_CAMERA_STUB := true
 BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 BOARD_HAS_NO_MISC_PARTITION := true
+# audio stuff
+# BOARD_USES_AUDIO_LEGACY := true
+# TARGET_PROVIDES_LIBAUDIO := true
+BOARD_USES_GENERIC_AUDIO := false
+# BOARD_USES_ALSA_AUDIO := true
+# BUILD_WITH_ALSA_UTILS := true
+HARDWARE_OMX := true
 
 ifdef HARDWARE_OMX
 OMX_JPEG := true
 OMX_VENDOR := ti
+TARGET_USE_OMX_RECOVERY := true
+TARGET_USE_OMAP_COMPAT  := true
+BUILD_WITH_TI_AUDIO := 1
+BUILD_PV_VIDEO_ENCODERS := 1
 OMX_VENDOR_INCLUDES := \
   hardware/ti/omx/system/src/openmax_il/omx_core/inc \
   hardware/ti/omx/image/src/openmax_il/jpeg_enc/inc

@@ -23,7 +23,21 @@ on init
 
     # for encore
     mkdir /rom 0777 root root
-    export DSP_PATH /system/lib/dsp
+
+# ALSA support
+    mkdir /dev/snd 0777 system system
+    symlink /dev/controlC0 /dev/snd/controlC0
+    symlink /dev/pcmC0D0p  /dev/snd/pcmC0D0p
+    symlink /dev/pcmC0D0c  /dev/snd/pcmC0D0c
+    symlink /dev/timer     /dev/snd/timer
+    chown audio audio /dev/pcmC0D0c
+    chown audio audio /dev/pcmC0D0p
+    chown audio audio /dev/controlC0
+    chown audio audio /dev/timer
+    chmod 0777 /dev/snd/controlC0
+    chmod 0777 /dev/snd/pcmC0D0p
+    chmod 0777 /dev/snd/pcmC0D0c
+    chmod 0777 /dev/snd/timer
 
 on fs
     # mount partitions
@@ -39,23 +53,13 @@ on post-fs
     #insmod /system/lib/modules/dm-crypt.ko
     #insmod /system/lib/modules/tun.ko
 
-    # change permissions for alsa nodes
-    symlink /dev/snd/pcmC0D0c /dev/pcmC0D0c
-    symlink /dev/snd/pcmC0D0p /dev/pcmC0D0p
-    symlink /dev/snd/controlC0 /dev/controlC0
-    symlink /dev/snd/timer /dev/timer
-    chown audio audio /dev/pcmC0D0c
-    chown audio audio /dev/pcmC0D0p
-    chown audio audio /dev/controlC0
-    chown audio audio /dev/timer
-
 on post-fs-data
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
     setprop vold.post_fs_data_done 1
 
-on boot
+
 
    # wi-fi
      mkdir /data/misc/wifi 0770 wifi wifi
@@ -248,8 +252,115 @@ on boot
     #change permissions for alsa nodes for HDMI
     chmod 777  /dev/snd/pcmC0D7p
 
+on boot
+
+# basic network init
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+# set RLIMIT_NICE to allow priorities from 19 to -20
+    setrlimit 13 40 40
+
+# Set timeout value for rmnet stats.
+    write /sys/devices/virtual/net/rmnet0/timeout_suspend 5000000
+
+# Define the oom_adj values for the classes of processes that can be
+# killed by the kernel.  These are used in ActivityManagerService.
+    setprop ro.FOREGROUND_APP_ADJ 0
+    setprop ro.VISIBLE_APP_ADJ 1
+    setprop ro.SECONDARY_SERVER_ADJ 2
+    setprop ro.BACKUP_APP_ADJ 2
+    setprop ro.HOME_APP_ADJ 4
+    setprop ro.HIDDEN_APP_MIN_ADJ 7
+    setprop ro.CONTENT_PROVIDER_ADJ 14
+    setprop ro.EMPTY_APP_ADJ 15
+
+# Define the memory thresholds at which the above process classes will
+# be killed.  These numbers are in pages (4k).
+    setprop ro.FOREGROUND_APP_MEM 1536
+    setprop ro.VISIBLE_APP_MEM 2048
+    setprop ro.SECONDARY_SERVER_MEM 4096
+    setprop ro.BACKUP_APP_MEM 4096
+    setprop ro.HOME_APP_MEM 4096
+    setprop ro.HIDDEN_APP_MEM 5120
+    setprop ro.CONTENT_PROVIDER_MEM 5632
+    setprop ro.EMPTY_APP_MEM 6144
+
+# Write value must be consistent with the above properties.
+# Note that the driver only supports 6 slots, so we have HOME_APP at the
+# same memory level as services.
+    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,7,14,15
+
+    write /proc/sys/vm/overcommit_memory 1
+    write /proc/sys/vm/min_free_order_shift 4
+    write /sys/module/lowmemorykiller/parameters/minfree 1536,2048,4096,5120,5632,6144
+
+    # Set init its forked children's oom_adj.
+    write /proc/1/oom_adj -16
+
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+    chown system system /sys/class/timed_output/vibrator/enable
+    chown system system /sys/class/leds/keyboard-backlight/brightness
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/jogball-backlight/brightness
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/blue/brightness
+    chown system system /sys/class/leds/red/device/grpfreq
+    chown system system /sys/class/leds/red/device/grppwm
+    chown system system /sys/class/leds/red/device/blink
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/blue/brightness
+    chown system system /sys/class/leds/red/device/grpfreq
+    chown system system /sys/class/leds/red/device/grppwm
+    chown system system /sys/class/leds/red/device/blink
+    chown system system /sys/class/timed_output/vibrator/enable
+    chown system system /sys/module/sco/parameters/disable_esco
+    chown system system /sys/kernel/ipv4/tcp_wmem_min
+    chown system system /sys/kernel/ipv4/tcp_wmem_def
+    chown system system /sys/kernel/ipv4/tcp_wmem_max
+    chown system system /sys/kernel/ipv4/tcp_rmem_min
+    chown system system /sys/kernel/ipv4/tcp_rmem_def
+    chown system system /sys/kernel/ipv4/tcp_rmem_max
+
+# Define TCP buffer sizes for various networks
+#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.wifi    4095,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+
+# Define modem related settings
+    setprop keyguard.no_require_sim 1 
+    setprop ro.config.nocheckin yes
+    
 on property:dev.bootcomplete=1
     start bootcnt
+
+  class_start default
+
+service console /system/bin/sh
+    console
+
+service servicemanager /system/bin/servicemanager
+    user system
+    critical
+    onrestart restart zygote
+    onrestart restart media
+
+service vold /system/bin/vold
+    socket vold stream 0660 root mount
+
+#service mountd /system/bin/mountd
+#    socket mountd stream 0660 root mount
+
+service debuggerd /system/bin/debuggerd
 
 service hwprops /sbin/hwprops
         class core
@@ -303,13 +414,6 @@ service uim /system/bin/uim-sysfs
    group media bluetooth
    oneshot
 
-# load DSP firmware
-service baseimage /system/bin/cexec.out -v /system/lib/dsp/baseimage.dof
-     class core
-     user root
-     group root
-     oneshot
-
 #service ifcfg_ti /system/bin/netcfg wlan0 up
 #    class main
 #    disabled
@@ -332,23 +436,18 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0
        disabled
        oneshot
 
-#service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL
-#    class main
-#    disabled
-#    oneshot
-
-#service iprenew_tiwlan0 /system/bin/dhcpcd -n
-#    class main
-#    disabled
-#    oneshot
-
 # create virtual SD card at /mnt/sdcard, based on the /data/media directory
 # daemon will drop to user/group system/media_rw after initializing
 # underlying files in /data/media will be created with user and group media_rw (1023)
 #service sdcard /system/bin/sdcard /data/media 1023 1023
 #    class late_start
 
-
+# load DSP firmware
+service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
+    class main
+    user root
+    group root
+    oneshot
 
 on property:ro.debuggable=1
     write /sys/class/android_usb/android0/enable 0
@@ -369,4 +468,4 @@ on property:service.adb.root=1
     write /sys/class/android_usb/android0/enable 1
     
 on property:sys.boot_completed=1
-    log "== init.acclaim.rc: on property:sys.boot_completed=1 -----------------------"
+    log "== init.encore.rc: on property:sys.boot_completed=1 -----------------------"

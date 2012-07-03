@@ -111,29 +111,16 @@ PRODUCT_PACKAGES += \
     sensors.encore \
     uim-sysfs \
     libaudioutils \
-    audio.a2dp.default \
-    libaudiohw_legacy \
     audio.primary.omap3 \
-    libaudiopolicy_legacy2 \
-    audio.primary.encore
-
-PRODUCT_PACKAGES += \
+    audio_policy.default \
+    tinyplay \
+    tinymix \
+    tinycap \
     acoustics.default \
-    alsa.default \
-    alsa.omap3 \
     com.android.future.usb.accessory \
     dhcpcd.conf \
     dspexec \
     libCustomWifi \
-    libLCML \
-    libOMX.TI.AAC.encode \
-    libOMX.TI.AMR.encode \
-    libOMX.TI.JPEG.Encoder \
-    libOMX.TI.Video.Decoder \
-    libOMX.TI.Video.encoder \
-    libOMX.TI.WBAMR.encode \
-    libOMX_Core \
-    libVendor_ti_omx \
     libbridge \
     libomap_mm_library_jni \
     librs_jni \
@@ -145,35 +132,38 @@ PRODUCT_PACKAGES += \
 # Addition of LOCAL_MODULE_TAGS requires us to specify
 # libraries needed for a particular device
 PRODUCT_PACKAGES += \
-     libOMX_Core \
-     libLCML \
-     libOMX.TI.Video.Decoder \
-     libOMX.TI.Video.encoder \
-     libOMX.TI.WBAMR.decode \
-     libOMX.TI.AAC.encode \
-     libOMX.TI.G722.decode \
-     libOMX.TI.MP3.decode \
-     libOMX.TI.WMA.decode \
-     libOMX.TI.Video.encoder \
-     libOMX.TI.WBAMR.encode \
-     libOMX.TI.G729.encode \
-     libOMX.TI.AAC.decode \
-     libOMX.TI.VPP \
-     libOMX.TI.G711.encode \
-     libOMX.TI.JPEG.encoder \
-     libOMX.TI.G711.decode \
-     libOMX.TI.ILBC.decode \
-     libOMX.TI.ILBC.encode \
-     libOMX.TI.AMR.encode \
-     libOMX.TI.G722.encode \
-     libOMX.TI.JPEG.decoder \
-     libOMX.TI.G726.encode \
-     libOMX.TI.G729.decode \
-     libOMX.TI.Video.Decoder \
-     libOMX.TI.AMR.decode \
-     libOMX.TI.G726.decode
+    libI420colorconvert \
+    libLCML \
+    libOMX_Core \
+    libOMX.TI.AAC.decode \
+    libOMX.TI.AAC.decode \
+    libOMX.TI.AAC.encode \
+    libOMX.TI.AMR.decode \
+    libOMX.TI.AMR.encode \
+    libOMX.TI.AMR.encode \
+    libOMX.TI.G711.decode \
+    libOMX.TI.G711.encode \
+    libOMX.TI.G722.decode \
+    libOMX.TI.G722.encode \
+    libOMX.TI.G726.decode \
+    libOMX.TI.G726.encode \
+    libOMX.TI.G729.decode \
+    libOMX.TI.G729.encode \
+    libOMX.TI.ILBC.decode \
+    libOMX.TI.ILBC.encode \
+    libOMX.TI.JPEG.decoder \
+    libOMX.TI.JPEG.encoder \
+    libOMX.TI.JPEG.Encoder \
+    libOMX.TI.MP3.decode \
+    libOMX.TI.Video.Decoder \
+    libOMX.TI.Video.encoder \
+    libOMX.TI.VPP \
+    libOMX.TI.WBAMR.decode \
+    libOMX.TI.WBAMR.encode \
+    libOMX.TI.WBAMR.encode \
+    libOMX.TI.WMA.decode \
+    libVendor_ti_omx
 
-# SkiaHW
 PRODUCT_PACKAGES += \
         libskiahw
 
@@ -200,8 +190,6 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
-    alsa.mixer.playback.master=default \
-    alsa.mixer.capture.master=Analog \
     dalvik.vm.heapsize=128m \
     ro.opengles.version=131072 \
 
