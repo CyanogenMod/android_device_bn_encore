@@ -143,9 +143,7 @@ on post-fs-data
 
     # Enable SmartReflex autocompensation on VDD1 & VDD2
     write /sys/kernel/debug/smartreflex/sr_core/autocomp 1
-    write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
-    write /debug/smartreflex/sr_core/autocomp 1
-    write /debug/smartreflex/sr_mpu_iva/autocomp 1
+    #write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
 
     # change permissions for i2c-2 device
     chmod 0660 /dev/i2c-2
@@ -236,10 +234,6 @@ on post-fs-data
     # change permissions for mtd device
     chmod 0660 /dev/mtd/mtd0
     chown media media /dev/mtd/mtd0
-    
-    # change permissions for i2c-2 device
-    chmod 0660 /dev/i2c-2
-    chown media media /dev/i2c-2
 
     # change permissions for Tiler driver
     chmod 0777 /dev/tiler

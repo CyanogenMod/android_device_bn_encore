@@ -107,8 +107,11 @@ PRODUCT_PACKAGES += \
     hwprops \
     uim-sysfs \
     libaudioutils \
+    audio.a2dp.default \
+    libaudiohw_legacy \
     audio.primary.omap3 \
-    audio_policy.default \
+    libaudiopolicy_legacy2 \
+    audio.primary.encore \
     tinyplay \
     tinymix \
     tinycap \
@@ -122,7 +125,6 @@ PRODUCT_PACKAGES += \
     librs_jni \
     libtiOsLib \
     make_ext4fs
-
 
 # OMX components
 # Addition of LOCAL_MODULE_TAGS requires us to specify
