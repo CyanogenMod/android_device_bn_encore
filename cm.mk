@@ -22,8 +22,7 @@ TARGET_BOOTANIMATION_NAME := vertical-540x960
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_ID=IMM76D BUILD_DISPLAY_ID=IMM76D BUILD_FINGERPRINT="bn/bn_encore/encore:4.0.4/IMM76D/228551:user/release-keys" PRIVATE_BUILD_DESC="encore-user 4.0.4 IMM76D 228551 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_ID=JRO03C BUILD_DISPLAY_ID=JRO03C BUILD_FINGERPRINT="bn/bn_encore/encore:4.1.1/JRO03C/228551:user/release-keys" PRIVATE_BUILD_DESC="encore-user 4.1.1 JRO03C 228551 release-keys"
 
 PRODUCT_NAME := cm_encore
 PRODUCT_DEVICE := encore
-
