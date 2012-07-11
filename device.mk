@@ -20,7 +20,7 @@
 # application settings that are stored in resourced.
 DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
-$(call inherit-product, frameworks/base/build/tablet-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
 # Init files
 PRODUCT_COPY_FILES += \

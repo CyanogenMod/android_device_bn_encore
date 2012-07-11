@@ -68,7 +68,7 @@ int Kxtf9Sensor::enable(int32_t handle, int en)
         err = -errno;
     }
 
-    LOGE_IF(err < 0, "Error setting enable of kxtf9 accelerometer (%s)", strerror(-err));
+    ALOGE_IF(err < 0, "Error setting enable of kxtf9 accelerometer (%s)", strerror(-err));
 
     if (!err) {
         mEnabled = newState;
@@ -99,7 +99,7 @@ int Kxtf9Sensor::setDelay(int32_t handle, int64_t ns)
             err = -errno;
         }
 
-        LOGE_IF(err < 0, "Error setting delay of kxtf9 accelerometer (%s)", strerror(-err));
+        ALOGE_IF(err < 0, "Error setting delay of kxtf9 accelerometer (%s)", strerror(-err));
     }
 
     return err;
@@ -127,7 +127,7 @@ int Kxtf9Sensor::readEvents(sensors_event_t* data, int count)
             count--;
             numEventReceived++;
         } else {
-            LOGE("Kxtf9: unknown event (type=%d, code=%d)",
+            ALOGE("Kxtf9: unknown event (type=%d, code=%d)",
                     type, event->code);
         }
         mInputReader.next();
@@ -161,11 +161,11 @@ int Kxtf9Sensor::isEnabled()
         if(amt > 0) {
             return (buffer[0] == '1');
         } else {
-            LOGE("Kxtf9: isEnable failed to read (%s)", strerror(errno));
+            ALOGE("Kxtf9: isEnable failed to read (%s)", strerror(errno));
             return 0;
         }
     } else {
-        LOGE("Kxtf9: isEnabled failed to open %s", KXTF9_ENABLE_FILE);
+        ALOGE("Kxtf9: isEnabled failed to open %s", KXTF9_ENABLE_FILE);
         return 0;
     }
 }
