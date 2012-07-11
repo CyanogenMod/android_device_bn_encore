@@ -68,6 +68,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   AppendAssertions(script, input_zip)
   device_specific.FullOTA_Assertions()
+  device_specific.FullOTA_InstallBegin()
+
   if OPTIONS.backuptool:
     script.RunBackup("backup")
 
@@ -76,17 +78,16 @@ def WriteFullOTAPackage(input_zip, output_zip):
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
+  if "selinux_fc" in OPTIONS.info_dict:
+    WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
+
   script.FormatPartition("/system")
   script.Mount("/system")
   #script.UnpackPackageDir("recovery", "/system")
   script.UnpackPackageDir("system", "/system")
 
-  (symlinks, retouch_files) = CopySystemFiles(input_zip, output_zip)
+  symlinks = CopySystemFiles(input_zip, output_zip)
   script.MakeSymlinks(symlinks)
-  if OPTIONS.aslr_mode:
-    script.RetouchBinaries(retouch_files)
-  else:
-    script.UndoRetouchBinaries(retouch_files)
 
   # -- encore build change starting
   #boot_img = common.File("boot.img", common.BuildBootableImage(
