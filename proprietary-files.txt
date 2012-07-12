@@ -50,6 +50,8 @@ lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so
 lib/egl/libGLESv2_POWERVR_SGX530_125.so
 lib/hw/alsa.omap3.so
 lib/hw/gralloc.omap3.so
+lib/hw/lights.encore.so
+lib/hw/sensors.encore.so
 lib/libIMGegl.so
 lib/libLCML.so
 lib/libOMX.TI.720P.Decoder.so
