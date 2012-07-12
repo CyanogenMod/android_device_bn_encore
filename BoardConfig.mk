@@ -72,6 +72,13 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_USES_UBOOT := true
 # Inline kernel building config
+# This BoardConfig uses the On-The_Fly Kernel building. You will also need to grab keyodi's kernel source from:
+# https://github.com/keyodi/nook_kernel.git
+# branch ics-kernel
+#
+# You can just use 
+# git clone https://github.com/keyodi/nook_kernel.git -b ics-kernel
+# and copy the contents into kernel/bn/encore (these will need to be created in your android source dir)
 TARGET_KERNEL_CONFIG := encore_defconfig
 TARGET_KERNEL_SOURCE := kernel/bn/encore
 
@@ -100,7 +107,6 @@ WIFI_MODULES:
 TARGET_KERNEL_MODULES := WIFI_MODULES
 
 # Fallback prebuilt kernel
-<<<<<<< HEAD
 # TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 BOARD_HAS_LARGE_FILESYSTEM := true

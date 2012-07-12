@@ -30,19 +30,6 @@ ARCH_ARM_HAVE_ARMV7A := true
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
-<<<<<<< HEAD
-TARGET_GLOBAL_CFLAGS +=  -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
-#			-fmodulo-sched -fmodulo-sched-allow-regmoves
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
-#			-fmodulo-sched -fmodulo-sched-allow-regmoves
-TARGET_arm_CFLAGS   := -O3 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops \
-                       -fmodulo-sched -fmodulo-sched-allow-regmoves
-TARGET_thumb_CFLAGS :=  -mthumb \
-                        -Os \
-                        -fomit-frame-pointer \
-                        -fstrict-aliasing
-#TARGET_TOOLS_PREFIX=/home/fattire/Development/linaro/android-toolchain-eabi-4.7/bin/arm-linux-androideabi-
-=======
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 # -fmodulo-sched -fmodulo-sched-allow-regmoves
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
@@ -53,12 +40,10 @@ TARGET_thumb_CFLAGS := -mthumb \
                         -Os \
                         -fomit-frame-pointer \
                         -fstrict-aliasing
->>>>>>> 32089b7... Added inline and ARCH_ARM_HAVE_ARMV7A
 TARGET_BOOTLOADER_BOARD_NAME := encore
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USERIMAGES_USE_EXT4 := true
 OMAP_ENHANCEMENT := true
-
 
 # Makefile variables and C/C++ macros to recognise current pastry
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 16 || echo 1),)
@@ -85,15 +70,15 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 461942784
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
-<<<<<<< HEAD
-=======
-
-# Inline kernel building config
-TARGET_KERNEL_SOURCE := kernel/bn/encore
-TARGET_KERNEL_CONFIG := omap3621_fattire-ics_defconfig
->>>>>>> 32089b7... Added inline and ARCH_ARM_HAVE_ARMV7A
 BOARD_USES_UBOOT := true
 # Inline kernel building config
+# This BoardConfig uses the On-The_Fly Kernel building. You will also need to grab keyodi's kernel source from:
+# https://github.com/keyodi/nook_kernel.git
+# branch ics-kernel
+#
+# You can just use 
+# git clone https://github.com/keyodi/nook_kernel.git -b ics-kernel
+# and copy the contents into kernel/bn/encore (these will need to be created in your android source dir)
 TARGET_KERNEL_CONFIG := encore_defconfig
 TARGET_KERNEL_SOURCE := kernel/bn/encore
 
@@ -122,25 +107,18 @@ WIFI_MODULES:
 TARGET_KERNEL_MODULES := WIFI_MODULES
 
 # Fallback prebuilt kernel
-<<<<<<< HEAD
 # TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
-=======
-#TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
->>>>>>> 32089b7... Added inline and ARCH_ARM_HAVE_ARMV7A
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; sync"
 
-<<<<<<< HEAD
-=======
 # audio stuff
 BOARD_USES_AUDIO_LEGACY := true
 
 HARDWARE_OMX := true
 
->>>>>>> 32089b7... Added inline and ARCH_ARM_HAVE_ARMV7A
 # Modem
 TARGET_NO_RADIOIMAGE := true
 
