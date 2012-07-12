@@ -105,8 +105,6 @@ PRODUCT_COPY_FILES += \
 # Product specfic packages
 PRODUCT_PACKAGES += \
     hwprops \
-    lights.encore \
-    sensors.encore \
     uim-sysfs \
     libaudioutils \
     audio.primary.omap3 \
