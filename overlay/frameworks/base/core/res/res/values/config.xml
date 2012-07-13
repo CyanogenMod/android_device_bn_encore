@@ -110,4 +110,10 @@
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
 
+    <!-- Separate software navigation bar required on this device. -->
+    <bool name="config_showNavigationBar">true</bool>
+
+    <!-- Software blur is too slow on this device. -->
+    <bool name="config_sf_slowBlur">true</bool>
+
 </resources>
