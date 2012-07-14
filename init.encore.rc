@@ -2,19 +2,28 @@ import init.encore.usb.rc
 
 on early-init
     start hwprops
-    export EXTERNAL_STORAGE /mnt/sdcard
-    mkdir /mnt/sdcard 0000 system system
-    # for backwards compatibility
-    symlink /mnt/sdcard /sdcard
+    mkdir /storage 0050 system sdcard_r
+    mkdir /storage/sdcard0 0000 system system
+    mkdir /storage/sdcard1 0000 system system
+
+# for backwards compatibility
+    symlink /storage/sdcard0 /mnt/emmc
+    symlink /storage/sdcard0 /emmc
+    symlink  /storage/sdcard1 /sdcard
+    symlink  /storage/sdcard1 /mnt/sdcard
+
+    export EXTERNAL_STORAGE /storage/sdcard1
+    export SECONDARY_STORAGE /storage/sdcard0
 
 on init
 
     # setup global environment
-    export PHONE_STORAGE /mnt/emmc
+    export PHONE_STORAGE /storage/sdcard0
     export DSP_PATH /system/lib/dsp
     export DEFAULT_BASEIMAGE /system/lib/dsp/baseimage.dof
 
     # create mountpoints
+    mkdir /mnt/usbdisk 0000 system system
     mkdir /mnt/emmc 0000 system system
     mkdir /mnt/usbdisk 0000 system system
     symlink /mnt/emmc /emmc
