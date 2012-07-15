@@ -24,7 +24,7 @@
 #ifndef LOG_NDEBUG_FUNCTION
 #define LOGFUNC(...) ((void)0)
 #else
-#define LOGFUNC(...) (LOGV(__VA_ARGS__))
+#define LOGFUNC(...) (ALOGV(__VA_ARGS__))
 #endif
 
 #include <errno.h>
@@ -738,7 +738,7 @@ static void remove_channels_from_buf(struct buffer_remix *data, void *buf, size_
     out_frame = data->out_chans * samp_size;
 
     if (out_frame >= in_frame) {
-        LOGE("BUG: remove_channels_from_buf() can't add channels to a buffer.\n");
+        ALOGE("BUG: remove_channels_from_buf() can't add channels to a buffer.\n");
         return;
     }
 
@@ -770,14 +770,14 @@ static void setup_stereo_to_mono_input_remix(struct blaze_stream_in *in)
         br->in_chans = 2;
         br->out_chans = 1;
     } else
-        LOGE("Could not allocate memory for struct buffer_remix\n");
+        ALOGE("Could not allocate memory for struct buffer_remix\n");
 
     if (in->buffer) {
         size_t chans = (br->in_chans > br->out_chans) ? br->in_chans : br->out_chans;
         free(in->buffer);
         in->buffer = malloc(in->config.period_size * br->sample_size * chans);
         if (!in->buffer)
-            LOGE("Could not reallocate memory for input buffer\n");
+            ALOGE("Could not reallocate memory for input buffer\n");
     }
 
     if (in->remix_at_driver)
@@ -855,7 +855,7 @@ static int set_route_by_array(struct mixer *mixer, struct route_setting *route,
 
 static int start_call(struct blaze_audio_device *adev)
 {
-    LOGE("Opening modem PCMs");
+    ALOGE("Opening modem PCMs");
     LOGFUNC("%s(%p)", __FUNCTION__, adev);
 
 #ifdef USE_RIL
@@ -868,7 +868,7 @@ static int start_call(struct blaze_audio_device *adev)
     if (adev->pcm_modem_dl == NULL) {
         adev->pcm_modem_dl = pcm_open(0, PORT_MODEM, PCM_OUT, &pcm_config_vx);
         if (!pcm_is_ready(adev->pcm_modem_dl)) {
-            LOGE("cannot open PCM modem DL stream: %s", pcm_get_error(adev->pcm_modem_dl));
+            ALOGE("cannot open PCM modem DL stream: %s", pcm_get_error(adev->pcm_modem_dl));
             goto err_open_dl;
         }
     }
@@ -876,7 +876,7 @@ static int start_call(struct blaze_audio_device *adev)
     if (adev->pcm_modem_ul == NULL) {
         adev->pcm_modem_ul = pcm_open(0, PORT_MODEM, PCM_IN, &pcm_config_vx);
         if (!pcm_is_ready(adev->pcm_modem_ul)) {
-            LOGE("cannot open PCM modem UL stream: %s", pcm_get_error(adev->pcm_modem_ul));
+            ALOGE("cannot open PCM modem UL stream: %s", pcm_get_error(adev->pcm_modem_ul));
             goto err_open_ul;
         }
     }
@@ -898,7 +898,7 @@ err_open_dl:
 
 static void end_call(struct blaze_audio_device *adev)
 {
-    LOGE("Closing modem PCMs");
+    ALOGE("Closing modem PCMs");
     LOGFUNC("%s(%p)", __FUNCTION__, adev);
 
     pcm_stop(adev->pcm_modem_dl);
@@ -1079,7 +1079,7 @@ static void select_mode(struct blaze_audio_device *adev)
     LOGFUNC("%s(%p)", __FUNCTION__, adev);
 
     if (adev->mode == AUDIO_MODE_IN_CALL) {
-        LOGE("Entering IN_CALL state, in_call=%d", adev->in_call);
+        ALOGE("Entering IN_CALL state, in_call=%d", adev->in_call);
         if (!adev->in_call) {
             force_all_standby(adev);
             /* force earpiece route for in call state if speaker is the
@@ -1106,7 +1106,7 @@ static void select_mode(struct blaze_audio_device *adev)
             adev->in_call = 1;
         }
     } else {
-        LOGE("Leaving IN_CALL state, in_call=%d, mode=%d",
+        ALOGE("Leaving IN_CALL state, in_call=%d, mode=%d",
              adev->in_call, adev->mode);
         if (adev->in_call) {
             adev->in_call = 0;
@@ -1365,7 +1365,7 @@ static int start_output_stream(struct blaze_stream_out *out)
     out->pcm = pcm_open(card, port, PCM_OUT | PCM_MMAP, &out->config);
 
     if (!pcm_is_ready(out->pcm)) {
-        LOGE("cannot open pcm_out driver: %s", pcm_get_error(out->pcm));
+        ALOGE("cannot open pcm_out driver: %s", pcm_get_error(out->pcm));
         pcm_close(out->pcm);
         adev->active_output = NULL;
         return -ENOMEM;
@@ -1507,7 +1507,7 @@ static int get_playback_delay(struct blaze_stream_out *out,
         buffer->time_stamp.tv_sec  = 0;
         buffer->time_stamp.tv_nsec = 0;
         buffer->delay_ns           = 0;
-        LOGV("get_playback_delay(): pcm_get_htimestamp error,"
+        ALOGV("get_playback_delay(): pcm_get_htimestamp error,"
                 "setting playbackTimestamp to 0");
         return status;
     }
@@ -1840,9 +1840,9 @@ static int start_input_stream(struct blaze_stream_in *in)
         select_input_device(adev);
     }
 
-    if(adev->devices & AUDIO_DEVICE_IN_WIRED_HEADSET) {
-        adev->input_requires_stereo = 0;
-    }
+//    if(adev->devices & AUDIO_DEVICE_IN_WIRED_HEADSET) {
+//        adev->input_requires_stereo = 0;
+//    }
 
     if (adev->input_requires_stereo && (in->config.channels == 1))
         setup_stereo_to_mono_input_remix(in);
@@ -1857,11 +1857,11 @@ static int start_input_stream(struct blaze_stream_in *in)
     if (in->remix_at_driver)
         in->config.channels = in->remix_at_driver->in_chans;
 
-    if(adev->devices & AUDIO_DEVICE_IN_WIRED_HEADSET) {
-        card = CARD_OMAP4_USB;
-        /*device should be 0 for usb headset capture */
-        device = PORT_MM;
-    }
+//    if(adev->devices & AUDIO_DEVICE_IN_WIRED_HEADSET) {
+//        card = CARD_OMAP4_USB;
+//        /*device should be 0 for usb headset capture */
+//        device = PORT_MM;
+//    }
 
     in->pcm = pcm_open(card, device, PCM_IN, &in->config);
     if (in->remix_at_driver)
@@ -2064,7 +2064,7 @@ static void get_capture_delay(struct blaze_stream_in *in,
         buffer->time_stamp.tv_sec  = 0;
         buffer->time_stamp.tv_nsec = 0;
         buffer->delay_ns           = 0;
-        LOGW("read get_capture_delay(): pcm_htimestamp error");
+        ALOGW("read get_capture_delay(): pcm_htimestamp error");
         return;
     }
 
@@ -2085,7 +2085,7 @@ static void get_capture_delay(struct blaze_stream_in *in,
 
     buffer->time_stamp = tstamp;
     buffer->delay_ns   = delay_ns;
-    LOGV("get_capture_delay time_stamp = [%ld].[%ld], delay_ns: [%d],"
+    ALOGV("get_capture_delay time_stamp = [%ld].[%ld], delay_ns: [%d],"
          " kernel_delay:[%ld], buf_delay:[%ld], rsmp_delay:[%ld], kernel_frames:[%d], "
          "in->frames_in:[%d], in->proc_frames_in:[%d], frames:[%d]",
          buffer->time_stamp.tv_sec , buffer->time_stamp.tv_nsec, buffer->delay_ns,
@@ -2101,7 +2101,7 @@ static int32_t update_echo_reference(struct blaze_stream_in *in, size_t frames)
 
     LOGFUNC("%s(%p, %ul)", __FUNCTION__, in, frames);
 
-    LOGV("update_echo_reference, frames = [%d], in->ref_frames_in = [%d],  "
+    ALOGV("update_echo_reference, frames = [%d], in->ref_frames_in = [%d],  "
           "b.frame_count = [%d]",
          frames, in->ref_frames_in, frames - in->ref_frames_in);
     if (in->ref_frames_in < frames) {
@@ -2120,12 +2120,12 @@ static int32_t update_echo_reference(struct blaze_stream_in *in, size_t frames)
         if (in->echo_reference->read(in->echo_reference, &b) == 0)
         {
             in->ref_frames_in += b.frame_count;
-            LOGV("update_echo_reference: in->ref_frames_in:[%d], "
+            ALOGV("update_echo_reference: in->ref_frames_in:[%d], "
                     "in->ref_buf_size:[%d], frames:[%d], b.frame_count:[%d]",
                  in->ref_frames_in, in->ref_buf_size, frames, b.frame_count);
         }
     } else
-        LOGW("update_echo_reference: NOT enough frames to read ref buffer");
+        ALOGW("update_echo_reference: NOT enough frames to read ref buffer");
     return b.delay_ns;
 }
 
@@ -2233,7 +2233,7 @@ static int get_next_buffer(struct resampler_buffer_provider *buffer_provider,
                                    (void*)in->buffer,
                                    in->config.period_size * hw_frame_size);
         if (in->read_status != 0) {
-            LOGE("get_next_buffer() pcm_read error %d", in->read_status);
+            ALOGE("get_next_buffer() pcm_read error %d", in->read_status);
             buffer->raw = NULL;
             buffer->frame_count = 0;
             return in->read_status;
@@ -2336,7 +2336,7 @@ static ssize_t process_frames(struct blaze_stream_in *in, void* buffer, ssize_t 
                 in->proc_buf = (int16_t *)realloc(in->proc_buf,
                                          in->proc_buf_size *
                                              in->config.channels * sizeof(int16_t));
-                LOGV("process_frames(): in->proc_buf %p size extended to %d frames",
+                ALOGV("process_frames(): in->proc_buf %p size extended to %d frames",
                      in->proc_buf, in->proc_buf_size);
             }
             frames_rd = read_frames(in,
@@ -2525,16 +2525,17 @@ exit:
 
 
 static int adev_open_output_stream(struct audio_hw_device *dev,
-                                   uint32_t devices, int *format,
-                                   uint32_t *channels, uint32_t *sample_rate,
+                                   audio_io_handle_t handle, uint32_t devices,
+                                   audio_output_flags_t flags, struct audio_config *config,
                                    struct audio_stream_out **stream_out)
+
 {
     struct blaze_audio_device *ladev = (struct blaze_audio_device *)dev;
     struct blaze_stream_out *out;
     int ret;
 
-    LOGFUNC("%s(%p, 0x%04x,%d, 0x%04x, %d, %p)", __FUNCTION__, dev, devices,
-                        *format, *channels, *sample_rate, stream_out);
+    LOGFUNC("%s(%p, 0x%04x, 0x%04x, %d, %p)", __FUNCTION__, dev, devices,
+                        config->channel_mask, config->sample_rate, stream_out);
 
     out = (struct blaze_stream_out *)calloc(1, sizeof(struct blaze_stream_out));
     if (!out)
@@ -2580,9 +2581,9 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
      * This is because out_set_parameters() with a route is not
      * guaranteed to be called after an output stream is opened. */
 
-    *format = out_get_format(&out->stream.common);
-    *channels = out_get_channels(&out->stream.common);
-    *sample_rate = out_get_sample_rate(&out->stream.common);
+    config->format = out_get_format(&out->stream.common);
+    config->channel_mask = out_get_channels(&out->stream.common);
+    config->sample_rate = out_get_sample_rate(&out->stream.common);
 
     *stream_out = &out->stream;
     return 0;
@@ -2776,21 +2777,21 @@ static size_t adev_get_input_buffer_size(const struct audio_hw_device *dev,
     return get_input_buffer_size(sample_rate, format, channel_count);
 }
 
-static int adev_open_input_stream(struct audio_hw_device *dev, uint32_t devices,
-                                  int *format, uint32_t *channel_mask,
-                                  uint32_t *sample_rate,
-                                  audio_in_acoustics_t acoustics,
+static int adev_open_input_stream(struct audio_hw_device *dev,
+                                  audio_io_handle_t handle,
+                                  uint32_t devices,
+                                  struct audio_config *config,
                                   struct audio_stream_in **stream_in)
 {
     struct blaze_audio_device *ladev = (struct blaze_audio_device *)dev;
     struct blaze_stream_in *in;
     int ret;
-    int channel_count = popcount(*channel_mask);
+    int channel_count = popcount(config->channel_mask);
 
-    LOGFUNC("%s(%p, 0x%04x, %d, 0x%04x, %d, 0x%04x, %p)", __FUNCTION__, dev,
-        devices, *format, *channel_mask, *sample_rate, acoustics, stream_in);
+    LOGFUNC("%s(%p, 0x%04x, %d, 0x%04x, %d, %p)", __FUNCTION__, dev,
+        devices, config->format, config->channel_mask, config->sample_rate, stream_in);
 
-    if (check_input_parameters(*sample_rate, *format, channel_count) != 0)
+    if (check_input_parameters(config->sample_rate, config->format, channel_count) != 0)
         return -EINVAL;
 
     in = (struct blaze_stream_in *)calloc(1, sizeof(struct blaze_stream_in));
@@ -2814,7 +2815,7 @@ static int adev_open_input_stream(struct audio_hw_device *dev, uint32_t devices,
     in->stream.get_input_frames_lost = in_get_input_frames_lost;
     in->remix_at_driver = NULL;
 
-    in->requested_rate = *sample_rate;
+    in->requested_rate = config->sample_rate;
 
     memcpy(&in->config, &pcm_config_mm_ul, sizeof(pcm_config_mm_ul));
     in->config.channels = channel_count;
@@ -2918,11 +2919,11 @@ static uint32_t adev_get_supported_devices(const struct audio_hw_device *dev)
             AUDIO_DEVICE_IN_COMMUNICATION |
             AUDIO_DEVICE_IN_AMBIENT |
             AUDIO_DEVICE_IN_BUILTIN_MIC |
-            AUDIO_DEVICE_IN_WIRED_HEADSET |
+//            AUDIO_DEVICE_IN_WIRED_HEADSET |
             AUDIO_DEVICE_IN_AUX_DIGITAL |
             AUDIO_DEVICE_IN_BACK_MIC |
             AUDIO_DEVICE_IN_ALL_SCO |
-            AUDIO_DEVICE_IN_WIRED_HEADSET |
+//            AUDIO_DEVICE_IN_WIRED_HEADSET |
             AUDIO_DEVICE_IN_DEFAULT);
 }
 
@@ -2942,7 +2943,7 @@ static int adev_open(const hw_module_t* module, const char* name,
         return -ENOMEM;
 
     adev->hw_device.common.tag = HARDWARE_DEVICE_TAG;
-    adev->hw_device.common.version = 0;
+    adev->hw_device.common.version = AUDIO_DEVICE_API_VERSION_CURRENT;
     adev->hw_device.common.module = (struct hw_module_t *) module;
     adev->hw_device.common.close = adev_close;
 
@@ -2965,7 +2966,7 @@ static int adev_open(const hw_module_t* module, const char* name,
     adev->mixer = mixer_open(0);
     if (!adev->mixer) {
         free(adev);
-        LOGE("Unable to open the mixer, aborting.");
+        ALOGE("Unable to open the mixer, aborting.");
         return -EINVAL;
     }
 
@@ -3005,10 +3006,10 @@ static int adev_open(const hw_module_t* module, const char* name,
         !adev->mixer_ctls.right_capture || !adev->mixer_ctls.amic_ul_volume ||
         !adev->mixer_ctls.sidetone_capture || !adev->mixer_ctls.headset_volume ||
         !adev->mixer_ctls.speaker_volume || !adev->mixer_ctls.dmic1_ul_volume) {
-        LOGE("Unable to locate all mixer controls, aborting.");
+        ALOGE("Unable to locate all mixer controls, aborting.");
         /*mixer_close(adev->mixer);
         free(adev);
-        LOGE("Unable to locate all mixer controls, aborting.");
+        ALOGE("Unable to locate all mixer controls, aborting.");
         return -EINVAL;*/
     }
 
@@ -3027,7 +3028,7 @@ static int adev_open(const hw_module_t* module, const char* name,
         pthread_mutex_unlock(&adev->lock);
         mixer_close(adev->mixer);
         free(adev);
-        LOGE("Unsupported boardtype, aborting.");
+        ALOGE("Unsupported boardtype, aborting.");
         return -EINVAL;
     }
 
