@@ -42,7 +42,6 @@ DEVICE_PACKAGE_OVERLAYS := vendor/$MANUFACTURER/$DEVICE/overlay
 
 # HACK: Remove this
 PRODUCT_COPY_FILES := \\
-    $OUTDIR/proprietary/lib/libaudio.so:obj/lib/libaudio.so \\
     $OUTDIR/proprietary/lib/libaudiopolicy.so:obj/lib/libaudiopolicy.so
 
 # Propritary Blobs
