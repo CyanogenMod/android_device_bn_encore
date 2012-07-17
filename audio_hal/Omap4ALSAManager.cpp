@@ -85,7 +85,7 @@ status_t Omap4ALSAManager::set(const String8& key, const String8& value)
 {
     String8 temp = value;
     if (validateValueForKey(key, temp) == NO_ERROR) {
-        LOGV("set by Value:: %s::%s", key.string(), value.string());
+        ALOGV("set by Value:: %s::%s", key.string(), value.string());
         if (mParams.indexOfKey(key) < 0) {
             mParams.add(key, value);
             return NO_ERROR;
@@ -103,7 +103,7 @@ status_t Omap4ALSAManager::setFromProperty(const String8& key) {
 
     if (property_get(key.string(), value, ""))
     {
-        LOGV("setFromProperty:: %s::%s", key.string(), value);
+        ALOGV("setFromProperty:: %s::%s", key.string(), value);
         String8 temp = String8(value);
         if (validateValueForKey(key, temp) == NO_ERROR) {
             mParams.add(key, (String8)value);
@@ -119,7 +119,7 @@ status_t Omap4ALSAManager::setFromProperty(const String8& key, const String8& in
 
     if (property_get(key.string(), value, init.string()))
     {
-        LOGV("setFromProperty:: %s::%s", key.string(), value);
+        ALOGV("setFromProperty:: %s::%s", key.string(), value);
         String8 temp = String8(value);
         if (validateValueForKey(key, temp) == NO_ERROR) {
             mParams.add(key, (String8)value);
@@ -159,7 +159,7 @@ status_t Omap4ALSAManager::validateValueForKey(const String8& key, String8& valu
     int gain;
 
     if (key == (String8)MAIN_MIC) {
-        LOGV("validate main mic");
+        ALOGV("validate main mic");
 
         if ((mParams.indexOfKey((String8)SUB_MIC) >= 0) &&
            (value == mParams.valueFor((String8)SUB_MIC))) {
@@ -178,7 +178,7 @@ status_t Omap4ALSAManager::validateValueForKey(const String8& key, String8& valu
         }
     }
     else if (key == (String8)SUB_MIC) {
-        LOGV("validate SUB mic");
+        ALOGV("validate SUB mic");
         if ((mParams.indexOfKey((String8)MAIN_MIC) >= 0) &&
            (value == mParams.valueFor((String8)MAIN_MIC))) {
             // don't allow same mic for main and sub
@@ -196,7 +196,7 @@ status_t Omap4ALSAManager::validateValueForKey(const String8& key, String8& valu
         }
     }
     else if (key == (String8)POWER_MODE) {
-        LOGV("validate power mode");
+        ALOGV("validate power mode");
         while (noMatch && strcmp(PowerModeList[i], "eof")) {
                 noMatch = strcmp(PowerModeList[i], value.string());
                 if (noMatch) i++;
@@ -211,7 +211,7 @@ status_t Omap4ALSAManager::validateValueForKey(const String8& key, String8& valu
              (key == (String8)DL2R_EQ_PROFILE) ||
              (key == (String8)DL1_EQ_PROFILE) ||
              (key == (String8)SDT_EQ_PROFILE)) {
-        LOGV("validate equalizer profile");
+        ALOGV("validate equalizer profile");
         while (noMatch && strcmp(EqualizerProfileList[i], "eof")) {
                 noMatch = strcmp(EqualizerProfileList[i], value.string());
                 if (noMatch) i++;
@@ -224,7 +224,7 @@ status_t Omap4ALSAManager::validateValueForKey(const String8& key, String8& valu
     }
     else if ((key == (String8)AMIC_EQ_PROFILE) ||
              (key == (String8)DMIC_EQ_PROFILE)) {
-        LOGV("validate DMIC/AMIC equalizer profile");
+        ALOGV("validate DMIC/AMIC equalizer profile");
         i++; // "Flat response" is not supported by DMIC/AMIC
         while (noMatch && strcmp(EqualizerProfileList[i], "eof")) {
                 noMatch = strcmp(EqualizerProfileList[i], value.string());
@@ -240,7 +240,7 @@ status_t Omap4ALSAManager::validateValueForKey(const String8& key, String8& valu
              (key == (String8)VOICEMEMO_VDL_GAIN) ||
              (key == (String8)VOICEMEMO_MM_GAIN) ||
              (key == (String8)VOICEMEMO_TONE_GAIN)) {
-        LOGV("validate Voice Memo gains");
+        ALOGV("validate Voice Memo gains");
         gain = atoi((const char *)value);
         if ((-120 <= gain) && (gain <= 29))
             return NO_ERROR;

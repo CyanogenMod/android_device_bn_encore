@@ -63,21 +63,21 @@ AudioModemAlsa::AudioModemAlsa(ALSAControl *alsaControl)
 {
     status_t error;
 
-    LOGV("Build date: %s time: %s", __DATE__, __TIME__);
-    LOGD("Initializing devices for Modem OMAP3 ALSA module");
+    ALOGV("Build date: %s time: %s", __DATE__, __TIME__);
+    ALOGD("Initializing devices for Modem OMAP3 ALSA module");
 
     audioModemSetProperties();
     mModem = create();
     if (mModem) {
         error = mModem->initCheck() ;
         if (error != NO_ERROR) {
-            LOGE("Audio Modem Interface was not correctly initialized.");
+            ALOGE("Audio Modem Interface was not correctly initialized.");
             delete mModem;
             exit(error);
         }
     }
     else {
-        LOGE("No Audio Modem Interface found.");
+        ALOGE("No Audio Modem Interface found.");
         exit(-1);
     }
     mVoiceCallState = AUDIO_MODEM_VOICE_CALL_OFF;
@@ -89,11 +89,11 @@ AudioModemAlsa::AudioModemAlsa(ALSAControl *alsaControl)
 
         error = alsaControl->getmax(voiceCallVolumeProp[i].volumeName, info->max);
         error = alsaControl->getmin(voiceCallVolumeProp[i].volumeName, info->min);
-        LOGV("Voice call volume name: %s min: %d max: %d", voiceCallVolumeProp[i].volumeName,
+        ALOGV("Voice call volume name: %s min: %d max: %d", voiceCallVolumeProp[i].volumeName,
                  info->min, info->max);
 
         if (error != NO_ERROR) {
-            LOGE("Audio Voice Call volume was not correctly initialized.");
+            ALOGE("Audio Voice Call volume was not correctly initialized.");
             delete mModem;
             exit(error);
         }
@@ -103,7 +103,7 @@ AudioModemAlsa::AudioModemAlsa(ALSAControl *alsaControl)
 
 AudioModemAlsa::~AudioModemAlsa()
 {
-    LOGD("Destroy devices for Modem OMAP3 ALSA module");
+    ALOGD("Destroy devices for Modem OMAP3 ALSA module");
     mDevicePropList.clear();
     if (mModem) delete mModem;
 }
@@ -118,18 +118,18 @@ AudioModemInterface* AudioModemAlsa::create()
                  libPath,
                  AUDIO_MODEM_LIB_DEFAULT_PATH);
 
-    LOGW_IF(!strcmp(libPath, AUDIO_MODEM_LIB_DEFAULT_PATH),
+    ALOGW_IF(!strcmp(libPath, AUDIO_MODEM_LIB_DEFAULT_PATH),
                     "Use generic Modem interface");
 
     dlHandle = dlopen(libPath, RTLD_NOW);
     if (dlHandle == NULL) {
-        LOGE("Audio Modem %s dlopen failed: %s\n", libPath, dlerror());
+        ALOGE("Audio Modem %s dlopen failed: %s\n", libPath, dlerror());
         exit(-1);
     }
 
     audioModem = (AudioModemInterface *(*)(void))dlsym(dlHandle, "createAudioModemInterface");
     if (audioModem == NULL) {
-        LOGE("createAudioModemInterface function not defined or not exported in %s\n", libPath);
+        ALOGE("createAudioModemInterface function not defined or not exported in %s\n", libPath);
         exit(-1);
     }
 
@@ -196,7 +196,7 @@ status_t AudioModemAlsa::audioModemSetProperties()
                                                     false);
                     }
 
-                    LOGV("%s = %s", propKey,
+                    ALOGV("%s = %s", propKey,
                                     deviceProp->settingsList[index].name);
                     index++;
                 }
@@ -212,7 +212,7 @@ status_t AudioModemAlsa::voiceCallControls(uint32_t devices, int mode,
 {
     status_t error = NO_ERROR;
 
-LOGV("%s: devices %04x mode %d", __FUNCTION__, devices, mode);
+ALOGV("%s: devices %04x mode %d", __FUNCTION__, devices, mode);
 
     mAlsaControl = alsaControl;
 
@@ -262,7 +262,7 @@ LOGV("%s: devices %04x mode %d", __FUNCTION__, devices, mode);
             }
 #endif
         } else {
-            LOGI("Audio Modem Mode doesn't changed: no update needed");
+            ALOGI("Audio Modem Mode doesn't changed: no update needed");
         }
     } else if ((mode != AudioSystem::MODE_IN_CALL) &&
                (mVoiceCallState == AUDIO_MODEM_VOICE_CALL_ON)) {
@@ -301,10 +301,10 @@ status_t AudioModemAlsa::setCurrentAudioModemModes(uint32_t devices)
         mCurrentAudioModemModes = AudioModemInterface::AUDIO_MODEM_BLUETOOTH;
 #endif
     } else {
-        LOGE("Devices %04x not supported", devices);
+        ALOGE("Devices %04x not supported", devices);
         return NO_INIT;
     }
-    LOGV("New Audio Modem Modes: %04x", mCurrentAudioModemModes);
+    ALOGV("New Audio Modem Modes: %04x", mCurrentAudioModemModes);
     return NO_ERROR;
 }
 
@@ -312,7 +312,7 @@ status_t AudioModemAlsa::voiceCallCodecSet()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Start Audio Codec Voice call: %04x", mCurrentAudioModemModes);
+    ALOGV("Start Audio Codec Voice call: %04x", mCurrentAudioModemModes);
     error = mAlsaControl->set("Codec Operation Mode", "Option 2 (voice/audio)");
 
     if (mCurrentAudioModemModes & AudioModemInterface::AUDIO_MODEM_HANDSET) {
@@ -326,7 +326,7 @@ status_t AudioModemAlsa::voiceCallCodecSet()
         error = voiceCallCodecSetBluetooth();
 #endif
     } else {
-        LOGE("Audio Modem mode not supported: %d", mCurrentAudioModemModes);
+        ALOGE("Audio Modem mode not supported: %d", mCurrentAudioModemModes);
         return INVALID_OPERATION;
     }
 
@@ -455,11 +455,11 @@ status_t AudioModemAlsa::voiceCallBTDeviceEnable()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Enable PCM port of Bluetooth SCO device");
+    ALOGV("Enable PCM port of Bluetooth SCO device");
 
     error = system("/system/xbin/bt_voice_call_set");
 
-    LOGE_IF(error < 0, "Problem during bt_voice_call_set call: %s(%d)",
+    ALOGE_IF(error < 0, "Problem during bt_voice_call_set call: %s(%d)",
             strerror(error), error);
 
     return error;
@@ -469,7 +469,7 @@ status_t AudioModemAlsa::voiceCallBTDeviceDisable()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Disable PCM port of Bluetooth SCO device");
+    ALOGV("Disable PCM port of Bluetooth SCO device");
 
     return error;
 }
@@ -501,7 +501,7 @@ status_t AudioModemAlsa::voiceCallCodecSetHandset()
 
         if (!strcmp(mDeviceProp->settingsList[AUDIO_MODEM_VOICE_CALL_MULTIMIC].name,
                     "Yes")) {
-            LOGV("dual mic. enabled");
+            ALOGV("dual mic. enabled");
             error = mAlsaControl->set("Analog Capture Sub Mic Switch", 1, 0);
             error = mAlsaControl->set("Sub Microphone Bias Switch", 1, 0);
             error = mAlsaControl->set("Analog Capture Volume",
@@ -551,7 +551,7 @@ status_t AudioModemAlsa::voiceCallCodecSetHandfree()
 
     if (!strcmp(mDeviceProp->settingsList[AUDIO_MODEM_VOICE_CALL_MULTIMIC].name,
                 "Yes")) {
-        LOGV("dual mic. enabled");
+        ALOGV("dual mic. enabled");
         error = mAlsaControl->set("Analog Capture Sub Mic Switch", 1, 0);
         error = mAlsaControl->set("Sub Microphone Bias Switch", 1, 0);
         error = mAlsaControl->set("Analog Capture Volume",
@@ -600,7 +600,7 @@ status_t AudioModemAlsa::voiceCallCodecSetHeadset()
 
     if (!strcmp(mDeviceProp->settingsList[AUDIO_MODEM_VOICE_CALL_MULTIMIC].name,
                 "Yes")) {
-        LOGV("dual mic. enabled");
+        ALOGV("dual mic. enabled");
         error = mAlsaControl->set("Analog Capture Sub Mic Switch", 1, 0);
         error = mAlsaControl->set("Sub Microphone Bias Switch", 1, 0);
         error = mAlsaControl->set("Analog Capture Volume",
@@ -672,7 +672,7 @@ status_t AudioModemAlsa::voiceCallCodecUpdateHandset()
                     "Yes")) &&
             (strcmp(mDevicePropPrevious->settingsList[AUDIO_MODEM_VOICE_CALL_MULTIMIC].name,
                     "Yes"))) {
-            LOGV("dual mic. enabled");
+            ALOGV("dual mic. enabled");
             error = mAlsaControl->set("Analog Capture Sub Mic Switch", 1, 0);
             error = mAlsaControl->set("Sub Microphone Bias Switch", 1, 0);
             error = mAlsaControl->set("Analog Capture Volume",
@@ -729,7 +729,7 @@ status_t AudioModemAlsa::voiceCallCodecUpdateHandfree()
                 "Yes")) &&
         (strcmp(mDevicePropPrevious->settingsList[AUDIO_MODEM_VOICE_CALL_MULTIMIC].name,
                 "Yes"))) {
-        LOGV("dual mic. enabled");
+        ALOGV("dual mic. enabled");
         error = mAlsaControl->set("Analog Capture Sub Mic Switch", 1, 0);
         error = mAlsaControl->set("Sub Microphone Bias Switch", 1, 0);
         error = mAlsaControl->set("Analog Capture Volume",
@@ -785,7 +785,7 @@ status_t AudioModemAlsa::voiceCallCodecUpdateHeadset()
                 "Yes")) &&
         (strcmp(mDevicePropPrevious->settingsList[AUDIO_MODEM_VOICE_CALL_MULTIMIC].name,
                 "Yes"))) {
-        LOGV("dual mic. enabled");
+        ALOGV("dual mic. enabled");
         error = mAlsaControl->set("Analog Capture Sub Mic Switch", 1, 0);
         error = mAlsaControl->set("Sub Microphone Bias Switch", 1, 0);
         error = mAlsaControl->set("Analog Capture Volume",
@@ -827,7 +827,7 @@ status_t AudioModemAlsa::voiceCallCodecUpdate()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Update Audio Codec Voice call: %04x", mCurrentAudioModemModes);
+    ALOGV("Update Audio Codec Voice call: %04x", mCurrentAudioModemModes);
 
     if (mCurrentAudioModemModes & AudioModemInterface::AUDIO_MODEM_HANDSET) {
         error = voiceCallCodecUpdateHandset();
@@ -840,7 +840,7 @@ status_t AudioModemAlsa::voiceCallCodecUpdate()
         error = voiceCallCodecUpdateBluetooth();
     #endif
     } else {
-        LOGE("Audio Modem mode not supported: %04x", mCurrentAudioModemModes);
+        ALOGE("Audio Modem mode not supported: %04x", mCurrentAudioModemModes);
         return INVALID_OPERATION;
     }
 
@@ -853,7 +853,7 @@ status_t AudioModemAlsa::voiceCallCodecReset()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Stop Audio Codec Voice call");
+    ALOGV("Stop Audio Codec Voice call");
 
     error = voiceCallCodecPCMReset();
 #ifdef AUDIO_BLUETOOTH
@@ -889,7 +889,7 @@ status_t AudioModemAlsa::voiceCallCodecStop()
 
     if (!strcmp(mDevicePropPrevious->settingsList[AUDIO_MODEM_VOICE_CALL_MULTIMIC].name,
                 "Yes")) {
-        LOGV("dual mic. enabled");
+        ALOGV("dual mic. enabled");
         error = mAlsaControl->set("Analog Capture Sub Mic Switch", 0, 0);
         error = mAlsaControl->set("Sub Microphone Bias Switch", 0, 0);
         error = mAlsaControl->set("Analog Capture Right Switch", 0, 0);
@@ -912,7 +912,7 @@ status_t AudioModemAlsa::voiceCallModemSet()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Start Audio Modem Voice call");
+    ALOGV("Start Audio Modem Voice call");
 
     if (!strcmp(mDeviceProp->settingsList[AUDIO_MODEM_VOICE_CALL_SAMPLERATE].name,
                 "16Khz")) {
@@ -923,7 +923,7 @@ status_t AudioModemAlsa::voiceCallModemSet()
                AudioModemInterface::PCM_8_KHZ);
     }
     if (error < 0) {
-        LOGE("Unable to set Modem Voice Call routing: %s", strerror(error));
+        ALOGE("Unable to set Modem Voice Call routing: %s", strerror(error));
         return error;
     }
 
@@ -937,13 +937,13 @@ status_t AudioModemAlsa::voiceCallModemSet()
                     AudioModemInterface::MODEM_SINGLE_MIC);
     }
     if (error < 0) {
-        LOGE("Unable to set Modem Voice Call multimic.: %s", strerror(error));
+        ALOGE("Unable to set Modem Voice Call multimic.: %s", strerror(error));
         return error;
     }
 
     error =  mModem->OpenModemVoiceCallStream();
     if (error < 0) {
-        LOGE("Unable to open Modem Voice Call stream: %s", strerror(error));
+        ALOGE("Unable to open Modem Voice Call stream: %s", strerror(error));
         return error;
     }
 
@@ -954,7 +954,7 @@ status_t AudioModemAlsa::voiceCallModemUpdate()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Update Audio Modem Voice call");
+    ALOGV("Update Audio Modem Voice call");
 
     if (!strcmp(mDeviceProp->settingsList[AUDIO_MODEM_VOICE_CALL_SAMPLERATE].name,
                 "16Khz")) {
@@ -965,7 +965,7 @@ status_t AudioModemAlsa::voiceCallModemUpdate()
                AudioModemInterface::PCM_8_KHZ);
     }
     if (error < 0) {
-        LOGE("Unable to set Modem Voice Call routing: %s", strerror(error));
+        ALOGE("Unable to set Modem Voice Call routing: %s", strerror(error));
         return error;
     }
 
@@ -979,7 +979,7 @@ status_t AudioModemAlsa::voiceCallModemUpdate()
                     AudioModemInterface::MODEM_SINGLE_MIC);
     }
     if (error < 0) {
-        LOGE("Unable to set Modem Voice Call multimic.: %s", strerror(error));
+        ALOGE("Unable to set Modem Voice Call multimic.: %s", strerror(error));
         return error;
     }
 
@@ -990,11 +990,11 @@ status_t AudioModemAlsa::voiceCallModemReset()
 {
     status_t error = NO_ERROR;
 
-    LOGV("Stop Audio Modem Voice call");
+    ALOGV("Stop Audio Modem Voice call");
 
     error = mModem->CloseModemVoiceCallStream();
     if (error < 0) {
-        LOGE("Unable to close Modem Voice Call stream: %s", strerror(error));
+        ALOGE("Unable to close Modem Voice Call stream: %s", strerror(error));
         return error;
     }
 
@@ -1015,12 +1015,12 @@ status_t AudioModemAlsa::voiceCallVolume(ALSAControl *alsaControl, float volume)
         if (setVolume > info->max) setVolume = info->max;
         if (setVolume < info->min) setVolume = info->min;
 
-        LOGV("%s: in call volume level to apply: %d", voiceCallVolumeProp[i].volumeName,
+        ALOGV("%s: in call volume level to apply: %d", voiceCallVolumeProp[i].volumeName,
                 setVolume);
 
         error = alsaControl->set(voiceCallVolumeProp[i].volumeName, setVolume, 0);
         if (error < 0) {
-            LOGE("%s: error applying in call volume: %d", voiceCallVolumeProp[i].volumeName,
+            ALOGE("%s: error applying in call volume: %d", voiceCallVolumeProp[i].volumeName,
                     setVolume);
             return error;
         }

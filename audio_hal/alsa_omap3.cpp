@@ -17,6 +17,7 @@
 
 #define LOG_TAG "Omap3ALSA"
 #include <utils/Log.h>
+#include <utils/Mutex.h>
 
 #include "AudioHardwareALSA.h"
 #include <media/AudioRecord.h>
@@ -36,7 +37,7 @@
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof(x[0]))
 
-namespace android
+namespace android_audio_legacy
 {
 
 static int s_device_open(const hw_module_t*, const char*, hw_device_t**);
@@ -93,7 +94,7 @@ static int s_device_open(const hw_module_t* module, const char* name,
 
     *device = &dev->common;
 
-    LOGD("OMAP3 ALSA module opened");
+    ALOGD("OMAP3 ALSA module opened");
 
     return 0;
 }
@@ -196,7 +197,7 @@ static alsa_handle_t _defaults[] = {
         handle      : 0,
         format      : SND_PCM_FORMAT_S16_LE, // AudioSystem::PCM_16_BIT
         channels    : 1,
-        sampleRate  : AudioRecord::DEFAULT_SAMPLE_RATE,
+        sampleRate  : android::AudioRecord::DEFAULT_SAMPLE_RATE,
         latency     : 250000, // Desired Delay in usec
         bufferSize  : 2048, // Desired Number of samples
         mmap        : 0,
@@ -239,7 +240,7 @@ const char *deviceName(alsa_handle_t *handle, uint32_t device, int mode)
 
 snd_pcm_stream_t direction(alsa_handle_t *handle)
 {
-LOGE("direction requext. devices %d, mask %d,  result %d\n", handle->devices, AudioSystem::DEVICE_OUT_ALL, handle->devices & AudioSystem::DEVICE_OUT_ALL);
+ALOGE("direction requext. devices %d, mask %d,  result %d\n", handle->devices, AudioSystem::DEVICE_OUT_ALL, handle->devices & AudioSystem::DEVICE_OUT_ALL);
     return (handle->devices & AudioSystem::DEVICE_OUT_ALL) ? SND_PCM_STREAM_PLAYBACK
             : SND_PCM_STREAM_CAPTURE;
 }
@@ -289,7 +290,7 @@ status_t setHardwareParams(alsa_handle_t *handle)
 
     err = snd_pcm_hw_params_any(handle->handle, hardwareParams);
     if (err < 0) {
-        LOGE("Unable to configure hardware: %s", snd_strerror(err));
+        ALOGE("Unable to configure hardware: %s", snd_strerror(err));
         goto done;
     }
 
@@ -297,7 +298,7 @@ status_t setHardwareParams(alsa_handle_t *handle)
     err = snd_pcm_hw_params_set_access(handle->handle, hardwareParams,
             SND_PCM_ACCESS_RW_INTERLEAVED);
     if (err < 0) {
-        LOGE("Unable to configure PCM read/write format: %s",
+        ALOGE("Unable to configure PCM read/write format: %s",
                 snd_strerror(err));
         goto done;
     }
@@ -305,38 +306,38 @@ status_t setHardwareParams(alsa_handle_t *handle)
     err = snd_pcm_hw_params_set_format(handle->handle, hardwareParams,
             handle->format);
     if (err < 0) {
-        LOGE("Unable to configure PCM format %s (%s): %s",
+        ALOGE("Unable to configure PCM format %s (%s): %s",
                 formatName, formatDesc, snd_strerror(err));
         goto done;
     }
 
-    LOGI("Set %s PCM format to %s (%s)", streamName(handle), formatName, formatDesc);
+    ALOGI("Set %s PCM format to %s (%s)", streamName(handle), formatName, formatDesc);
 
     err = snd_pcm_hw_params_set_channels(handle->handle, hardwareParams,
             handle->channels);
     if (err < 0) {
-        LOGE("Unable to set channel count to %i: %s",
+        ALOGE("Unable to set channel count to %i: %s",
                 handle->channels, snd_strerror(err));
         goto done;
     }
 
-    LOGI("Using %i %s for %s.", handle->channels,
+    ALOGI("Using %i %s for %s.", handle->channels,
             handle->channels == 1 ? "channel" : "channels", streamName(handle));
 
     err = snd_pcm_hw_params_set_rate_near(handle->handle, hardwareParams,
             &requestedRate, 0);
 
     if (err < 0)
-        LOGE("Unable to set %s sample rate to %u: %s",
+        ALOGE("Unable to set %s sample rate to %u: %s",
                 streamName(handle), handle->sampleRate, snd_strerror(err));
     else if (requestedRate != handle->sampleRate)
         // Some devices have a fixed sample rate, and can not be changed.
         // This may cause resampling problems; i.e. PCM playback will be too
         // slow or fast.
-        LOGW("Requested rate (%u HZ) does not match actual rate (%u HZ)",
+        ALOGW("Requested rate (%u HZ) does not match actual rate (%u HZ)",
                 handle->sampleRate, requestedRate);
     else
-        LOGI("Set %s sample rate to %u HZ", streamName(handle), requestedRate);
+        ALOGI("Set %s sample rate to %u HZ", streamName(handle), requestedRate);
 
     // Setup buffers for latency
     err = snd_pcm_hw_params_set_buffer_time_near(handle->handle,
@@ -347,14 +348,14 @@ status_t setHardwareParams(alsa_handle_t *handle)
         err = snd_pcm_hw_params_set_period_time_near(handle->handle,
                 hardwareParams, &periodTime, NULL);
         if (err < 0) {
-            LOGE("Unable to set the period time for latency: %s", snd_strerror(err));
+            ALOGE("Unable to set the period time for latency: %s", snd_strerror(err));
             goto done;
         }
         snd_pcm_uframes_t periodSize;
         err = snd_pcm_hw_params_get_period_size(hardwareParams, &periodSize,
                 NULL);
         if (err < 0) {
-            LOGE("Unable to get the period size for latency: %s", snd_strerror(err));
+            ALOGE("Unable to get the period size for latency: %s", snd_strerror(err));
             goto done;
         }
         bufferSize = periodSize * periodSizeScaleFactor;
@@ -362,40 +363,40 @@ status_t setHardwareParams(alsa_handle_t *handle)
         err = snd_pcm_hw_params_set_buffer_size_near(handle->handle,
                 hardwareParams, &bufferSize);
         if (err < 0) {
-            LOGE("Unable to set the buffer size for latency: %s", snd_strerror(err));
+            ALOGE("Unable to set the buffer size for latency: %s", snd_strerror(err));
             goto done;
         }
     } else {
         // OK, we got buffer time near what we expect. See what that did for bufferSize.
         err = snd_pcm_hw_params_get_buffer_size(hardwareParams, &bufferSize);
         if (err < 0) {
-            LOGE("Unable to get the buffer size for latency: %s", snd_strerror(err));
+            ALOGE("Unable to get the buffer size for latency: %s", snd_strerror(err));
             goto done;
         }
         // Does set_buffer_time_near change the passed value? It should.
         err = snd_pcm_hw_params_get_buffer_time(hardwareParams, &latency, NULL);
         if (err < 0) {
-            LOGE("Unable to get the buffer time for latency: %s", snd_strerror(err));
+            ALOGE("Unable to get the buffer time for latency: %s", snd_strerror(err));
             goto done;
         }
         unsigned int periodTime = latency / periodSizeScaleFactor;
         err = snd_pcm_hw_params_set_period_time_near(handle->handle,
                 hardwareParams, &periodTime, NULL);
         if (err < 0) {
-            LOGE("Unable to set the period time for latency: %s", snd_strerror(err));
+            ALOGE("Unable to set the period time for latency: %s", snd_strerror(err));
             goto done;
         }
     }
 
-    LOGI("Buffer size: %d", (int)bufferSize);
-    LOGI("Latency: %d", (int)latency);
+    ALOGI("Buffer size: %d", (int)bufferSize);
+    ALOGI("Latency: %d", (int)latency);
 
     handle->bufferSize = bufferSize;
     handle->latency = latency;
 
     // Commit the hardware parameters back to the device.
     err = snd_pcm_hw_params(handle->handle, hardwareParams);
-    if (err < 0) LOGE("Unable to set hardware parameters: %s", snd_strerror(err));
+    if (err < 0) ALOGE("Unable to set hardware parameters: %s", snd_strerror(err));
 
     done:
     snd_pcm_hw_params_free(hardwareParams);
@@ -420,7 +421,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     // Get the current software parameters
     err = snd_pcm_sw_params_current(handle->handle, softwareParams);
     if (err < 0) {
-        LOGE("Unable to get software parameters: %s", snd_strerror(err));
+        ALOGE("Unable to get software parameters: %s", snd_strerror(err));
         goto done;
     }
 
@@ -442,7 +443,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     err = snd_pcm_sw_params_set_start_threshold(handle->handle, softwareParams,
             startThreshold);
     if (err < 0) {
-        LOGE("Unable to set start threshold to %lu frames: %s",
+        ALOGE("Unable to set start threshold to %lu frames: %s",
                 startThreshold, snd_strerror(err));
         goto done;
     }
@@ -450,7 +451,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     err = snd_pcm_sw_params_set_stop_threshold(handle->handle, softwareParams,
             stopThreshold);
     if (err < 0) {
-        LOGE("Unable to set stop threshold to %lu frames: %s",
+        ALOGE("Unable to set stop threshold to %lu frames: %s",
                 stopThreshold, snd_strerror(err));
         goto done;
     }
@@ -460,14 +461,14 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     err = snd_pcm_sw_params_set_avail_min(handle->handle, softwareParams,
             periodSize);
     if (err < 0) {
-        LOGE("Unable to configure available minimum to %lu: %s",
+        ALOGE("Unable to configure available minimum to %lu: %s",
                 periodSize, snd_strerror(err));
         goto done;
     }
 
     // Commit the software parameters back to the device.
     err = snd_pcm_sw_params(handle->handle, softwareParams);
-    if (err < 0) LOGE("Unable to configure software parameters: %s",
+    if (err < 0) ALOGE("Unable to configure software parameters: %s",
             snd_strerror(err));
 
     done:
@@ -478,17 +479,17 @@ status_t setSoftwareParams(alsa_handle_t *handle)
 
 void setScoControls(uint32_t devices, int mode)
 {
-LOGV("%s", __FUNCTION__);
+ALOGV("%s", __FUNCTION__);
 }
 
 void setFmControls(uint32_t devices, int mode)
 {
-LOGV("%s", __FUNCTION__);
+ALOGV("%s", __FUNCTION__);
 }
 
 void setDefaultControls(uint32_t devices, int mode)
 {
-LOGV("%s", __FUNCTION__);
+ALOGV("%s", __FUNCTION__);
     ALSAControl control("hw:00");
 
 #ifdef AUDIO_MODEM_TI
@@ -552,7 +553,7 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
 
 static status_t s_init(alsa_device_t *module, ALSAHandleList &list)
 {
-    LOGD("Initializing devices for OMAP3 ALSA module");
+    ALOGD("Initializing devices for OMAP3 ALSA module");
 
     list.clear();
 
@@ -593,7 +594,7 @@ static status_t s_open(alsa_handle_t *handle, uint32_t devices, int mode, uint32
 
 open_again:
 
-    LOGD("open called for devices %08x in mode %d channels %08x...", devices, mode, channels);
+    ALOGD("open called for devices %08x in mode %d channels %08x...", devices, mode, channels);
 
     const char *stream = streamName(handle);
     const char *devName = deviceName(handle, devices, mode);
@@ -610,7 +611,7 @@ open_again:
 			     AudioSystem::DEVICE_OUT_WIRED_HEADSET);
 		goto open_again;
 	}
-        LOGE("Failed to Initialize any ALSA %s %s device: %s", stream, devName, snd_strerror(err));
+        ALOGE("Failed to Initialize any ALSA %s %s device: %s", stream, devName, snd_strerror(err));
         return NO_INIT;
     }
 
@@ -620,7 +621,7 @@ open_again:
 
     setAlsaControls(handle, devices, mode, channels);
 
-    LOGI("Initialized ALSA %s device %s", stream, devName);
+    ALOGI("Initialized ALSA %s device %s", stream, devName);
     return err;
 }
 
@@ -636,7 +637,7 @@ static status_t s_close(alsa_handle_t *handle)
         snd_pcm_drain(h);
         err = snd_pcm_close(h);
         if (err)
-            LOGE("Failed closing ALSA stream: %s", snd_strerror(err));
+            ALOGE("Failed closing ALSA stream: %s", snd_strerror(err));
     }
 
     return err;
@@ -653,13 +654,13 @@ static status_t s_standby(alsa_handle_t *handle)
     status_t err = NO_ERROR;
     snd_pcm_t *h = handle->handle;
     handle->handle = 0;
-    LOGV("In omap3 standby\n");
+    ALOGV("In omap3 standby\n");
     if (h) {
         snd_pcm_drain(h);
         err = snd_pcm_close(h);
         if (err)
-            LOGE("Failed closing ALSA stream: %s", snd_strerror(err));
-        LOGV("called drain&close\n");
+            ALOGE("Failed closing ALSA stream: %s", snd_strerror(err));
+        ALOGV("called drain&close\n");
     }
 
     return err;
@@ -669,14 +670,14 @@ static status_t s_route(alsa_handle_t *handle, uint32_t devices, int mode)
 {
     status_t status = NO_ERROR;
 
-    LOGD("route called for devices %08x in mode %d...", devices, mode);
+    ALOGD("route called for devices %08x in mode %d...", devices, mode);
 
     if (handle->handle && handle->curDev == devices && handle->curMode == mode)
         ; // Nothing to do
     else if (handle->handle && (handle->devices & devices))
         setAlsaControls(handle, devices, mode, handle->curChannels);
     else {
-        LOGE("Why are we routing to a device that isn't supported by this object?!?!?!?!");
+        ALOGE("Why are we routing to a device that isn't supported by this object?!?!?!?!");
         status = s_open(handle, devices, mode, handle->curChannels);
 #ifdef AUDIO_MODEM_TI
             ALSAControl control("hw:00");
@@ -696,7 +697,7 @@ static status_t s_voicevolume(float volume)
         if (audioModem) {
             status = audioModem->voiceCallVolume(&control, volume);
         } else {
-            LOGE("Audio Modem not initialized: voice volume can't be applied");
+            ALOGE("Audio Modem not initialized: voice volume can't be applied");
             status = NO_INIT;
         }
 #endif

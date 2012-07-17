@@ -87,7 +87,7 @@ static int s_device_open(const hw_module_t* module, const char* name,
 
     *device = &dev->common;
 
-    LOGD("OMAP4 ALSA module opened");
+    ALOGD("OMAP4 ALSA module opened");
 
     return 0;
 }
@@ -333,7 +333,7 @@ status_t setHardwareParams(alsa_handle_t *handle)
 
     err = snd_pcm_hw_params_any(handle->handle, hardwareParams);
     if (err < 0) {
-        LOGE("Unable to configure hardware: %s", snd_strerror(err));
+        ALOGE("Unable to configure hardware: %s", snd_strerror(err));
         goto done;
     }
 
@@ -354,7 +354,7 @@ status_t setHardwareParams(alsa_handle_t *handle)
                         SND_PCM_ACCESS_RW_INTERLEAVED);
     }
     if (err < 0) {
-        LOGE("Unable to configure PCM read/write format: %s",
+        ALOGE("Unable to configure PCM read/write format: %s",
                 snd_strerror(err));
         goto done;
     }
@@ -362,44 +362,44 @@ status_t setHardwareParams(alsa_handle_t *handle)
     err = snd_pcm_hw_params_set_format(handle->handle, hardwareParams,
             handle->format);
     if (err < 0) {
-        LOGE("Unable to configure PCM format %s (%s): %s",
+        ALOGE("Unable to configure PCM format %s (%s): %s",
                 formatName, formatDesc, snd_strerror(err));
         goto done;
     }
 
-    LOGV("Set %s PCM format to %s (%s)", streamName(handle), formatName, formatDesc);
+    ALOGV("Set %s PCM format to %s (%s)", streamName(handle), formatName, formatDesc);
 
     err = snd_pcm_hw_params_set_channels(handle->handle, hardwareParams,
             handle->channels);
     if (err < 0) {
-        LOGE("Unable to set channel count to %i: %s",
+        ALOGE("Unable to set channel count to %i: %s",
                 handle->channels, snd_strerror(err));
         goto done;
     }
 
-    LOGV("Using %i %s for %s.", handle->channels,
+    ALOGV("Using %i %s for %s.", handle->channels,
             handle->channels == 1 ? "channel" : "channels", streamName(handle));
 
     err = snd_pcm_hw_params_set_rate_near(handle->handle, hardwareParams,
             &requestedRate, 0);
     if (err < 0)
-        LOGE("Unable to set %s sample rate to %u: %s",
+        ALOGE("Unable to set %s sample rate to %u: %s",
                 streamName(handle), handle->sampleRate, snd_strerror(err));
     else if (requestedRate != handle->sampleRate)
         // Some devices have a fixed sample rate, and can not be changed.
         // This may cause resampling problems; i.e. PCM playback will be too
         // slow or fast.
-        LOGW("Requested rate (%u HZ) does not match actual rate (%u HZ)",
+        ALOGW("Requested rate (%u HZ) does not match actual rate (%u HZ)",
                 handle->sampleRate, requestedRate);
     else
-        LOGV("Set %s sample rate to %u HZ", streamName(handle), requestedRate);
+        ALOGV("Set %s sample rate to %u HZ", streamName(handle), requestedRate);
 
     if (strcmp(device, MM_LP_DEVICE) == 0) {
         numPeriods = 2;
-        LOGI("Using ping-pong!");
+        ALOGI("Using ping-pong!");
     } else {
         numPeriods = 4;
-        LOGI("Using FIFO");
+        ALOGI("Using FIFO");
     }
 
     //get the default array index
@@ -415,13 +415,13 @@ status_t setHardwareParams(alsa_handle_t *handle)
     err = snd_pcm_hw_params_set_buffer_size_near(handle->handle, hardwareParams,
             &bufferSize);
     if (err < 0) {
-        LOGE("Unable to set buffer size to %d:  %s",
+        ALOGE("Unable to set buffer size to %d:  %s",
                 (int)bufferSize, snd_strerror(err));
         goto done;
     }
     // did we get what we asked for? we should.
     if (bufferSize != reqBuffSize) {
-         LOGW("Requested buffer size %d not granted, got %d",
+         ALOGW("Requested buffer size %d not granted, got %d",
                 (int)reqBuffSize, (int)bufferSize);
     }
     // set the period size for our buffer
@@ -429,25 +429,25 @@ status_t setHardwareParams(alsa_handle_t *handle)
     err = snd_pcm_hw_params_set_period_size_near(handle->handle,
             hardwareParams, &periodSize, NULL);
     if (err < 0) {
-        LOGE("Unable to set period size to %d:  %s", (int)periodSize, snd_strerror(err));
+        ALOGE("Unable to set period size to %d:  %s", (int)periodSize, snd_strerror(err));
         goto done;
     }
     // check our period time
     err = snd_pcm_hw_params_get_period_time(hardwareParams, &periodTime, NULL);
     if (err < 0) {
-        LOGE("Unable to get period time:  %s", snd_strerror(err));
+        ALOGE("Unable to get period time:  %s", snd_strerror(err));
         goto done;
     }
     // get the buffer time
     err = snd_pcm_hw_params_get_buffer_time(hardwareParams, &bufferTime, NULL);
     if (err < 0) {
-        LOGE("Unable to set buffer time:  %s", snd_strerror(err));
+        ALOGE("Unable to set buffer time:  %s", snd_strerror(err));
         goto done;
     }
     // get the buffer size again in case setting the period size changed it
     err = snd_pcm_hw_params_get_buffer_size(hardwareParams, &bufferSize);
     if (err < 0) {
-        LOGE("Unable to set buffer size:  %s", snd_strerror(err));
+        ALOGE("Unable to set buffer size:  %s", snd_strerror(err));
         goto done;
     }
 
@@ -462,12 +462,12 @@ status_t setHardwareParams(alsa_handle_t *handle)
         handle->latency = bufferTime;
     }
 
-    LOGI("Buffer size: %d", (int)(handle->bufferSize));
-    LOGI("Latency: %d", (int)(handle->latency));
+    ALOGI("Buffer size: %d", (int)(handle->bufferSize));
+    ALOGI("Latency: %d", (int)(handle->latency));
 
     // Commit the hardware parameters back to the device.
     err = snd_pcm_hw_params(handle->handle, hardwareParams);
-    if (err < 0) LOGE("Unable to set hardware parameters: %s", snd_strerror(err));
+    if (err < 0) ALOGE("Unable to set hardware parameters: %s", snd_strerror(err));
 
     done:
     snd_pcm_hw_params_free(hardwareParams);
@@ -492,7 +492,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     // Get the current software parameters
     err = snd_pcm_sw_params_current(handle->handle, softwareParams);
     if (err < 0) {
-        LOGE("Unable to get software parameters: %s", snd_strerror(err));
+        ALOGE("Unable to get software parameters: %s", snd_strerror(err));
         goto done;
     }
 
@@ -509,7 +509,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
         // first frame.
         startThreshold = 1;
         if (handle->devices & OMAP4_IN_FM) {
-            LOGV("Stop Threshold for FM Rx is -1");
+            ALOGV("Stop Threshold for FM Rx is -1");
             stopThreshold = -1; // For FM Rx via ABE
         } else
             stopThreshold = bufferSize;
@@ -518,7 +518,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     err = snd_pcm_sw_params_set_start_threshold(handle->handle, softwareParams,
             startThreshold);
     if (err < 0) {
-        LOGE("Unable to set start threshold to %lu frames: %s",
+        ALOGE("Unable to set start threshold to %lu frames: %s",
                 startThreshold, snd_strerror(err));
         goto done;
     }
@@ -526,7 +526,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     err = snd_pcm_sw_params_set_stop_threshold(handle->handle, softwareParams,
             stopThreshold);
     if (err < 0) {
-        LOGE("Unable to set stop threshold to %lu frames: %s",
+        ALOGE("Unable to set stop threshold to %lu frames: %s",
                 stopThreshold, snd_strerror(err));
         goto done;
     }
@@ -536,14 +536,14 @@ status_t setSoftwareParams(alsa_handle_t *handle)
     err = snd_pcm_sw_params_set_avail_min(handle->handle, softwareParams,
             periodSize);
     if (err < 0) {
-        LOGE("Unable to configure available minimum to %lu: %s",
+        ALOGE("Unable to configure available minimum to %lu: %s",
                 periodSize, snd_strerror(err));
         goto done;
     }
 
     // Commit the software parameters back to the device.
     err = snd_pcm_sw_params(handle->handle, softwareParams);
-    if (err < 0) LOGE("Unable to configure software parameters: %s",
+    if (err < 0) ALOGE("Unable to configure software parameters: %s",
             snd_strerror(err));
 
     done:
@@ -555,7 +555,7 @@ status_t setSoftwareParams(alsa_handle_t *handle)
 
 void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t channels)
 {
-    LOGV("%s: devices %08x mode %d channels %08x", __FUNCTION__, devices, mode, channels);
+    ALOGV("%s: devices %08x mode %d channels %08x", __FUNCTION__, devices, mode, channels);
     ALSAControl control("hw:00");
 
     /* check whether the devices is input or not */
@@ -570,18 +570,18 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
             control.set("HF Right Playback", "HF DAC");		// HFDAC R -> HF Mux
             control.set("Handsfree Playback Volume", 23);
             if (fm_enable) {
-                LOGE("FM Enabled, DL2 Capture-Playback Vol ON");
+                ALOGE("FM Enabled, DL2 Capture-Playback Vol ON");
                 control.set("DL2 Capture Playback Volume", 115);
                 control.set("DL1 Capture Playback Volume", 0, -1);
             }
             else {
-                LOGI("FM Disabled, DL2 Capture-Playback Vol OFF");
+                ALOGI("FM Disabled, DL2 Capture-Playback Vol OFF");
                 control.set("DL2 Capture Playback Volume", 0, -1);
             }
             if (propMgr.setFromProperty((String8)Omap4ALSAManager::DL2_SPEAK_MONO_MIXER, (String8)"0") == NO_ERROR) {
                 String8 value;
                 if (propMgr.get((String8)Omap4ALSAManager::DL2_SPEAK_MONO_MIXER, value) == NO_ERROR) {
-                    LOGD("DL2 Mono Mixer value %s",value.string());
+                    ALOGD("DL2 Mono Mixer value %s",value.string());
                     control.set("DL2 Mono Mixer", atoi(value.string()));
                 }
             }
@@ -605,7 +605,7 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
             if (propMgr.setFromProperty((String8)Omap4ALSAManager::DL1_HEAD_MONO_MIXER, (String8)"0") == NO_ERROR) {
                 String8 value;
                 if (propMgr.get((String8)Omap4ALSAManager::DL1_HEAD_MONO_MIXER, value) == NO_ERROR) {
-                    LOGD("DL1 Mono Mixer value %s",value.string());
+                    ALOGD("DL1 Mono Mixer value %s",value.string());
                     control.set("DL1 Mono Mixer", atoi(value.string()));
                 }
             }
@@ -623,7 +623,7 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
             if (propMgr.setFromProperty((String8)Omap4ALSAManager::DL1_EAR_MONO_MIXER, (String8)"1") == NO_ERROR) {
                 String8 value;
                 if (propMgr.get((String8)Omap4ALSAManager::DL1_EAR_MONO_MIXER, value) == NO_ERROR) {
-                    LOGD("DL1 Mono Mixer value %s",value.string());
+                    ALOGD("DL1 Mono Mixer value %s",value.string());
                     control.set("DL1 Mono Mixer", atoi(value.string()));
                 }
             }
@@ -642,12 +642,12 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
             control.set("DL1 Media Playback Volume", 118);
             control.set("DL1 PDM Switch", 1);
             if (fm_enable) {
-                LOGI("FM Enabled, DL1 Capture-Playback Vol ON");
+                ALOGI("FM Enabled, DL1 Capture-Playback Vol ON");
                 control.set("DL1 Capture Playback Volume", 115);
                 control.set("DL2 Capture Playback Volume", 0, -1);
             }
             else {
-                LOGI("FM Disabled, DL1 Capture-Playback Vol OFF");
+                ALOGI("FM Disabled, DL1 Capture-Playback Vol OFF");
                 control.set("DL1 Capture Playback Volume", 0, -1);
             }
         } else {
@@ -728,7 +728,7 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
             control.set("MUX_UL10", "AMic1");
             control.set("MUX_UL11", "AMic0");
         } else if(devices & OMAP4_IN_SCO) {
-            LOGI("OMAP4 ABE set for BT SCO Headset");
+            ALOGI("OMAP4 ABE set for BT SCO Headset");
             control.set("AMIC_UL PDM Switch", 0, 0);
             control.set("MUX_UL00", "BT Right");
             control.set("MUX_UL01", "BT Left");
@@ -737,7 +737,7 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
             control.set("BT UL Volume", 120);
             control.set("Voice Capture Mixer Capture", 1);
         } else if (devices & AudioSystem::DEVICE_IN_VOICE_CALL) {
-            LOGI("OMAP4 ABE set for VXREC");
+            ALOGI("OMAP4 ABE set for VXREC");
             configVoiceMemo (channels);
             control.set("MUX_UL00", "VX Right");
             control.set("MUX_UL01", "VX Left");
@@ -767,7 +767,7 @@ void setAlsaControls(alsa_handle_t *handle, uint32_t devices, int mode, uint32_t
 
 static status_t s_init(alsa_device_t *module, ALSAHandleList &list)
 {
-    LOGD("Initializing devices for OMAP4 ALSA module");
+    ALOGD("Initializing devices for OMAP4 ALSA module");
     status_t status = NO_ERROR;
     list.clear();
 
@@ -837,7 +837,7 @@ static status_t s_open(alsa_handle_t *handle, uint32_t devices, int mode, uint32
     //
     s_close(handle);
 
-    LOGD("open called for devices %08x in mode %d channels %08x...", devices, mode, channels);
+    ALOGD("open called for devices %08x in mode %d channels %08x...", devices, mode, channels);
 
     const char *stream = streamName(handle);
     const char *devName = deviceName(handle, devices, mode);
@@ -861,10 +861,10 @@ static status_t s_open(alsa_handle_t *handle, uint32_t devices, int mode, uint32
     int err = snd_pcm_open(&handle->handle, devName, direction(handle), 0);
 
     if (err < 0) {
-        LOGE("Failed to initialize ALSA %s device '%s': %s", stream, devName, strerror(err));
+        ALOGE("Failed to initialize ALSA %s device '%s': %s", stream, devName, strerror(err));
         return NO_INIT;
     }
-    LOGV("snd_pcm_open(%p, %s, %s, 0)", handle->handle, devName,
+    ALOGV("snd_pcm_open(%p, %s, %s, 0)", handle->handle, devName,
          (direction(handle) == SND_PCM_STREAM_PLAYBACK) ? "SND_PCM_STREAM_PLAYBACK" : "SND_PCM_STREAM_CAPTURE");
 
     mActive = true;
@@ -873,16 +873,16 @@ static status_t s_open(alsa_handle_t *handle, uint32_t devices, int mode, uint32
 
     if (err == NO_ERROR) err = setSoftwareParams(handle);
 
-    LOGI("Initialized ALSA %s device '%s'", stream, devName);
+    ALOGI("Initialized ALSA %s device '%s'", stream, devName);
 
     if (fm_enable) {
-        LOGI("Triggering McPDM DL");
+        ALOGI("Triggering McPDM DL");
         snd_pcm_start(handle->handle);
     }
 
     // For FM Rx through ABE, McPDM UL needs to be triggered
     if (devices &  OMAP4_IN_FM) {
-       LOGI("Triggering McPDM UL");
+       ALOGI("Triggering McPDM UL");
        fm_enable = true;
        snd_pcm_start(handle->handle);
     }
@@ -900,7 +900,7 @@ static status_t s_close(alsa_handle_t *handle)
     if (h) {
         snd_pcm_drain(h);
         err = snd_pcm_close(h);
-        LOGV("snd_pcm_close(%p): %s(%d) ", h,
+        ALOGV("snd_pcm_close(%p): %s(%d) ", h,
              err != 0 ? strerror(err) : "no error",
              err != 0 ? err : 0);
         mActive = false;
@@ -920,15 +920,15 @@ static status_t s_standby(alsa_handle_t *handle)
     status_t err = NO_ERROR;
     snd_pcm_t *h = handle->handle;
     handle->handle = 0;
-    LOGV("In omap4 standby\n");
+    ALOGV("In omap4 standby\n");
     if (h) {
         snd_pcm_drain(h);
         err = snd_pcm_close(h);
-        LOGV("snd_pcm_close(%p): %s(%d) ", h,
+        ALOGV("snd_pcm_close(%p): %s(%d) ", h,
              err != 0 ? strerror(err) : "no error",
              err != 0 ? err : 0);
         mActive = false;
-        LOGE("called drain&close\n");
+        ALOGE("called drain&close\n");
     }
 
     return err;
@@ -938,11 +938,11 @@ static status_t s_route(alsa_handle_t *handle, uint32_t devices, int mode)
 {
     status_t status = NO_ERROR;
 
-    LOGD("route called for devices %08x in mode %d...", devices, mode);
+    ALOGD("route called for devices %08x in mode %d...", devices, mode);
 
     if (!devices) {
         fm_enable = false;
-        LOGV("Ignore the audio routing change as there's no device specified");
+        ALOGV("Ignore the audio routing change as there's no device specified");
         return NO_ERROR;
     }
 
@@ -982,7 +982,7 @@ static status_t s_voicevolume(float volume)
         if (audioModem) {
             status = audioModem->voiceCallVolume(&control, volume);
         } else {
-            LOGE("Audio Modem not initialized: voice volume can't be applied");
+            ALOGE("Audio Modem not initialized: voice volume can't be applied");
             status = NO_INIT;
         }
 #endif
@@ -997,15 +997,15 @@ static status_t s_set(const String8& keyValuePairs)
     String8 value;
     unsigned int i = 0;
 
-    LOGI("set:: %s", keyValuePairs.string());
+    ALOGI("set:: %s", keyValuePairs.string());
     while (i < propMgr.size()) {
         if (p.get(propMgr.mParams.keyAt(i), value) == NO_ERROR) {
             if(propMgr.set(propMgr.mParams.keyAt(i), value) == BAD_VALUE) {
-                LOGE("PropMgr.set failed to validate new value for %s=%s",
+                ALOGE("PropMgr.set failed to validate new value for %s=%s",
                       propMgr.mParams.keyAt(i).string(), value.string());
             }
             else {
-                LOGV("PropMgr.set %s::%s", propMgr.mParams.keyAt(i).string(), value.string());
+                ALOGV("PropMgr.set %s::%s", propMgr.mParams.keyAt(i).string(), value.string());
                 // @TODO: update any controls that should
                 // based on which property was KVP was sent
                 p.remove(key);
@@ -1058,8 +1058,8 @@ void configMicChoices (uint32_t devices) {
         control.set("DMIC2 UL Volume", 1);        // DMIC1 -> MUTE
         control.set("DMIC3 UL Volume", 1);        // DMIC1 -> MUTE
     }
-    LOGI("main mic selected %s", main.string());
-    LOGI("sub mic selected %s", sub.string());
+    ALOGI("main mic selected %s", main.string());
+    ALOGI("sub mic selected %s", sub.string());
 
 }
 
