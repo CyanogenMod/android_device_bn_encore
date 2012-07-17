@@ -93,6 +93,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
+# Audio Files - Need to fix Source - THANKS STEVEN676 (SLUO in irc)
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/alsa/alsa.omap3.so:system/lib/hw/alsa.omap3.so \
+   $(LOCAL_PATH)/alsa/libaudio.so:system/lib/libaudio.so
+
 # Art
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/poetry/poem.txt:root/sbin/poem.txt
