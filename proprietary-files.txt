@@ -48,7 +48,6 @@ lib/egl/libEGL_POWERVR_SGX530_125.so
 lib/egl/libGLES_android.so
 lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so
 lib/egl/libGLESv2_POWERVR_SGX530_125.so
-lib/hw/alsa.omap3.so
 lib/hw/gralloc.omap3.so
 lib/libIMGegl.so
 lib/libLCML.so
@@ -85,7 +84,6 @@ lib/libVendor_ti_omx.so
 lib/libVendor_ti_omx_config_parser.so
 lib/liba2dp.so
 lib/libasound.so
-lib/libaudio.so
 lib/libaudiopolicy.so
 lib/libbridge.so
 lib/libglslcompiler.so
