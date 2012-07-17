@@ -76,7 +76,8 @@ PRODUCT_COPY_FILES += \
 
 # Media Profile
 PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml
+   $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml \
+   $(LOCAL_PATH)/etc/media_codecs.xml:system/etc/media_codecs.xml
 
 # Clears the boot counter
 PRODUCT_COPY_FILES += \
