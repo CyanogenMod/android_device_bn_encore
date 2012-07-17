@@ -95,8 +95,9 @@ PRODUCT_COPY_FILES += \
 
 # Audio Files - Need to fix Source - THANKS STEVEN676 (SLUO in irc)
 PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/alsa/alsa.omap3.so:system/lib/hw/alsa.omap3.so \
-   $(LOCAL_PATH)/alsa/libaudio.so:system/lib/libaudio.so
+   $(LOCAL_PATH)/prebuilt/alsa/alsa.omap3.so:system/lib/hw/alsa.omap3.so \
+   $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:system/lib/libaudio.so \
+   $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:obj/lib/libaudio.so 
 
 # Art
 PRODUCT_COPY_FILES += \
