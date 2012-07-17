@@ -142,7 +142,6 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     libaudiohw_legacy \
     audio.primary.omap3 \
-    libaudiopolicy_legacy2 \
     audio.primary.encore \
     tinyplay \
     tinymix \
