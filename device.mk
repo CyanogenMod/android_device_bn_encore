@@ -97,7 +97,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/prebuilt/alsa/alsa.omap3.so:system/lib/hw/alsa.omap3.so \
    $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:system/lib/libaudio.so \
-   $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:obj/lib/libaudio.so 
+   $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:obj/lib/libaudio.so \
+   $(LOCAL_PATH)/prebuilt/alsa/alsa.omap3.so:obj/lib/alsa.omap3.so
 
 # Art
 PRODUCT_COPY_FILES += \
