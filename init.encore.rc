@@ -446,7 +446,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0
 #    class late_start
 
 # load DSP firmware
-service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
+service baseimage /system/bin/dspexec /system/lib/dsp/baseimage.dof
     class main
     user root
     group root
