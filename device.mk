@@ -48,6 +48,16 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/wifi/wl12xx_sdio_test.ko:/system/lib/modules/wl12xx_sdio_test.ko \
     device/bn/encore/prebuilt/wifi/wl12xx_spi.ko:/system/lib/modules/wl12xx_spi.ko
 
+PRODUCT_COPY_FILES += \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl128x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl128x-fw-4-mr.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl128x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl128x-fw-4-plt.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl128x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl128x-fw-4-sr.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin \
+
 # Bluetooth
 PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
