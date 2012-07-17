@@ -95,16 +95,16 @@ COMMON_GLOBAL_CFLAGS += -DUSES_TI_MAC80211
 endif
 
 WIFI_MODULES:
-	make -C kernel/bn/encore/external/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
+#	make -C kernel/bn/encore/external/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm CROSS_COMPILE=arm-eabi-
 #	make -C kernel/bn/encore/external/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=arm EXTRA_CFLAGS=-fno-pic CROSS_COMPILE=~/Development/linaro/android-toolchain-eabi-4.7/bin/arm-linux-androideabi-
-	mv $(KERNEL_OUT)/lib/crc7.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
-
-TARGET_KERNEL_MODULES := WIFI_MODULES
+#	mv $(KERNEL_OUT)/lib/crc7.ko $(KERNEL_MODULES_OUT)
+#	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
+#	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+#	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+#	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
+#	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+#
+#TARGET_KERNEL_MODULES := WIFI_MODULES
 
 # Fallback prebuilt kernel
 TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
