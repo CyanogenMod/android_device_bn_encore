@@ -36,7 +36,7 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/wifi/cfg80211.ko:/system/lib/modules/tiwlan_drv.ko \
+    device/bn/encore/prebuilt/wifi/cfg80211.ko:/system/lib/modules/cfg80211.ko \
     device/bn/encore/prebuilt/wifi/compat.ko:/system/lib/modules/compat.ko \
     device/bn/encore/prebuilt/wifi/crc7.ko:/system/lib/modules/crc7.ko \
     device/bn/encore/prebuilt/wifi/mac80211.ko:/system/lib/modules/mac80211.ko \
