@@ -79,8 +79,12 @@ BOARD_USES_UBOOT := true
 # You can just use 
 # git clone https://github.com/keyodi/ti-omap-encore-kernel3.git
 # and copy the contents into kernel/bn/encore (these will need to be created in your android source dir)
-#TARGET_KERNEL_CONFIG := encore_defconfig
-#TARGET_KERNEL_SOURCE := kernel/bn/encore
+TARGET_KERNEL_CONFIG := encore_defconfig
+TARGET_KERNEL_SOURCE := kernel/bn/encore
+TARGET_KERNEL_USE_OLD_TOOLCHAIN := true
+
+# Fallback prebuilt kernel
+TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211 := true
@@ -105,9 +109,6 @@ WIFI_MODULES:
 #	mv kernel/bn/encore/external/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
 #
 #TARGET_KERNEL_MODULES := WIFI_MODULES
-
-# Fallback prebuilt kernel
-TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
