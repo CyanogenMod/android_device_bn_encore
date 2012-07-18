@@ -67,38 +67,35 @@ on post-fs-data
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
     setprop vold.post_fs_data_done 1
+# wi-fi
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    insmod /system/lib/modules/compat.ko
+    insmod /system/lib/modules/cfg80211.ko
+    insmod /system/lib/modules/mac80211.ko
+    insmod /system/lib/modules/wl12xx.ko debug_level=0x63c0
 
+    mkdir /data/local 0771 shell shell
+    mkdir /data/local/tmp 0771 shell shell
+    mkdir /data/data 0771 system system
+    mkdir /data/app-private 0771 system system
+    mkdir /data/app 0771 system system
+# We chown/chmod /data/app again in case it was created at build-time
+    chown system system /data/app
+    chmod 0771 /data/app
+    mkdir /data/property 0700 root root
 
+# create dalvik-cache and double-check the perms
+    mkdir /data/dalvik-cache 0771 system system
+    chown system system /data/dalvik-cache
+    chmod 0771 /data/dalvik-cache
 
-   # wi-fi
-     mkdir /data/misc/wifi 0770 wifi wifi
-     mkdir /data/misc/wifi/sockets 0770 wifi wifi
-     mkdir /data/misc/dhcp 0770 dhcp dhcp
-     insmod /system/lib/modules/compat.ko
-     insmod /system/lib/modules/cfg80211.ko
-     insmod /system/lib/modules/mac80211.ko
-     insmod /system/lib/modules/wl12xx.ko debug_level=0x63c0
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
+    chmod 0666 /dev/pvrsrvkm
 
-     mkdir /data/local 0771 shell shell
-     mkdir /data/local/tmp 0771 shell shell
-     mkdir /data/data 0771 system system
-     mkdir /data/app-private 0771 system system
-     mkdir /data/app 0771 system system
-     # We chown/chmod /data/app again in case it was created at build-time
-     chown system system /data/app
-     chmod 0771 /data/app
-     mkdir /data/property 0700 root root
-
-   # create dalvik-cache and double-check the perms
-     mkdir /data/dalvik-cache 0771 system system
-     chown system system /data/dalvik-cache
-     chmod 0771 /data/dalvik-cache
-
-     mount debugfs /sys/kernel/debug /sys/kernel/debug
-     chmod 0666 /dev/pvrsrvkm
-
-     # change permissions for bridge.  Symlink search directory
-     chmod 0777 /dev/DspBridge
+# change permissions for bridge.  Symlink search directory
+    chmod 0777 /dev/DspBridge
 
 # bluetooth power up/down interface
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
@@ -346,7 +343,7 @@ on boot
 on property:dev.bootcomplete=1
     start bootcnt
 
-  class_start default
+    class_start default
 
 service console /system/bin/sh
     console
@@ -361,22 +358,22 @@ service vold /system/bin/vold
     socket vold stream 0660 root mount
 
 #service mountd /system/bin/mountd
-#    socket mountd stream 0660 root mount
+#   socket mountd stream 0660 root mount
 
 service debuggerd /system/bin/debuggerd
 
 service hwprops /sbin/hwprops
-        class core
-        critical
-	disabled
-	oneshot
+    class core
+    critical
+	 disabled
+	 oneshot
 
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
-	class core
-	user root
-	group root
-	oneshot
+    class core
+    user root
+    group root
+    oneshot
 
 # Start of SGX driver
 service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
@@ -412,38 +409,39 @@ service bootcnt /system/bin/clear_bootcnt.sh
 #   group system camera
 
 service uim /system/bin/uim-sysfs
-   class core
-   user root
-   group media bluetooth
-   oneshot
+    class core
+    user root
+    group media bluetooth
+    oneshot
 
 #service ifcfg_ti /system/bin/netcfg wlan0 up
-#    class main
-#    disabled
-#    oneshot
+#   class main
+#   disabled
+#   oneshot
 
 
-service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0
+service wpa_supplicant /system/bin/wpa_supplicant \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-    service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
-       class main
-       disabled
-       oneshot
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
 
-    service iprenew_wlan0 /system/bin/dhcpcd -n
-       class main
-       disabled
-       oneshot
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
 
 # create virtual SD card at /mnt/sdcard, based on the /data/media directory
 # daemon will drop to user/group system/media_rw after initializing
 # underlying files in /data/media will be created with user and group media_rw (1023)
 #service sdcard /system/bin/sdcard /data/media 1023 1023
-#    class late_start
+#   class late_start
 
 # load DSP firmware
 service baseimage /system/bin/dspexec /system/lib/dsp/baseimage.dof
