@@ -123,7 +123,7 @@ HARDWARE_OMX := true
 TARGET_NO_RADIOIMAGE := true
 
 # HW Graphics (EGL fixes + webkit fix)
-USE_OPENGL_RENDERER := true
+# USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/bn/encore/egl.cfg
 #COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE \
 #			-DMISSING_EGL_PIXEL_FORMAT_YV12 \
