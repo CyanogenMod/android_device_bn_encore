@@ -34,19 +34,19 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/ft5x06-i2c.idc:/system/usr/idc/ft5x06-i2c.idc \
     device/bn/encore/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
-# Wifi
-PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/wifi/cfg80211.ko:/system/lib/modules/cfg80211.ko \
-    device/bn/encore/prebuilt/wifi/compat.ko:/system/lib/modules/compat.ko \
-    device/bn/encore/prebuilt/wifi/crc7.ko:/system/lib/modules/crc7.ko \
-    device/bn/encore/prebuilt/wifi/mac80211.ko:/system/lib/modules/mac80211.ko \
-    device/bn/encore/prebuilt/wifi/mmc_test.ko:/system/lib/modules/mmc_test.ko \
-    device/bn/encore/prebuilt/wifi/pcbc.ko:/system/lib/modules/pcbc.ko \
-    device/bn/encore/prebuilt/wifi/scsi_wait_scan.ko:/system/lib/modules/scsi_wait_scan.ko \
-    device/bn/encore/prebuilt/wifi/wl12xx.ko:/system/lib/modules/wl12xx.ko \
-    device/bn/encore/prebuilt/wifi/wl12xx_sdio.ko:/system/lib/modules/wl12xx_sdio.ko \
-    device/bn/encore/prebuilt/wifi/wl12xx_sdio_test.ko:/system/lib/modules/wl12xx_sdio_test.ko \
-    device/bn/encore/prebuilt/wifi/wl12xx_spi.ko:/system/lib/modules/wl12xx_spi.ko
+# Wifi - we're building ourselves
+# PRODUCT_COPY_FILES += \
+#    device/bn/encore/prebuilt/wifi/cfg80211.ko:/system/lib/modules/cfg80211.ko \
+#    device/bn/encore/prebuilt/wifi/compat.ko:/system/lib/modules/compat.ko \
+#    device/bn/encore/prebuilt/wifi/crc7.ko:/system/lib/modules/crc7.ko \
+#    device/bn/encore/prebuilt/wifi/mac80211.ko:/system/lib/modules/mac80211.ko \
+#    device/bn/encore/prebuilt/wifi/mmc_test.ko:/system/lib/modules/mmc_test.ko \
+#    device/bn/encore/prebuilt/wifi/pcbc.ko:/system/lib/modules/pcbc.ko \
+#    device/bn/encore/prebuilt/wifi/scsi_wait_scan.ko:/system/lib/modules/scsi_wait_scan.ko \
+#    device/bn/encore/prebuilt/wifi/wl12xx.ko:/system/lib/modules/wl12xx.ko \
+#    device/bn/encore/prebuilt/wifi/wl12xx_sdio.ko:/system/lib/modules/wl12xx_sdio.ko \
+#    device/bn/encore/prebuilt/wifi/wl12xx_sdio_test.ko:/system/lib/modules/wl12xx_sdio_test.ko \
+#    device/bn/encore/prebuilt/wifi/wl12xx_spi.ko:/system/lib/modules/wl12xx_spi.ko
 
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/wifi/ti-connectivity/wl128x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl128x-fw-4-mr.bin \
