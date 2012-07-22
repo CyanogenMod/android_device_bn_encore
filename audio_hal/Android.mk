@@ -69,10 +69,14 @@ ifeq ($(strip $(BOARD_USES_ALSA_AUDIO)),true)
 
   include $(BUILD_SHARED_LIBRARY)
 
+endif
+
 # Build the audio.primary HAL which will be used by audioflinger to interface
 # with the rest of the ALSA audio stack
 # Makefile fragment comes from hardware/cm/audio/Android.mk
 # Note that we don't actually need any extra code!
+# XXX This really belongs inside the if BOARD_USES_ALSA_AUDIO, but as long as
+# libaudio.so is a prebuilt we don't want to enable that option.
 
   include $(CLEAR_VARS)
 
@@ -98,5 +102,4 @@ ifeq ($(strip $(BOARD_USES_ALSA_AUDIO)),true)
 
   include $(BUILD_SHARED_LIBRARY)
 
-endif
 endif
