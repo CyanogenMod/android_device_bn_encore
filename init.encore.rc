@@ -9,8 +9,8 @@ on early-init
 # for backwards compatibility
     symlink /storage/sdcard0 /mnt/emmc
     symlink /storage/sdcard0 /emmc
-    symlink  /storage/sdcard1 /sdcard
-    symlink  /storage/sdcard1 /mnt/sdcard
+    symlink /storage/sdcard1 /sdcard
+    symlink /storage/sdcard1 /mnt/sdcard
 
     export EXTERNAL_STORAGE /storage/sdcard1
     export SECONDARY_STORAGE /storage/sdcard0
@@ -36,9 +36,9 @@ on init
 # ALSA support
     mkdir /dev/snd 0777 system system
     symlink /dev/controlC0 /dev/snd/controlC0
-    symlink /dev/pcmC0D0p  /dev/snd/pcmC0D0p
-    symlink /dev/pcmC0D0c  /dev/snd/pcmC0D0c
-    symlink /dev/timer     /dev/snd/timer
+    symlink /dev/pcmC0D0p /dev/snd/pcmC0D0p
+    symlink /dev/pcmC0D0c /dev/snd/pcmC0D0c
+    symlink /dev/timer /dev/snd/timer
     chown audio audio /dev/pcmC0D0c
     chown audio audio /dev/pcmC0D0p
     chown audio audio /dev/controlC0
@@ -67,10 +67,12 @@ on post-fs-data
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
     setprop vold.post_fs_data_done 1
+
 # wi-fi
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
     insmod /system/lib/modules/compat.ko
     insmod /system/lib/modules/cfg80211.ko
     insmod /system/lib/modules/mac80211.ko
@@ -81,6 +83,7 @@ on post-fs-data
     mkdir /data/data 0771 system system
     mkdir /data/app-private 0771 system system
     mkdir /data/app 0771 system system
+
 # We chown/chmod /data/app again in case it was created at build-time
     chown system system /data/app
     chmod 0771 /data/app
@@ -101,11 +104,9 @@ on post-fs-data
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
+
 # bluetooth uart
     chown bluetooth bluetooth /dev/ttyS1
-
-    setprop wifi.interface wlan0
-    setprop wlan.driver.status "ok"
 
     # Temporary workaround for SOD
     # Only needed for 2.6.29
@@ -132,7 +133,7 @@ on post-fs-data
     #Give system ownership and permission to boost clock for specified timeout
     #Note boost_timeout cannot be changed from application because of dynamic sysfs creation. It will have default value of 3 sec.
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
-    chmod 0664  /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
 
     # Boost the CPU for 60 sec for boot optimization
     write /sys/devices/system/cpu/cpufreq/hotplug/boost_timeout 60000000
@@ -176,6 +177,11 @@ on post-fs-data
     chmod 0777 /sys/devices/platform/omapdss/overlay0/enabled
     chmod 0777 /sys/devices/platform/omapdss/overlay1/enabled
     chmod 0777 /sys/devices/platform/omapdss/overlay2/enabled
+
+    # Load Modules - ~Krylon - Not entirely sure these are being loaded
+    # yet or not. Insmoding them just incase
+    insmod /system/lib/modules/pvrsrvkm.ko
+    insmod /system/lib/modules/omaplfb.ko
 
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
@@ -240,17 +246,17 @@ on post-fs-data
     chmod 0777 /dev/ion
 
     # change permissions for alsa nodes
-    chmod 0777  /dev/snd/pcmC0D0c
+    chmod 0777 /dev/snd/pcmC0D0c
     chmod 0777 /dev/snd/pcmC0D0p
-    chmod 0777  /dev/snd/controlC0
-    chmod 0777  /dev/snd/timer
+    chmod 0777 /dev/snd/controlC0
+    chmod 0777 /dev/snd/timer
 
     #change permissions for alsa nodes for audio modem
     chmod 0777 /dev/snd/pcmC0D5c
     chmod 0777 /dev/snd/pcmC0D5p
 
     #change permissions for alsa nodes for HDMI
-    chmod 777  /dev/snd/pcmC0D7p
+    chmod 0777 /dev/snd/pcmC0D7p
 
 on boot
 
@@ -365,20 +371,14 @@ service debuggerd /system/bin/debuggerd
 service hwprops /sbin/hwprops
     class core
     critical
-	 disabled
-	 oneshot
+    disabled
+    oneshot
 
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
     class core
     user root
     group root
-    oneshot
-
-# Start of SGX driver
-service pvrsrv /system/bin/sh /system/bin/sgx/rc.pvr start
-    class core
-    user root
     oneshot
 
 # Update the battery data heuristics every hour
@@ -436,6 +436,9 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
+
+    setprop wifi.interface wlan0
+    setprop wlan.driver.status "ok"
 
 # create virtual SD card at /mnt/sdcard, based on the /data/media directory
 # daemon will drop to user/group system/media_rw after initializing
