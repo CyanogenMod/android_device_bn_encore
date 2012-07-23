@@ -139,7 +139,6 @@ PRODUCT_PACKAGES += \
     hwprops \
     lights.encore \
     sensors.encore \
-    uim-sysfs \
     libaudioutils \
     audio.a2dp.default \
     libaudiohw_legacy \
