@@ -76,7 +76,9 @@ on post-fs-data
     insmod /system/lib/modules/compat.ko
     insmod /system/lib/modules/cfg80211.ko
     insmod /system/lib/modules/mac80211.ko
-    insmod /system/lib/modules/wl12xx.ko debug_level=0x63c0
+    insmod /system/lib/modules/wlcore.ko
+    insmod /system/lib/modules/wl12xx.ko
+
 
     mkdir /data/local 0771 shell shell
     mkdir /data/local/tmp 0771 shell shell
