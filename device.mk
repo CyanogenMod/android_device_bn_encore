@@ -63,8 +63,8 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
 
 # Overlay (omapzoom)
-PRODUCT_COPY_FILES += \
-    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so 
+#PRODUCT_COPY_FILES += \
+#    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so 
 
 # Place permission files
 PRODUCT_COPY_FILES += \
@@ -137,6 +137,7 @@ PRODUCT_COPY_FILES += \
 # Product specfic packages
 PRODUCT_PACKAGES += \
     hwprops \
+    overlay.omap3 \
     lights.encore \
     sensors.encore \
     libaudioutils \
@@ -165,6 +166,7 @@ PRODUCT_PACKAGES += \
     libI420colorconvert \
     libLCML \
     libOMX_Core \
+    libOMX.TI.720P.decoder \
     libOMX.TI.AAC.decode \
     libOMX.TI.AAC.decode \
     libOMX.TI.AAC.encode \
@@ -194,8 +196,8 @@ PRODUCT_PACKAGES += \
     libOMX.TI.WMA.decode \
     libVendor_ti_omx
 
-PRODUCT_PACKAGES += \
-        libskiahw
+# PRODUCT_PACKAGES += \
+#        libskiahw
 
 # from omap3.mk.
 

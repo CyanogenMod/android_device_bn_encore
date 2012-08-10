@@ -44,7 +44,8 @@ TARGET_thumb_CFLAGS := -mthumb \
 TARGET_BOOTLOADER_BOARD_NAME := encore
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_USERIMAGES_USE_EXT4 := true
-OMAP_ENHANCEMENT := true
+TARGET_OMAP3 := true
+COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP3 -DOMAP_COMPAT -DBINDER_COMPAT
 
 # Makefile variables and C/C++ macros to recognise current pastry
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 16 || echo 1),)
@@ -111,13 +112,7 @@ WIFI_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/ti/wlcore/wlcore.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/ti/wlcore/wlcore_sdio.ko $(KERNEL_MODULES_OUT)
 
-
-SGX_MODULES:
-	cp kernel/bn/encore/drivers/video/omap2/omapfb/omapfb.h $(KERNEL_OUT)/drivers/video/omap2/omapfb/omapfb.h
-	cp device/bn/encore/prebuilt/GFX/system/lib/modules/omaplfb.ko $(KERNEL_MODULES_OUT)
-	cp device/bn/encore/prebuilt/GFX/system/lib/modules/pvrsrvkm.ko $(KERNEL_MODULES_OUT)
-
-TARGET_KERNEL_MODULES := SGX_MODULES WIFI_MODULES
+TARGET_KERNEL_MODULES := WIFI_MODULES
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
@@ -130,10 +125,15 @@ TARGET_NO_RADIOIMAGE := true
 # HW Graphics (EGL fixes + webkit fix)
 #USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/bn/encore/egl.cfg
+DEFAULT_FB_NUM := 0
+BOARD_USE_YUV422I_DEFAULT_COLORFORMAT := true
+BOARD_USES_OVERLAY := true
+ENABLE_WEBGL := true
 #COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE \
 #			-DMISSING_EGL_PIXEL_FORMAT_YV12 \
 #			-DMISSING_GRALLOC_BUFFERS
 
+# Remove this once CM merges the fix
 # Workaround for eglconfig error
 #BOARD_NO_RGBX_8888 := true
 
@@ -170,7 +170,7 @@ OMX_JPEG := true
 OMX_VENDOR := ti
 TARGET_USE_OMX_RECOVERY := true
 TARGET_USE_OMAP_COMPAT  := true
-# BUILD_WITH_TI_AUDIO := 1
+BUILD_WITH_TI_AUDIO := 1
 BUILD_PV_VIDEO_ENCODERS := 1
 OMX_VENDOR_INCLUDES := \
   hardware/ti/omx/system/src/openmax_il/omx_core/inc \
@@ -181,11 +181,10 @@ BOARD_OPENCORE_FLAGS := -DHARDWARE_OMX=1
 #BOARD_CAMERA_LIBRARIES := libcamera
 endif
       
-ifdef OMAP_ENHANCEMENT
-COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3
-endif
 
 BOARD_USES_SECURE_SERVICES := true
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 #adb has root
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
