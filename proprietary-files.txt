@@ -51,7 +51,6 @@ lib/egl/libGLESv2_POWERVR_SGX530_125.so
 lib/hw/gralloc.omap3.so
 lib/libIMGegl.so
 lib/libLCML.so
-lib/libOMX.TI.720P.Decoder.so
 lib/libOMX.TI.AAC.decode.so
 lib/libOMX.TI.AAC.encode.so
 lib/libOMX.TI.AMR.decode.so

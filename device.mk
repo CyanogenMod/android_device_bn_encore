@@ -57,7 +57,6 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
     device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
     device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin \
-    device/bn/encore/prebuilt/GFX/system/lib/libOMX.TI.720P.Decoder.so:system/lib/libOMX.TI.720P.Decoder.so
 
 # Bluetooth
 PRODUCT_COPY_FILES += \
@@ -167,7 +166,6 @@ PRODUCT_PACKAGES += \
     libI420colorconvert \
     libLCML \
     libOMX_Core \
-    libOMX.TI.720P.decoder \
     libOMX.TI.AAC.decode \
     libOMX.TI.AAC.decode \
     libOMX.TI.AAC.encode \
