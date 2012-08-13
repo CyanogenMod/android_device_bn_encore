@@ -196,7 +196,7 @@ PRODUCT_PACKAGES += \
     libVendor_ti_omx
 
 # PRODUCT_PACKAGES += \
-#        libskiahw
+        libskiahw
 
 # from omap3.mk.
 
