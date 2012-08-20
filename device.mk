@@ -56,7 +56,7 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
     device/bn/encore/prebuilt/wifi/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
     device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
-    device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin \
+    device/bn/encore/prebuilt/wifi/ti-connectivity/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin
 
 # Bluetooth
 PRODUCT_COPY_FILES += \
@@ -78,7 +78,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
 # Vold
 PRODUCT_COPY_FILES += \
@@ -144,7 +144,6 @@ PRODUCT_PACKAGES += \
     libaudioutils \
     audio.a2dp.default \
     libaudiohw_legacy \
-    audio.primary.omap3 \
     audio.primary.encore \
     tinyplay \
     tinymix \
@@ -222,7 +221,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     dalvik.vm.heapsize=128m \
-    ro.opengles.version=131072 \
+    ro.opengles.version=131072
 
 $(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
 #$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
