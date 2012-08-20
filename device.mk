@@ -140,6 +140,7 @@ PRODUCT_PACKAGES += \
     overlay.omap3 \
     lights.encore \
     sensors.encore \
+    uim-sysfs \
     libaudioutils \
     audio.a2dp.default \
     libaudiohw_legacy \
