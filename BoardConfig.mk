@@ -132,10 +132,6 @@ ENABLE_WEBGL := true
 #			-DMISSING_EGL_PIXEL_FORMAT_YV12 \
 #			-DMISSING_GRALLOC_BUFFERS
 
-# Remove this once CM merges the fix
-# Workaround for eglconfig error
-#BOARD_NO_RGBX_8888 := true
-
 # Storage
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
