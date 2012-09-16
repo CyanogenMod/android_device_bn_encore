@@ -363,5 +363,5 @@ on property:service.adb.root=1
     restart adbd
     write /sys/class/android_usb/android0/enable 1
     
-on property:sys.boot_completed=1
-    log "== init.encore.rc: on property:sys.boot_completed=1 -----------------------"
+#on property:sys.boot_completed=1
+#    log "== init.encore.rc: on property:sys.boot_completed=1 -----------------------"
