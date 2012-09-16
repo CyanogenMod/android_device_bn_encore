@@ -185,7 +185,6 @@ PRODUCT_PACKAGES += \
     libOMX.TI.ILBC.encode \
     libOMX.TI.JPEG.decoder \
     libOMX.TI.JPEG.encoder \
-    libOMX.TI.JPEG.Encoder \
     libOMX.TI.MP3.decode \
     libOMX.TI.Video.Decoder \
     libOMX.TI.Video.encoder \
