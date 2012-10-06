@@ -127,9 +127,9 @@ on post-fs-data
     # Enabling OFF mode
     write /sys/kernel/debug/pm_debug/enable_off_mode 1
                     
-    # switch CPUfreq from performance to hotplug
+    # switch CPUfreq from performance to ondemand
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-    write /sys/devices/system/cpu/cpufreq/hotplug/down_threshold 30
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 50
 
     #Give system ownership and permission to boost clock for specified timeout
     #Note boost_timeout cannot be changed from application because of dynamic sysfs creation. It will have default value of 3 sec.
