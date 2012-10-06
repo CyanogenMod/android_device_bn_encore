@@ -73,6 +73,7 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 461942784
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 987648000
 BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_USES_UBOOT := true
+
 # Inline kernel building config
 # This BoardConfig uses the On-The_Fly Kernel building. You will also need to grab keyodi's kernel source from:
 # https://github.com/keyodi/ti-omap-encore-kernel3.git
@@ -82,9 +83,6 @@ BOARD_USES_UBOOT := true
 # and copy the contents into kernel/bn/encore (these will need to be created in your android source dir)
 TARGET_KERNEL_CONFIG := encore_defconfig
 TARGET_KERNEL_SOURCE := kernel/bn/encore
-TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
-# Fallback prebuilt kernel
-#TARGET_PREBUILT_KERNEL := device/bn/encore/prebuilt/boot/kernel
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211 := true
