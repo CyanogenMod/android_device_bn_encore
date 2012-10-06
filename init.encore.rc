@@ -55,13 +55,6 @@ on fs
     mount ext4 /dev/block/mmcblk0p6 /data wait noatime nosuid nodev barrier=1 noauto_da_alloc
     mount ext4 /dev/block/mmcblk0p7 /cache wait noatime nosuid nodev barrier=1
 
-on post-fs
-    # load kernel modules
-    #insmod /system/lib/modules/bridgedriver.ko
-    #insmod /system/lib/modules/dm-mod.ko
-    #insmod /system/lib/modules/dm-crypt.ko
-    #insmod /system/lib/modules/tun.ko
-
 on post-fs-data
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
@@ -109,10 +102,6 @@ on post-fs-data
 # bluetooth uart
     chown bluetooth bluetooth /dev/ttyS1
 
-    # Temporary workaround for SOD
-    # Only needed for 2.6.29
-    #write /sys/power/wake_lock 1
-
     # Enable Power Management - thanks NookieFroyo for this
 
     # Mount Debug file system
@@ -130,15 +119,6 @@ on post-fs-data
     # switch CPUfreq from performance to ondemand
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
     write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 50
-
-    #Give system ownership and permission to boost clock for specified timeout
-    #Note boost_timeout cannot be changed from application because of dynamic sysfs creation. It will have default value of 3 sec.
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
-    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
-
-    # Boost the CPU for 60 sec for boot optimization
-    write /sys/devices/system/cpu/cpufreq/hotplug/boost_timeout 60000000
-    write /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq 1
 
     # Enable SmartReflex autocompensation on VDD1 & VDD2
     write /sys/kernel/debug/smartreflex/sr_core/autocomp 1
