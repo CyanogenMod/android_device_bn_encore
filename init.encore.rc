@@ -142,6 +142,10 @@ on post-fs-data
     chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 
     chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay 
     chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay 
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/boost_factor 
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/boost_factor
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/input_boost
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost
 
     # autosuspend root hubs immediatly after attached devices
     write /sys/bus/usb/devices/usb1/power/autosuspend_delay_ms 0

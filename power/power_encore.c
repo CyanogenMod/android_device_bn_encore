@@ -82,20 +82,24 @@ int sysfs_read(const char *path, char *buf, size_t size)
 static void encore_power_init(struct power_module *module)
 {
     /*
-     * cpufreq interactive governor: timer 20ms, min sample 60ms,
+     * cpufreq interactive governor: timer 20ms, min sample 50ms,
      * hispeed 800MHz at load 50%.
      */
 
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
                 "20000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time",
-                "60000");
+                "50000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq",
                 "800000");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load",
                 "50");
     sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay",
                 "100000");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
+                "0");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/input_boost",
+                "1");
 }
 
 static int boostpulse_open(struct encore_power_module *encore)
@@ -145,6 +149,11 @@ static void encore_power_set_interactive(struct power_module *module, int on)
         sysfs_write(SCALINGMAXFREQ_PATH, screen_off_max_freq);
     } else
         sysfs_write(SCALINGMAXFREQ_PATH, scaling_max_freq);
+
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/input_boost",
+            on ? "1" : "0");
+    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
+            on ? "0" : "2");
 }
 
 static void encore_power_hint(struct power_module *module, power_hint_t hint,
