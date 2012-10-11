@@ -77,6 +77,13 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
 
 <MediaCodecs>
     <Decoders>
+        <MediaCodec name="OMX.TI.720P.Decoder" >
+            <Type name="video/avc" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+            <Quirk name="input-buffer-sizes-are-bogus" />
+        </MediaCodec>    
+        
         <MediaCodec name="OMX.TI.Video.Decoder" >
             <Type name="video/mp4v-es" />
             <Type name="video/3gpp" />
@@ -126,6 +133,13 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
     </Decoders>
 
     <Encoders>
+        <MediaCodec name="OMX.TI.720P.Encoder" >
+            <Type name="video/avc" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+            <Quirk name="avoid-memcopy-input-recording-frames" />
+        </MediaCodec>
+        
         <MediaCodec name="OMX.TI.Video.encoder" >
             <Type name="video/mp4v-es" />
             <Type name="video/3gpp" />
