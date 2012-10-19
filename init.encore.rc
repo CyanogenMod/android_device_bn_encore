@@ -70,6 +70,7 @@ on post-fs-data
     insmod /system/lib/modules/cfg80211.ko
     insmod /system/lib/modules/mac80211.ko
     insmod /system/lib/modules/wl12xx.ko
+    start store_mac_addr
 
 
     mkdir /data/local 0771 shell shell
@@ -318,6 +319,11 @@ service uim /system/bin/uim-sysfs
     class core
     user root
     group media bluetooth
+    oneshot
+
+service store_mac_addr /system/xbin/store-mac-addr.sh
+    class core
+    disabled
     oneshot
 
 #service ifcfg_ti /system/bin/netcfg wlan0 up

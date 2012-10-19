@@ -53,7 +53,11 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/ti-connectivity/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
     device/bn/encore/firmware/ti-connectivity/wl127x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
     device/bn/encore/firmware/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
-    device/bn/encore/firmware/ti-connectivity/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin
+    device/bn/encore/firmware/ti-connectivity/wl1271-nvs_127x.bin:system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin
+
+# Script to edit the shipped nvs file to insert the device's assigned MAC
+# address
+PRODUCT_PACKAGES += store-mac-addr.sh
 
 # Bluetooth
 PRODUCT_COPY_FILES += \
