@@ -25,21 +25,46 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
-#define SCALINGMAXFREQ_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
-#define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpufreq/interactive/boostpulse"
+#define CPUFREQ_INTERACTIVE "/sys/devices/system/cpu/cpufreq/interactive/"
+#define CPUFREQ_CPU0 "/sys/devices/system/cpu/cpu0/cpufreq/"
+#define BOOSTPULSE_PATH (CPUFREQ_INTERACTIVE "boostpulse")
 
 #define MAX_BUF_SZ  10
 
-/* initialize to something safe */
-static char screen_off_max_freq[MAX_BUF_SZ] = "600000";
-static char scaling_max_freq[MAX_BUF_SZ] = "1000000";
+#define MAX_FREQ_NUMBER 10
+#define NOM_FREQ_INDEX 2
+
+static char *freq_list[MAX_FREQ_NUMBER];
+static char *max_freq, *nom_freq;
 
 struct encore_power_module {
     struct power_module base;
     pthread_mutex_t lock;
     int boostpulse_fd;
     int boostpulse_warned;
+    short inited;
 };
+
+static int str_to_tokens(char *str, char **token, int max_token_idx)
+{
+    char *pos, *start_pos = str;
+    char *token_pos;
+    int token_idx = 0;
+
+    if (!str || !token || !max_token_idx) {
+        return 0;
+    }
+
+    do {
+        token_pos = strtok_r(start_pos, " \t\r\n", &pos);
+
+        if (token_pos)
+            token[token_idx++] = strdup(token_pos);
+        start_pos = NULL;
+    } while (token_pos && token_idx < max_token_idx);
+
+    return token_idx;
+}
 
 static void sysfs_write(char *path, char *s)
 {
@@ -64,42 +89,63 @@ static void sysfs_write(char *path, char *s)
 
 int sysfs_read(const char *path, char *buf, size_t size)
 {
-  int fd, len;
+    int fd, len;
 
-  fd = open(path, O_RDONLY);
-  if (fd < 0)
-    return -1;
+    fd = open(path, O_RDONLY);
+    if (fd < 0)
+        return -1;
 
-  do {
-    len = read(fd, buf, size);
-  } while (len < 0 && errno == EINTR);
+    do {
+        len = read(fd, buf, size);
+    } while (len < 0 && errno == EINTR);
 
-  close(fd);
+    close(fd);
 
-  return len;
+    return len;
 }
 
 static void encore_power_init(struct power_module *module)
 {
+    int tmp;
+    struct encore_power_module *powmod =
+                                   (struct encore_power_module *) module;
+    char freq_buf[MAX_FREQ_NUMBER*10];
+    int freq_num;
+
+    tmp = sysfs_read(CPUFREQ_CPU0 "scaling_available_frequencies",
+                                                   freq_buf, sizeof(freq_buf));
+    if (tmp <= 0) {
+        return;
+    }
+
+    freq_num = str_to_tokens(freq_buf, freq_list, MAX_FREQ_NUMBER);
+
+    /* Discard trailing empties */
+    while (!atoi(freq_list[freq_num - 1]) && freq_num) {
+        freq_num--;
+    }
+
+    if (!freq_num) {
+        return;
+    }
+
+    max_freq = freq_list[freq_num - 1];
+    tmp = (NOM_FREQ_INDEX > freq_num) ? freq_num : NOM_FREQ_INDEX;
+    nom_freq = freq_list[tmp - 1];
+
     /*
      * cpufreq interactive governor: timer 20ms, min sample 50ms,
-     * hispeed 800MHz at load 50%.
+     * hispeed nominal (3rd freq) at load 50%.
      */
 
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
-                "20000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time",
-                "50000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq",
-                "800000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load",
-                "50");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay",
-                "100000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
-                "0");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/input_boost",
-                "1");
+    sysfs_write(CPUFREQ_INTERACTIVE "timer_rate", "20000");
+    sysfs_write(CPUFREQ_INTERACTIVE "min_sample_time", "50000");
+    sysfs_write(CPUFREQ_INTERACTIVE "hispeed_freq", nom_freq);
+    sysfs_write(CPUFREQ_INTERACTIVE "go_hispeed_load", "50");
+    sysfs_write(CPUFREQ_INTERACTIVE "above_hispeed_delay", "100000");
+    sysfs_write(CPUFREQ_INTERACTIVE "input_boost", "1");
+
+    powmod->inited = 1;
 }
 
 static int boostpulse_open(struct encore_power_module *encore)
@@ -127,33 +173,20 @@ static int boostpulse_open(struct encore_power_module *encore)
 static void encore_power_set_interactive(struct power_module *module, int on)
 {
     int len;
-
     char buf[MAX_BUF_SZ];
+    struct encore_power_module *powmod =
+                                   (struct encore_power_module *) module;
+
+    if (!powmod->inited) {
+        return;
+    }
 
     /*
-     * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
-     * cpufreq policy.
+     * Lower maximum frequency when screen is off.  
      */
-    if (!on) {
-        /* read the current scaling max freq and save it before updating */
-        len = sysfs_read(SCALINGMAXFREQ_PATH, buf, sizeof(buf));
+    sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", on ? max_freq : nom_freq);
 
-        /* make sure it's not the screen off freq, if the "on"
-         * call is skipped (can happen if you press the power
-         * button repeatedly) we might have read it. We should
-         * skip it if that's the case
-         */
-        if (len != -1 && strncmp(buf, screen_off_max_freq,
-                strlen(screen_off_max_freq)) != 0)
-            memcpy(scaling_max_freq, buf, sizeof(buf));
-        sysfs_write(SCALINGMAXFREQ_PATH, screen_off_max_freq);
-    } else
-        sysfs_write(SCALINGMAXFREQ_PATH, scaling_max_freq);
-
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/input_boost",
-            on ? "1" : "0");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
-            on ? "0" : "2");
+    sysfs_write(CPUFREQ_INTERACTIVE "input_boost", on ? "1" : "0");
 }
 
 static void encore_power_hint(struct power_module *module, power_hint_t hint,
@@ -162,6 +195,12 @@ static void encore_power_hint(struct power_module *module, power_hint_t hint,
     struct encore_power_module *encore = (struct encore_power_module *) module;
     char buf[80];
     int len;
+    struct encore_power_module *powmod =
+                                   (struct encore_power_module *) module;
+
+    if (!powmod->inited) {
+        return;
+    }
 
     switch (hint) {
     case POWER_HINT_INTERACTION:
