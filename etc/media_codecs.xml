@@ -93,28 +93,11 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
             <Quirk name="requires-allocate-on-output-ports" />
         </MediaCodec>
 
-        <MediaCodec name="OMX.TI.AAC.decode" >
-            <Type name="audio/mp4a-latm" />
-            <Quirk name="needs-flush-before-disable" />
-            <Quirk name="requires-flush-complete-emulation" />
-            <Quirk name="supports-multiple-frames-per-input-buffer" />
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-allocate-on-output-ports" />
-        </MediaCodec>
-
-        <MediaCodec name="OMX.TI.AMR.decode" >
-            <Type name="audio/3gpp" />
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-allocate-on-output-ports" />
-        </MediaCodec>
-
-        <MediaCodec name="OMX.TI.WBAMR.decode" >
-            <Type name="audio/amr-wb" />
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-allocate-on-output-ports" />
-        </MediaCodec>
 
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
+        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm"/>
+        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp"/>
+        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb"/>
         <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" />
         <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" />
         <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
