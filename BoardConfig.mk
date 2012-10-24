@@ -51,6 +51,8 @@ ifdef OMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPCAM -DOMAP_ENHANCEMENT_VTC
 endif
 
+TARGET_SPECIFIC_HEADER_PATH := device/bn/encore/include
+
 # Makefile variables and C/C++ macros to recognise current pastry
 ifeq ($(shell test $(PLATFORM_SDK_VERSION) -ge 16 || echo 1),)
     ANDROID_API_JB_OR_LATER := true
