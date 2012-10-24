@@ -169,10 +169,8 @@ PRODUCT_PACKAGES += \
     libLCML \
     libOMX_Core \
     libOMX.TI.AAC.decode \
-    libOMX.TI.AAC.decode \
     libOMX.TI.AAC.encode \
     libOMX.TI.AMR.decode \
-    libOMX.TI.AMR.encode \
     libOMX.TI.AMR.encode \
     libOMX.TI.G711.decode \
     libOMX.TI.G711.encode \
@@ -191,7 +189,6 @@ PRODUCT_PACKAGES += \
     libOMX.TI.Video.encoder \
     libOMX.TI.VPP \
     libOMX.TI.WBAMR.decode \
-    libOMX.TI.WBAMR.encode \
     libOMX.TI.WBAMR.encode \
     libOMX.TI.WMA.decode \
     libVendor_ti_omx
