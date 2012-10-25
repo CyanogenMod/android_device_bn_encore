@@ -43,9 +43,7 @@ lib/dsp/wbamrenc_sn.dll64P
 lib/dsp/wmadec_sn.dll64P
 lib/dsp/wmv9dec_sn.dll64P
 lib/dsp/yuvconvert.l64p
-lib/egl/egl.cfg
 vendor/lib/egl/libEGL_POWERVR_SGX530_125.so
-vendor/lib/egl/libGLES_android.so
 vendor/lib/egl/libGLESv1_CM_POWERVR_SGX530_125.so
 vendor/lib/egl/libGLESv2_POWERVR_SGX530_125.so
 vendor/lib/hw/gralloc.omap3.so
