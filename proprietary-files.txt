@@ -1,5 +1,11 @@
 bin/pvrsrvinit
 etc/powervr.ini
+lib/dsp/720p_divx_mp4vdec_sn.dll64P
+lib/dsp/720p_h264vdec_sn.dll64P
+lib/dsp/720p_h264venc_sn.dll64P
+lib/dsp/720p_mp4vdec_sn.dll64P
+lib/dsp/720p_mp4venc_sn.dll64P
+lib/dsp/720p_wmv9vdec_sn.dll64P
 lib/dsp/baseimage.dof
 lib/dsp/baseimage.map
 lib/dsp/chromasuppress.l64p
@@ -22,6 +28,7 @@ lib/dsp/h264venc_sn.dll64P
 lib/dsp/ilbcdec_sn.dll64P
 lib/dsp/ilbcenc_sn.dll64P
 lib/dsp/ipp_sn.dll64P
+lib/dsp/ittiam_divx3vdec_sn.dll64P
 lib/dsp/jpegdec_sn.dll64P
 lib/dsp/jpegenc_sn.dll64P
 lib/dsp/m4venc_sn.dll64P
@@ -35,6 +42,7 @@ lib/dsp/nbamrenc_sn.dll64P
 lib/dsp/postprocessor_dualout.dll64P
 lib/dsp/qosdyn_3430.dll64P
 lib/dsp/ringio.dll64P
+lib/dsp/sparkdec_sn.dll64P
 lib/dsp/star.l64P
 lib/dsp/usn.dll64P
 lib/dsp/vpp_sn.dll64P
