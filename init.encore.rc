@@ -1,7 +1,6 @@
 import init.encore.usb.rc
 
 on early-init
-    start hwprops
     mkdir /storage 0050 system sdcard_r
     mkdir /storage/sdcard0 0000 system system
     mkdir /storage/sdcard1 0000 system system
@@ -274,12 +273,6 @@ on property:dev.bootcomplete=1
 
 #service mountd /system/bin/mountd
 #   socket mountd stream 0660 root mount
-
-service hwprops /sbin/hwprops
-    class core
-    critical
-    disabled
-    oneshot
 
 # Initialize the SGX driver
 service pvrsrvinit /system/bin/pvrsrvinit
