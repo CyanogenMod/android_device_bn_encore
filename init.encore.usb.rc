@@ -1,13 +1,13 @@
 on init
-    write /sys/class/android_usb/android0/iSerial $ro.serialno
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     write /sys/class/android_usb/android0/f_mass_storage/inquiry_string "NookColor"
     write /sys/class/android_usb/android0/f_rndis/manufacturer BN
     write /sys/class/android_usb/android0/f_rndis/vendorID 18d1
     write /sys/class/android_usb/android0/f_rndis/wceis 1
 
 on boot
-    write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
-    write /sys/class/android_usb/android0/iProduct $ro.product.model
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
 
 on property:sys.usb.config=mass_storage
     write /sys/class/android_usb/android0/enable 0
