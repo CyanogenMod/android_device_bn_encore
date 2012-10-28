@@ -88,6 +88,9 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:obj/lib/libaudio.so \
    $(LOCAL_PATH)/prebuilt/alsa/alsa.omap3.so:obj/lib/alsa.omap3.so
 
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/etc/audio_policy.conf:system/etc/audio_policy.conf
+
 # Art
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/poetry/poem.txt:root/sbin/poem.txt
