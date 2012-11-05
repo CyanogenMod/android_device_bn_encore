@@ -36,6 +36,7 @@
 
 static char *freq_list[MAX_FREQ_NUMBER];
 static char *max_freq, *nom_freq;
+char current_max_freq[10];
 
 struct encore_power_module {
     struct power_module base;
@@ -176,6 +177,7 @@ static void encore_power_set_interactive(struct power_module *module, int on)
     char buf[MAX_BUF_SZ];
     struct encore_power_module *powmod =
                                    (struct encore_power_module *) module;
+    int tmp;
 
     if (!powmod->inited) {
         return;
@@ -184,9 +186,16 @@ static void encore_power_set_interactive(struct power_module *module, int on)
     /*
      * Lower maximum frequency when screen is off.  
      */
-    sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", on ? max_freq : nom_freq);
-
-    sysfs_write(CPUFREQ_INTERACTIVE "input_boost", on ? "1" : "0");
+    // sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", on ? max_freq : nom_freq);
+    if (on) {
+        sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", (strlen(current_max_freq) > 0) ? current_max_freq : max_freq);
+    } else {
+        tmp = sysfs_read(CPUFREQ_CPU0 "scaling_max_freq", current_max_freq, sizeof(current_max_freq));
+        if (tmp <= 0) {
+            ALOGE("Error reading scaling_max_freq\n");
+        }
+        sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", nom_freq);
+    }
 }
 
 static void encore_power_hint(struct power_module *module, power_hint_t hint,
