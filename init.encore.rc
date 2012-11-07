@@ -122,8 +122,8 @@ on post-fs-data
 
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 
-    # Lower maximum frequency when screen is off
-    write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 600000
+    # Lower maximum frequency when screen is off - not needed with PowerHAL
+    #write /sys/devices/system/cpu/cpu0/cpufreq/screen_off_max_freq 600000
 
     # PowerHAL perms
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 
