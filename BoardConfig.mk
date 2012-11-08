@@ -81,12 +81,6 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_USES_UBOOT := true
 
 # Inline kernel building config
-# This BoardConfig uses the On-The_Fly Kernel building. You will also need to grab keyodi's kernel source from:
-# https://github.com/keyodi/ti-omap-encore-kernel3.git
-#
-# You can just use 
-# git clone https://github.com/keyodi/ti-omap-encore-kernel3.git
-# and copy the contents into kernel/bn/encore (these will need to be created in your android source dir)
 TARGET_KERNEL_CONFIG := encore_defconfig
 TARGET_KERNEL_SOURCE := kernel/bn/encore
 
@@ -129,9 +123,6 @@ TARGET_NO_RADIOIMAGE := true
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/bn/encore/egl.cfg
 ENABLE_WEBGL := true
-#COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE \
-#			-DMISSING_EGL_PIXEL_FORMAT_YV12 \
-#			-DMISSING_GRALLOC_BUFFERS
 
 # Storage
 BOARD_HAS_SDCARD_INTERNAL := true
@@ -153,7 +144,7 @@ USE_CAMERA_STUB := true
 BOARD_USES_TI_OMAP_MODEM_AUDIO := false
 BOARD_HAS_NO_MISC_PARTITION := true
 
-# audio stuff
+# Audio
 # BOARD_USES_AUDIO_LEGACY := true
 # TARGET_PROVIDES_LIBAUDIO := true
 # BOARD_USES_GENERIC_AUDIO := false

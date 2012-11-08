@@ -30,8 +30,8 @@ PRODUCT_COPY_FILES += \
 
 # key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
-    device/bn/encore/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \
-    device/bn/encore/ft5x06-i2c.idc:/system/usr/idc/ft5x06-i2c.idc \
+    device/bn/encore/prebuilt/usr/idc/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \
+    device/bn/encore/prebuilt/usr/idc/ft5x06-i2c.idc:/system/usr/idc/ft5x06-i2c.idc \
     device/bn/encore/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
 # Wifi firmware (modules are built from source)

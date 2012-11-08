@@ -12,10 +12,8 @@ ro.cwm.forbid_format=/boot
 persist.sys.usb.config=mtp,adb
 ro.sf.hwrotation=270
 ro.emmc=1
+ro.sf.lcd_density=160
 
 ## Enable OMAP stuffs
 com.ti.omap_enhancement=true
 opencore.asmd=1
-
-ro.magic.optimization=ZOMG
-ro.sf.lcd_density=160
