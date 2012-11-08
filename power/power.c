@@ -19,7 +19,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define LOG_TAG "encore PowerHAL"
+#define LOG_TAG "TI OMAP PowerHAL"
 #include <utils/Log.h>
 
 #include <hardware/hardware.h>
@@ -29,25 +29,23 @@
 #define CPUFREQ_CPU0 "/sys/devices/system/cpu/cpu0/cpufreq/"
 #define BOOSTPULSE_PATH (CPUFREQ_INTERACTIVE "boostpulse")
 
-#define MAX_BUF_SZ  10
-
 #define MAX_FREQ_NUMBER 10
 #define NOM_FREQ_INDEX 2
 
+static int freq_num;
 static char *freq_list[MAX_FREQ_NUMBER];
 static char *max_freq, *nom_freq;
 char current_max_freq[10];
 
-struct encore_power_module {
+struct omap_power_module {
     struct power_module base;
     pthread_mutex_t lock;
     int boostpulse_fd;
     int boostpulse_warned;
-    short inited;
+    int inited;
 };
 
-static int str_to_tokens(char *str, char **token, int max_token_idx)
-{
+static int str_to_tokens(char *str, char **token, int max_token_idx) {
     char *pos, *start_pos = str;
     char *token_pos;
     int token_idx = 0;
@@ -67,8 +65,7 @@ static int str_to_tokens(char *str, char **token, int max_token_idx)
     return token_idx;
 }
 
-static void sysfs_write(char *path, char *s)
-{
+static void sysfs_write(char *path, char *s) {
     char buf[80];
     int len;
     int fd = open(path, O_WRONLY);
@@ -88,44 +85,45 @@ static void sysfs_write(char *path, char *s)
     close(fd);
 }
 
-int sysfs_read(const char *path, char *buf, size_t size)
-{
-    int fd, len;
+static int sysfs_read(char *path, char *s, int s_size) {
+    char buf[80];
+    int len, i;
+    int fd;
+
+    if (!path || !s || !s_size) {
+        return -1;
+    }
 
     fd = open(path, O_RDONLY);
-    if (fd < 0)
-        return -1;
+    if (fd < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", path, buf);
+        return fd;
+    }
 
-    do {
-        len = read(fd, buf, size);
-    } while (len < 0 && errno == EINTR);
+    len = read(fd, s, s_size-1);
+    if (len < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error reading from %s: %s\n", path, buf);
+    } else {
+        s[len] = '\0';
+    }
 
     close(fd);
-
     return len;
 }
 
-static void encore_power_init(struct power_module *module)
-{
+static void omap_power_init(struct power_module *module) {
+    struct omap_power_module *omap_device = (struct omap_power_module *) module;
     int tmp;
-    struct encore_power_module *powmod =
-                                   (struct encore_power_module *) module;
     char freq_buf[MAX_FREQ_NUMBER*10];
-    int freq_num;
 
-    tmp = sysfs_read(CPUFREQ_CPU0 "scaling_available_frequencies",
-                                                   freq_buf, sizeof(freq_buf));
+    tmp = sysfs_read(CPUFREQ_CPU0 "scaling_available_frequencies", freq_buf, sizeof(freq_buf));
     if (tmp <= 0) {
         return;
     }
 
     freq_num = str_to_tokens(freq_buf, freq_list, MAX_FREQ_NUMBER);
-
-    /* Discard trailing empties */
-    while (!atoi(freq_list[freq_num - 1]) && freq_num) {
-        freq_num--;
-    }
-
     if (!freq_num) {
         return;
     }
@@ -134,58 +132,49 @@ static void encore_power_init(struct power_module *module)
     tmp = (NOM_FREQ_INDEX > freq_num) ? freq_num : NOM_FREQ_INDEX;
     nom_freq = freq_list[tmp - 1];
 
-    /*
-     * cpufreq interactive governor: timer 20ms, min sample 50ms,
-     * hispeed nominal (3rd freq) at load 50%.
-     */
-
     sysfs_write(CPUFREQ_INTERACTIVE "timer_rate", "20000");
-    sysfs_write(CPUFREQ_INTERACTIVE "min_sample_time", "50000");
+    sysfs_write(CPUFREQ_INTERACTIVE "min_sample_time","60000");
     sysfs_write(CPUFREQ_INTERACTIVE "hispeed_freq", nom_freq);
     sysfs_write(CPUFREQ_INTERACTIVE "go_hispeed_load", "50");
     sysfs_write(CPUFREQ_INTERACTIVE "above_hispeed_delay", "100000");
-    sysfs_write(CPUFREQ_INTERACTIVE "input_boost", "1");
 
-    powmod->inited = 1;
+    ALOGI("Initialized successfully");
+    omap_device->inited = 1;
 }
 
-static int boostpulse_open(struct encore_power_module *encore)
-{
+static int boostpulse_open(struct omap_power_module *omap_device) {
     char buf[80];
 
-    pthread_mutex_lock(&encore->lock);
+    pthread_mutex_lock(&omap_device->lock);
 
-    if (encore->boostpulse_fd < 0) {
-        encore->boostpulse_fd = open(BOOSTPULSE_PATH, O_WRONLY);
+    if (omap_device->boostpulse_fd < 0) {
+        omap_device->boostpulse_fd = open(BOOSTPULSE_PATH, O_WRONLY);
 
-        if (encore->boostpulse_fd < 0) {
-            if (!encore->boostpulse_warned) {
+        if (omap_device->boostpulse_fd < 0) {
+            if (!omap_device->boostpulse_warned) {
                 strerror_r(errno, buf, sizeof(buf));
                 ALOGE("Error opening %s: %s\n", BOOSTPULSE_PATH, buf);
-                encore->boostpulse_warned = 1;
+                omap_device->boostpulse_warned = 1;
             }
         }
     }
 
-    pthread_mutex_unlock(&encore->lock);
-    return encore->boostpulse_fd;
+    pthread_mutex_unlock(&omap_device->lock);
+    return omap_device->boostpulse_fd;
 }
 
-static void encore_power_set_interactive(struct power_module *module, int on)
-{
-    int len;
-    char buf[MAX_BUF_SZ];
-    struct encore_power_module *powmod =
-                                   (struct encore_power_module *) module;
+static void omap_power_set_interactive(struct power_module *module, int on) {
+    struct omap_power_module *omap_device = (struct omap_power_module *) module;
     int tmp;
 
-    if (!powmod->inited) {
+    if (!omap_device->inited)
         return;
-    }
 
     /*
-     * Lower maximum frequency when screen is off.  
+     * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
+     * cpufreq policy.
      */
+
     // sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", on ? max_freq : nom_freq);
     if (on) {
         sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", (strlen(current_max_freq) > 0) ? current_max_freq : max_freq);
@@ -198,29 +187,24 @@ static void encore_power_set_interactive(struct power_module *module, int on)
     }
 }
 
-static void encore_power_hint(struct power_module *module, power_hint_t hint,
-                            void *data)
-{
-    struct encore_power_module *encore = (struct encore_power_module *) module;
+static void omap_power_hint(struct power_module *module, power_hint_t hint, void *data) {
+    struct omap_power_module *omap_device = (struct omap_power_module *) module;
     char buf[80];
     int len;
-    struct encore_power_module *powmod =
-                                   (struct encore_power_module *) module;
 
-    if (!powmod->inited) {
+    if (!omap_device->inited)
         return;
-    }
 
     switch (hint) {
     case POWER_HINT_INTERACTION:
-        if (boostpulse_open(encore) >= 0) {
-	    len = write(encore->boostpulse_fd, "1", 1);
+        if (boostpulse_open(omap_device) >= 0) {
+            len = write(omap_device->boostpulse_fd, "1", 1);
 
-	    if (len < 0) {
-	        strerror_r(errno, buf, sizeof(buf));
-		ALOGE("Error writing to %s: %s\n", BOOSTPULSE_PATH, buf);
-	    }
-	}
+            if (len < 0) {
+                strerror_r(errno, buf, sizeof(buf));
+                ALOGE("Error writing to %s: %s\n", BOOSTPULSE_PATH, buf);
+            }
+        }
         break;
 
     case POWER_HINT_VSYNC:
@@ -235,24 +219,24 @@ static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
 
-struct encore_power_module HAL_MODULE_INFO_SYM = {
-    base: {
-        common: {
-            tag: HARDWARE_MODULE_TAG,
-            module_api_version: POWER_MODULE_API_VERSION_0_2,
-            hal_api_version: HARDWARE_HAL_API_VERSION,
-            id: POWER_HARDWARE_MODULE_ID,
-            name: "encore Power HAL",
-            author: "The Android Open Source Project",
-            methods: &power_module_methods,
+struct omap_power_module HAL_MODULE_INFO_SYM = {
+    .base = {
+        .common = {
+            .tag = HARDWARE_MODULE_TAG,
+            .module_api_version = POWER_MODULE_API_VERSION_0_2,
+            .hal_api_version = HARDWARE_HAL_API_VERSION,
+            .id = POWER_HARDWARE_MODULE_ID,
+            .name = "OMAP Power HAL",
+            .author = "The Android Open Source Project",
+            .methods = &power_module_methods,
         },
 
-       init: encore_power_init,
-       setInteractive: encore_power_set_interactive,
-       powerHint: encore_power_hint,
+       .init = omap_power_init,
+       .setInteractive = omap_power_set_interactive,
+       .powerHint = omap_power_hint,
     },
 
-    lock: PTHREAD_MUTEX_INITIALIZER,
-    boostpulse_fd: -1,
-    boostpulse_warned: 0,
+    .lock = PTHREAD_MUTEX_INITIALIZER,
+    .boostpulse_fd = -1,
+    .boostpulse_warned = 0,
 };
