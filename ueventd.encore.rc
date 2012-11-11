@@ -1,32 +1,13 @@
-/dev/ttyUSB0 0666 system system
+/dev/ttyUSB0              0660   system    system
 
 #for DSSCOMP
-/dev/dsscomp              0666   system     system
-/dev/tiler                0666   system     system
-
-/dev/rpmsg-omx0           0660   drmrpc    drmrpc
-/dev/rpmsg-omx1           0660   drmrpc    drmrpc
-/dev/rproc_user           0660   drmrpc    drmrpc
-/dev/tf_driver            0660   drmrpc    drmrpc
-/dev/tf_ctrl              0660   drmrpc    drmrpc
+/dev/dsscomp              0660   system     system
+/dev/ion                  0777   system     system
 
 /dev/pvrsrvkm             0666   system     system
 /dev/video6               0660   system     camera
-/dev/video10               0660   system     camera
-/dev/s3c-jpg              0660   system     camera
-/dev/s3c-mem              0660   system     system
-/dev/s3c-mfc              0660   system     graphics
+/dev/video10              0660   system     camera
 
-/dev/modem_ctl            0660   radio      radio
-/dev/modem_fmt            0660   radio      radio
-/dev/modem_rfs            0660   radio      radio
-/dev/s3c2410_serial3      0660   radio      radio
-/dev/block/mtdblock5      0660   radio      radio
-/dev/mtd/mtd5ro           0660   radio      radio
+/dev/DspBridge            0660   media      system
 
-# for Sensor HAL
-/dev/akm8973              0660   system     system
-/dev/accelerometer        0660   system     system
-
-/dev/fwram                0666   system     system
-
+/dev/i2c-2                0660   media      media
