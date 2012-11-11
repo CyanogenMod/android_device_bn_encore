@@ -2,7 +2,7 @@
 
 #for DSSCOMP
 /dev/dsscomp              0660   system     system
-/dev/ion                  0777   system     system
+/dev/ion                  0660   media      system
 
 /dev/pvrsrvkm             0666   system     system
 /dev/video6               0660   system     camera
