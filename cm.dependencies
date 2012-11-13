@@ -1,0 +1,7 @@
+[
+ {
+   "repository": "android_kernel_bn_encore",
+   "target_path": "kernel/bn/encore",
+   "branch": "encore-omap3-3"
+ }
+]
