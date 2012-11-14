@@ -66,8 +66,6 @@ vendor/lib/libglslcompiler.so
 lib/libomap_mm_library_jni.so
 vendor/lib/libpvr2d.so
 vendor/lib/libpvrANDROID_WSEGL.so
-vendor/lib/libpvrPVR2D_FLIPWSEGL.so
-vendor/lib/libpvrPVR2D_FRONTWSEGL.so
 vendor/lib/libsrv_init.so
 vendor/lib/libsrv_um.so
 vendor/lib/libusc.so
