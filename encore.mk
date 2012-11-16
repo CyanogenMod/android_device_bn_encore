@@ -147,8 +147,7 @@ PRODUCT_PACKAGES += \
     libomap_mm_library_jni \
     librs_jni \
     libtiOsLib \
-    make_ext4fs \
-    power.encore
+    make_ext4fs
 
 # OMX components
 # Addition of LOCAL_MODULE_TAGS requires us to specify
