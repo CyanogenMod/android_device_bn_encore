@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2009 The Android Open Source Project
-# Copyright (C) 2011 The CyanogenMod Project
+# Copyright (C) 2012 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -49,10 +49,6 @@ PRODUCT_PACKAGES += store-mac-addr.sh
 # Bluetooth
 PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
-
-# Overlay (omapzoom)
-#PRODUCT_COPY_FILES += \
-#    device/bn/encore/prebuilt/GFX/system/lib/hw/overlay.omap3.so:/system/lib/hw/overlay.omap3.so 
 
 # Place permission files
 PRODUCT_COPY_FILES += \
