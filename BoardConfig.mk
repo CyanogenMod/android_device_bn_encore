@@ -24,6 +24,7 @@ BUILD_NETD := false
 # inherit from the proprietary version
 -include vendor/bn/encore/BoardConfigVendor.mk
 
+TARGET_ARCH := arm
 TARGET_BOARD_PLATFORM := omap3
 TARGET_CPU_ABI := armeabi-v7a
 ARCH_ARM_HAVE_ARMV7A := true
