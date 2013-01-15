@@ -127,6 +127,7 @@ PRODUCT_PACKAGES += \
     lights.encore \
     sensors.encore \
     uim-sysfs \
+    libbt-vendor \
     libaudioutils \
     audio.a2dp.default \
     libaudiohw_legacy \
