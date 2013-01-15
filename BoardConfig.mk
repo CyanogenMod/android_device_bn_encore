@@ -137,6 +137,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_stora
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_WPAN_DEVICE := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/bn/encore/bluetooth
 
 BOARD_HAVE_FAKE_GPS := true
 
