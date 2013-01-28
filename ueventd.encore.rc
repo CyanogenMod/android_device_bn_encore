@@ -10,4 +10,7 @@
 
 /dev/DspBridge            0660   media      system
 
+# Bluetooth
+/dev/hci_tty              0600   bluetooth  bluetooth
+
 /dev/i2c-2                0660   media      media
