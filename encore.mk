@@ -197,6 +197,7 @@ PRODUCT_CHARACTERISTICS := tablet
 
 # Screen size is "large", density is "mdpi", need "hdpi" for extra drawables in 10.1
 PRODUCT_AAPT_CONFIG := large mdpi hdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
