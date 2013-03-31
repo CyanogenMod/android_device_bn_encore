@@ -67,6 +67,13 @@ ifeq ($(strip $(BOARD_USES_ALSA_AUDIO)),true)
   LOCAL_MODULE_TAGS:= optional
   LOCAL_MODULE:= alsa.$(TARGET_BOARD_PLATFORM)
 
+  # XXX For some reason, read-only relocations cause the world to blow up
+  # when loading this module
+  # No significant benefit to marking relocations RO for this (not a
+  # security-sensitive component), but it'd be nice to figure out why this
+  # happens anyway ...
+  LOCAL_LDFLAGS := -Wl,-z,norelro 
+
   include $(BUILD_SHARED_LIBRARY)
 
 endif
