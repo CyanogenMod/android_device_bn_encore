@@ -153,6 +153,15 @@ BOARD_HAS_NO_MISC_PARTITION := true
 # BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
 
+# If you'd like to build the audio components from source instead of using
+# the prebuilts, uncomment BOARD_USES_ALSA_AUDIO := true above and add the
+# following repositories to your manifest:
+#
+# <project name="steven676/android_hardware_alsa_sound" path="hardware/alsa_sound" remote="github" revision="jellybean-for-encore" />
+# <project name="steven676/android_external_alsa-lib" path="external/alsa-lib" remote="github" revision="jellybean" />
+#
+# Also see encore.mk for further instructions.
+
 HARDWARE_OMX := true
 
 ifdef HARDWARE_OMX

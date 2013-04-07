@@ -84,6 +84,15 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/prebuilt/alsa/libaudio.so:obj/lib/libaudio.so \
    $(LOCAL_PATH)/prebuilt/alsa/alsa.omap3.so:obj/lib/alsa.omap3.so
 
+# If you'd like to build the audio components from source instead of using
+# the prebuilts, comment out the PRODUCT_COPY_FILES lines for audio above
+# and uncomment the lines below, then see BoardConfig.mk for further
+# instructions.
+#$(call inherit-product-if-exists, external/alsa-lib/alsa-lib-products.mk)
+#PRODUCT_PACKAGES += \
+#    libaudio \
+#    alsa.omap3
+
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/etc/audio_policy.conf:system/etc/audio_policy.conf
 
