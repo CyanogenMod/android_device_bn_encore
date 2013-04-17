@@ -10,7 +10,7 @@ ro.pm.awake_on_usb=1
 ro.cwm.forbid_format=/boot
 #ro.config.disable_hw_accel=true
 persist.sys.usb.config=mtp,adb
-ro.sf.hwrotation=270
+#ro.sf.hwrotation=270
 ro.emmc=1
 ro.sf.lcd_density=160
 
