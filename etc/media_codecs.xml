@@ -89,8 +89,34 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="input-buffer-sizes-are-bogus" />
         </MediaCodec>
-        <MediaCodec name="OMX.TI.WBAMR.decode" type="audio/amr-wb" />
-        <MediaCodec name="OMX.TI.AMR.decode" type="audio/3gpp" />
+
+        <MediaCodec name="OMX.TI.MP3.decode" >
+            <Type name="audio/mpeg" />
+            <Quirk name="needs-flush-before-disable" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.TI.AAC.decode" >
+            <Type name="audio/mp4a-latm" />
+            <Quirk name="needs-flush-before-disable" />
+            <Quirk name="requires-flush-complete-emulation" />
+            <Quirk name="supports-multiple-frames-per-input-buffer" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.TI.AMR.decode" >
+            <Type name="audio/3gpp" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.TI.WBAMR.decode" >
+            <Type name="audio/amr-wb" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+        </MediaCodec>
 
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
         <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
@@ -122,8 +148,23 @@ a texture and possibly other code, so just DON'T USE THIS QUIRK.
             <Quirk name="avoid-memcopy-input-recording-frames" />
         </MediaCodec>
 
-        <MediaCodec name="OMX.TI.WBAMR.encode" type="audio/amr-wb" />
-        <MediaCodec name="OMX.TI.AMR.encode" type="audio/3gpp" />
+        <MediaCodec name="OMX.TI.AAC.encode" >
+            <Type name="audio/mp4a-latm" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.TI.AMR.encode" >
+            <Type name="audio/3gpp" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+        </MediaCodec>
+
+        <MediaCodec name="OMX.TI.WBAMR.encode" >
+            <Type name="audio/amr-wb" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+        </MediaCodec>
 
         <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.google.flac.encoder" type="audio/flac" />
