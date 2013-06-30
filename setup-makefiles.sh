@@ -40,10 +40,6 @@ MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 DEVICE_PACKAGE_OVERLAYS += vendor/$MANUFACTURER/$DEVICE/overlay
 
 
-# HACK: Remove this
-PRODUCT_COPY_FILES += \\
-    $OUTDIR/proprietary/lib/libaudiopolicy.so:obj/lib/libaudiopolicy.so
-
 # Proprietary Blobs
 PRODUCT_COPY_FILES += \\
 EOF
