@@ -101,7 +101,7 @@ endif
 
 TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
 
-WIFI_MODULES:
+wifi_modules:
 	make -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE)
 	mv $(KERNEL_OUT)/lib/crc7.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
@@ -109,8 +109,9 @@ WIFI_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-debug $(KERNEL_MODULES_OUT)/crc7.ko $(KERNEL_MODULES_OUT)/compat.ko $(KERNEL_MODULES_OUT)/mac80211.ko $(KERNEL_MODULES_OUT)/cfg80211.ko $(KERNEL_MODULES_OUT)/wl12xx.ko $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
 
-TARGET_KERNEL_MODULES := WIFI_MODULES
+TARGET_KERNEL_MODULES := wifi_modules
 
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
