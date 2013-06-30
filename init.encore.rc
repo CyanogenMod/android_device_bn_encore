@@ -112,6 +112,9 @@ on post-fs-data
     write /sys/kernel/debug/smartreflex/sr_core/autocomp 1
     write /sys/kernel/debug/smartreflex/sr_mpu_iva/autocomp 1
 
+    # Permissions for the power HAL
+    chown system system /sys/devices/platform/omap/pvrsrvkm.0/pin_core_clk
+
     chmod 0664 /sys/devices/platform/dsscomp/isprsz/enable
     chown system graphics /sys/devices/platform/dsscomp/isprsz/enable
 
