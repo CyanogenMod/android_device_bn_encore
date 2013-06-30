@@ -1,6 +1,9 @@
 import init.encore.usb.rc
 
 on early-init
+    # cap max CPU frequency to 1 GHz as soon as possible
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1000000
+
     mkdir /storage 0050 system sdcard_r
     mkdir /storage/sdcard0 0000 system system
     mkdir /storage/sdcard1 0000 system system
@@ -97,10 +100,9 @@ on post-fs-data
     # Enabling OFF mode
     write /sys/kernel/debug/pm_debug/enable_off_mode 1
                     
-    # switch CPUfreq from performance to ondemand and default to 1000mhz
+    # switch CPUfreq from performance to ondemand
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
     write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 50
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1000000
 
     # autosuspend root hubs immediatly after attached devices
     write /sys/bus/usb/devices/usb1/power/autosuspend_delay_ms 0
