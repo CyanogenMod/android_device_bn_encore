@@ -156,6 +156,7 @@ PRODUCT_PACKAGES += \
     overlay.omap3 \
     lights.encore \
     sensors.encore \
+    power.encore \
     uim-sysfs \
     libbt-vendor \
     libaudioutils \
