@@ -1,0 +1,21 @@
+#######################
+#<src> <mnt_point> <type> <mnt_flags and options> <fs_mgr_flags>  
+# The filesystem that contains the filesystem checker binary (typically /system) cannot 
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK 
+######################
+/dev/block/mmcblk0p5	/system	ext4	ro,barrier=1	wait
+/dev/block/mmcblk0p6	/data	ext4	noatime,nosuid,nodev,barrier=1,noauto_da_alloc	wait,check
+/dev/block/mmcblk0p7	/cache	ext4	noatime,nosuid,nodev,barrier=1	wait,check
+/dev/block/mmcblk0p2	/rom	vfat	sync,noatime,nodiratime,uid=1000,gid=1000,fmask=117,dmask=007	defaults
+/dev/block/mmcblk0p1	/boot	vfat	fmask=177,dmask=077	recoveryonly
+
+#
+# vold-managed volumes ("block device" is actually a sysfs devpath)
+#
+/devices/platform/omap/omap_hsmmc.0/mmc_host/mmc1	/storage/sdcard1	auto	defaults	voldmanaged=sdcard:auto
+
+## nookcolor has two fat32 partitions, p1 is boot p8 is internal storage, so we have to specify here
+/devices/platform/omap/omap_hsmmc.1/mmc_host/mmc0	/storage/sdcard0	vfat	defaults	voldmanaged=emmc:8,nonremovable
+
+## USB storage device
+/devices/platform/musb_hdrc	/mnt/usbdisk	auto	defaults	voldmanaged=usbdisk:auto
