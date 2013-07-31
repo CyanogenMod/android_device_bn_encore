@@ -19,3 +19,5 @@ opencore.asmd=1
 
 # XXX This optimization slows down SGX540; is this true of SGX530 too?
 ro.hwui.disable_scissor_opt=true
+# GPU producer to CPU consumer not supported
+ro.bq.gpu_to_cpu_unsupported=1
