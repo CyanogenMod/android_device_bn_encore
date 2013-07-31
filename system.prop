@@ -8,7 +8,6 @@ ro.additionalmounts=/mnt/emmc;/mnt/usbdisk
 ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
 ro.pm.awake_on_usb=1
 ro.cwm.forbid_format=/boot
-#ro.config.disable_hw_accel=true
 persist.sys.usb.config=mtp,adb
 #ro.sf.hwrotation=270
 ro.emmc=1
@@ -17,3 +16,6 @@ ro.sf.lcd_density=160
 ## Enable OMAP stuffs
 com.ti.omap_enhancement=true
 opencore.asmd=1
+
+# XXX This optimization slows down SGX540; is this true of SGX530 too?
+ro.hwui.disable_scissor_opt=true
