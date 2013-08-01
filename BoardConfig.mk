@@ -52,6 +52,10 @@ ifdef OMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPCAM -DOMAP_ENHANCEMENT_VTC
 endif
 
+# for frameworks/native/services/surfaceflinger
+# use EGL_IMG_context_priority extension, which helps performance
+COMMON_GLOBAL_CFLAGS += -DHAS_CONTEXT_PRIORITY
+
 TARGET_SPECIFIC_HEADER_PATH := device/bn/encore/include
 
 # Makefile variables and C/C++ macros to recognise current pastry
