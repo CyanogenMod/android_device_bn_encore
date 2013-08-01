@@ -34,6 +34,10 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/usr/idc/ft5x06-i2c.idc:/system/usr/idc/ft5x06-i2c.idc \
     device/bn/encore/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
+# PowerVR graphics driver configuration
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/etc/powervr.ini:system/etc/powervr.ini
+
 # Wifi firmware (modules are built from source)
 PRODUCT_COPY_FILES += \
     device/bn/encore/firmware/ti-connectivity/LICENSE:system/etc/firmware/ti-connectivity/LICENSE \

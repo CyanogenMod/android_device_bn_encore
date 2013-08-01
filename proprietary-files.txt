@@ -1,5 +1,4 @@
 bin/pvrsrvinit
-etc/powervr.ini
 vendor/lib/libbltsville_cpu.so
 vendor/lib/libbltsville_ticpu.so
 lib/dsp/g729enc_sn.dll64P
