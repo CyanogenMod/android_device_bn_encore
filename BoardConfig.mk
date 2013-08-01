@@ -51,6 +51,10 @@ ifdef OMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPCAM -DOMAP_ENHANCEMENT_VTC
 endif
 
+# for frameworks/native/libs/gui
+# disable use of EGL_KHR_fence_sync extension, since it slows things down
+COMMON_GLOBAL_CFLAGS += -DDONT_USE_FENCE_SYNC
+
 # for frameworks/native/services/surfaceflinger
 # use EGL_IMG_context_priority extension, which helps performance
 COMMON_GLOBAL_CFLAGS += -DHAS_CONTEXT_PRIORITY
