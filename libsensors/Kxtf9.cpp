@@ -64,6 +64,7 @@ int Kxtf9Sensor::enable(int32_t handle, int en)
         int bytes = sprintf(buffer, "%d\n", newState);
         err = write(fd, buffer, bytes);
         err = err < 0 ? -errno : 0;
+        close(fd);
     } else {
         err = -errno;
     }
@@ -95,6 +96,7 @@ int Kxtf9Sensor::setDelay(int32_t handle, int64_t ns)
             int bytes = sprintf(buffer, "%d\n", delay);
             err = write(fd, buffer, bytes);
             err = err < 0 ? -errno : 0;
+            close(fd);
         } else {
             err = -errno;
         }
