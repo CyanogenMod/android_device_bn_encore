@@ -89,7 +89,7 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_USES_UBOOT := true
 
 # Inline kernel building config
-TARGET_KERNEL_CONFIG := encore_cm10.1_defconfig
+TARGET_KERNEL_CONFIG := encore_cm10.2_defconfig
 TARGET_KERNEL_SOURCE := kernel/bn/encore
 
 # Connectivity - Wi-Fi
