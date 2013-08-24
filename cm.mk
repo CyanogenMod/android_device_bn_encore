@@ -21,7 +21,7 @@ PRODUCT_RELEASE_NAME := NookColor
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_ID=JSS15J BUILD_DISPLAY_ID=JSS15J BUILD_FINGERPRINT="bn/bn_encore/encore:4.3/JSS15J/748593:user/release-keys" PRIVATE_BUILD_DESC="encore-user 4.3 JSS15J 748593 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_ID=JSS15Q BUILD_DISPLAY_ID=JSS15Q BUILD_FINGERPRINT="bn/bn_encore/encore:4.3/JSS15Q/779366:user/release-keys" PRIVATE_BUILD_DESC="encore-user 4.3 JSS15Q 779366 release-keys"
 
 PRODUCT_NAME := cm_encore
 PRODUCT_DEVICE := encore
