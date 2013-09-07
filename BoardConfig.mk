@@ -51,6 +51,10 @@ ifdef OMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPCAM -DOMAP_ENHANCEMENT_VTC
 endif
 
+# Conserve memory in the Dalvik heap
+# Details: https://github.com/CyanogenMod/android_dalvik/commit/15726c81059b74bf2352db29a3decfc4ea9c1428
+TARGET_ARCH_LOWMEM := true
+
 # for frameworks/native/libs/gui
 # disable use of EGL_KHR_fence_sync extension, since it slows things down
 COMMON_GLOBAL_CFLAGS += -DDONT_USE_FENCE_SYNC
