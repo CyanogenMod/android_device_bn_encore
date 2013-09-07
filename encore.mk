@@ -246,6 +246,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapsize=128m \
     ro.opengles.version=131072
 
-$(call inherit-product-if-exists, vendor/bn/encore/encore-vendor.mk)
+$(call inherit-product, vendor/bn/encore/encore-vendor.mk)
 #$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
 #$(call inherit-product-if-exists, device/ti/proprietary-open/wl12xx/wlan/wl12xx-wlan-fw-products.mk)
