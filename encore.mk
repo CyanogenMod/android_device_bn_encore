@@ -242,9 +242,7 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set property overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    dalvik.vm.heapsize=128m \
-    ro.opengles.version=131072
+    dalvik.vm.heapsize=128m
 
 $(call inherit-product, vendor/bn/encore/encore-vendor.mk)
 #$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
