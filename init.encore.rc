@@ -4,9 +4,12 @@ on early-init
     # cap max CPU frequency to 1 GHz as soon as possible
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1000000
 
-    mkdir /storage 0050 system sdcard_r
+    mkdir /storage 0751 root sdcard_r
     mkdir /storage/sdcard0 0000 system system
     mkdir /storage/sdcard1 0000 system system
+    mkdir /mnt/media_rw 0700 media_rw media_rw
+    mkdir /mnt/media_rw/sdcard0 0000 system system
+    mkdir /mnt/media_rw/sdcard1 0000 system system
 
 # for backwards compatibility
     symlink /storage/sdcard0 /mnt/emmc
@@ -25,11 +28,10 @@ on init
     export DEFAULT_BASEIMAGE /system/lib/dsp/baseimage.dof
 
     # create mountpoints
-    mkdir /mnt/usbdisk 0000 system system
-    mkdir /mnt/emmc 0000 system system
-    mkdir /mnt/usbdisk 0000 system system
-    symlink /mnt/emmc /emmc
-    symlink /mnt/usbdisk /usbdisk
+    mkdir /storage/usbdisk 0000 system system
+    mkdir /mnt/media_rw/usbdisk 0000 system system
+    symlink /storage/usbdisk /usbdisk
+    symlink /storage/usbdisk /mnt/usbdisk
     symlink /system/vendor /vendor
 
     # for encore
@@ -279,11 +281,18 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-# create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-#service sdcard /system/bin/sdcard /data/media 1023 1023
-#   class late_start
+# FUSE sdcard daemon for rich permissions on external storage (runs as media_rw)
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+   class late_start
+   disabled
+
+service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/sdcard0 /storage/sdcard0
+   class late_start
+   disabled
+
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /storage/usbdisk
+   class late_start
+   disabled
 
 # load DSP firmware
 service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
