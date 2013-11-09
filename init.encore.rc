@@ -33,7 +33,7 @@ on init
     symlink /system/vendor /vendor
 
     # for encore
-    mkdir /rom 0777 root root
+    mkdir /rom 0755 root root
 
 on fs
     # mount partitions
