@@ -57,6 +57,10 @@ TARGET_ARCH_LOWMEM := true
 
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
+# for frameworks/native/opengl/libs
+# disable use of unsupported EGL_KHR_gl_colorspace extension
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+
 # for frameworks/native/libs/gui
 # disable use of EGL_KHR_fence_sync extension, since it slows things down
 COMMON_GLOBAL_CFLAGS += -DDONT_USE_FENCE_SYNC
