@@ -12,7 +12,7 @@
 #
 # vold-managed volumes ("block device" is actually a sysfs devpath)
 #
-/devices/platform/omap/omap_hsmmc.0/mmc_host/mmc1	auto	auto	defaults	voldmanaged=sdcard1:auto
+/devices/platform/omap/omap_hsmmc.0/mmc_host/mmc1	auto	auto	defaults	voldmanaged=sdcard1:auto,noemulatedsd
 
 ## nookcolor has two fat32 partitions, p1 is boot p8 is internal storage, so we have to specify here
 /devices/platform/omap/omap_hsmmc.1/mmc_host/mmc0	auto	vfat	defaults	voldmanaged=sdcard0:8,nonremovable
