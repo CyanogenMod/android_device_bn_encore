@@ -2,6 +2,6 @@
  {
    "repository": "android_kernel_bn_encore",
    "target_path": "kernel/bn/encore",
-   "branch": "encore-omap3-3"
+   "branch": "encore-omap3-3.0.y"
  }
 ]
