@@ -18,7 +18,7 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-<!-- Remove camera icon from lock screen. -->
+<!-- Remove camera icon from lock screen.
    <array name="lockscreen_targets_with_camera">
         <item>@drawable/ic_lockscreen_unlock</item>
         <item>@null</item>
@@ -32,17 +32,19 @@
         <item>@null</item>
         <item>@null</item>
     </array>
-
-  <!-- Defines the shutdown options shown in the reboot dialog. -->
+-->
+  <!-- Defines the shutdown options shown in the reboot dialog. 
   <array name="shutdown_reboot_options" translatable="false">
     <item>@string/reboot_reboot</item>
     <item>@string/reboot_recovery</item>
   </array>
+-->
 
   <!-- Do not translate. Defines the shutdown actions passed to the kernel.
-       The first item should be empty for regular reboot. -->
+       The first item should be empty for regular reboot.
   <string-array name="shutdown_reboot_actions" translatable="false">
     <item></item>
     <item>recovery</item>
   </string-array>
+-->
 </resources>

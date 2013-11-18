@@ -18,7 +18,7 @@
 */
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-<!-- Remove camera icon from lock screen. -->
+<!-- Remove camera icon from lock screen. 
    <array name="lockscreen_targets_with_camera">
         <item>@drawable/ic_lockscreen_unlock</item>
         <item>@null</item>
@@ -32,5 +32,5 @@
         <item>@null</item>
         <item>@null</item>
     </array>
-
+-->
 </resources>
