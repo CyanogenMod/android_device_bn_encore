@@ -109,6 +109,9 @@ static int s_device_close(hw_device_t* device)
 
 static const int DEFAULT_SAMPLE_RATE = ALSA_DEFAULT_SAMPLE_RATE;
 
+// Value of android::AudioRecord::DEFAULT_SAMPLE_RATE before 4.4
+static const int DEFAULT_INPUT_SAMPLE_RATE = 8000;
+
 static void setScoControls(uint32_t devices, int mode);
 static void setFmControls(uint32_t devices, int mode);
 static void setDefaultControls(uint32_t devices, int mode);
@@ -197,7 +200,7 @@ static alsa_handle_t _defaults[] = {
         handle      : 0,
         format      : SND_PCM_FORMAT_S16_LE, // AudioSystem::PCM_16_BIT
         channels    : 1,
-        sampleRate  : android::AudioRecord::DEFAULT_SAMPLE_RATE,
+        sampleRate  : DEFAULT_INPUT_SAMPLE_RATE,
         latency     : 250000, // Desired Delay in usec
         bufferSize  : 2048, // Desired Number of samples
         mmap        : 0,
