@@ -18,6 +18,12 @@ $(call inherit-product, device/bn/encore/full_encore.mk)
 
 PRODUCT_RELEASE_NAME := NookColor
 
+# We need screen width/height defined before inheriting
+# common_full_tablet_wifionly.mk to avoid automatically bringing in the wrong
+# boot animation.
+TARGET_SCREEN_HEIGHT := 1024
+TARGET_SCREEN_WIDTH := 600
+
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 
