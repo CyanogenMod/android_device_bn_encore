@@ -22,10 +22,6 @@ DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
-# Set boot animation size
-PRODUCT_COPY_FILES += \
-    vendor/cm/prebuilt/common/bootanimation/600.zip:system/media/bootanimation.zip
-
 # Init files
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc \
