@@ -27,7 +27,7 @@ TARGET_SCREEN_WIDTH := 600
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_ID=KOT49H BUILD_DISPLAY_ID=KOT49H BUILD_FINGERPRINT="bn/bn_encore/encore:4.4.2/KOT49H/937116:user/release-keys" PRIVATE_BUILD_DESC="encore-user 4.4.2 KOT49H 937116 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=encore BUILD_FINGERPRINT="bn/bn_encore/encore:4.4.2/KOT49H/937116:user/release-keys" PRIVATE_BUILD_DESC="encore-user 4.4.2 KOT49H 937116 release-keys"
 
 PRODUCT_NAME := cm_encore
 PRODUCT_DEVICE := encore
