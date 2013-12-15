@@ -35,7 +35,7 @@ TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 # -fmodulo-sched -fmodulo-sched-allow-regmoves
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 # -fmodulo-sched -fmodulo-sched-allow-regmoves
-TARGET_arm_CFLAGS := -O3 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops \
+TARGET_arm_CFLAGS := -Os -fomit-frame-pointer -fstrict-aliasing -funswitch-loops \
                        -fmodulo-sched -fmodulo-sched-allow-regmoves
 TARGET_thumb_CFLAGS := -mthumb \
                         -Os \
