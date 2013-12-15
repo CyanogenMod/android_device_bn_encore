@@ -1,6 +1,4 @@
 bin/pvrsrvinit
-vendor/lib/libbltsville_cpu.so
-vendor/lib/libbltsville_ticpu.so
 lib/dsp/g729enc_sn.dll64P
 lib/dsp/nbamrdec_sn.dll64P
 lib/dsp/monitor_tiomap3430.dof64P
@@ -62,7 +60,6 @@ vendor/lib/libOpenVG.so
 vendor/lib/libOpenVGU.so
 vendor/lib/libPVRScopeServices.so
 vendor/lib/libglslcompiler.so
-lib/libomap_mm_library_jni.so
 vendor/lib/libpvr2d.so
 vendor/lib/libpvrANDROID_WSEGL.so
 vendor/lib/libsrv_init.so
