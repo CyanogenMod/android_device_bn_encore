@@ -172,9 +172,6 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     libaudiohw_legacy \
     audio.primary.encore \
-    tinyplay \
-    tinymix \
-    tinycap \
     acoustics.default \
     com.android.future.usb.accessory \
     dhcpcd.conf \
