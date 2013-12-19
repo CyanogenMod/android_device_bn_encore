@@ -18,7 +18,7 @@ $(call inherit-product, device/bn/encore/full_encore.mk)
 
 PRODUCT_RELEASE_NAME := NookColor
 
-PRODUCT_VERSION_DEVICE_SPECIFIC := .1
+PRODUCT_VERSION_DEVICE_SPECIFIC := .2
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 
