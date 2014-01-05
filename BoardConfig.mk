@@ -85,6 +85,7 @@ endif
 BOARD_CUSTOM_BOOTIMG_MK := device/bn/encore/uboot-bootimg.mk
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_img_from_target_files
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/bn/encore/releasetools/encore_ota_from_target_files
+TARGET_SYSTEMIMAGE_USE_SQUISHER := true
 # Include a 2ndbootloader
 TARGET_BOOTLOADER_IS_2ND := true
 
