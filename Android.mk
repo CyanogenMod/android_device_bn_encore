@@ -30,6 +30,23 @@ ifneq ($(filter encore,$(TARGET_DEVICE)),)
 
 ifneq ($(TARGET_SIMULATOR),true)
 include $(call all-makefiles-under,$(LOCAL_PATH))
+
+# XXX UGLY workaround to avoid running out of space when installing
+# Google Apps packages
+$(TARGET_OUT_APPS)/GoogleHome.apk:
+	@rm -rf $@
+	@mkdir -p $(TARGET_OUT_APPS)
+	ln -sf /dev/null $@
+
+$(TARGET_OUT_APPS)/Hangouts.apk:
+	@rm -rf $@
+	@mkdir -p $(TARGET_OUT_APPS)
+	ln -sf /dev/null $@
+
+ALL_DEFAULT_INSTALLED_MODULES += \
+	$(TARGET_OUT_APPS)/GoogleHome.apk \
+	$(TARGET_OUT_APPS)/Hangouts.apk
+
 endif
 
 endif
