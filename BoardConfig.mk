@@ -37,18 +37,6 @@ COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP3 -DOMAP_ENHANCEMENT_CPC
 
 TARGET_SPECIFIC_HEADER_PATH := device/bn/encore/include
 
-# Compiler optimization options
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
-# -fmodulo-sched -fmodulo-sched-allow-regmoves
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
-# -fmodulo-sched -fmodulo-sched-allow-regmoves
-TARGET_arm_CFLAGS := -Os -fomit-frame-pointer -fstrict-aliasing -funswitch-loops \
-                       -fmodulo-sched -fmodulo-sched-allow-regmoves
-TARGET_thumb_CFLAGS := -mthumb \
-                        -Os \
-                        -fomit-frame-pointer \
-                        -fstrict-aliasing
-
 # System image configuration
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 461942784
