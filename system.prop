@@ -5,7 +5,7 @@ wifi.interface=wlan0
 wifi.supplicant_scan_interval=30
 
 ro.vold.switchablepair=/storage/sdcard1,/storage/sdcard0
-ro.cwm.forbid_format=/boot
+ro.cwm.forbid_format=/boot,/rom
 persist.sys.usb.config=mtp,adb
 ro.emmc=1
 
