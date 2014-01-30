@@ -130,9 +130,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/poetry/poem.txt:root/sbin/poem.txt
 
-# Set boot animation size
+# XXX half-res boot animation for performance
 PRODUCT_COPY_FILES += \
-    vendor/cm/prebuilt/common/bootanimation/600.zip:system/media/bootanimation.zip
+    $(LOCAL_PATH)/prebuilt/bootanimation.zip:system/media/bootanimation.zip
 
 # update the battery log info
 PRODUCT_COPY_FILES += \
