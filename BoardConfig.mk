@@ -133,7 +133,7 @@ TARGET_KERNEL_MODULES := wifi_modules
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_RECOVERY_IGNORE_BOOTABLES := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
-TARGET_RECOVERY_PRE_COMMAND := "dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; sync"
+TARGET_RECOVERY_PRE_COMMAND := "/system/bin/dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; /system/bin/sync"
 TARGET_RECOVERY_FSTAB := device/bn/encore/fstab.encore
 RECOVERY_FSTAB_VERSION := 2
 
