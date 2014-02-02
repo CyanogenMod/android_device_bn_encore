@@ -25,7 +25,7 @@ else
     ZIPFILE=../../../${DEVICE}_update.zip
 fi
 
-if [ ! -f "$1" ]; then
+if [ ! -f "$ZIPFILE" ]; then
     echo "Cannot find $ZIPFILE.  Try specifify the stock update.zip with $0 <zipfilename>"
     exit 1
 fi
