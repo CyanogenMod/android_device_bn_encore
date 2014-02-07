@@ -82,7 +82,7 @@ PRODUCT_COPY_FILES += \
 
 # Clears the boot counter
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
+    $(LOCAL_PATH)/prebuilt/bin/clear_bootcnt.sh:/system/bin/clear_bootcnt.sh
 
 # Audio Files - Need to fix Source - THANKS STEVEN676 (SLUO in irc)
 PRODUCT_COPY_FILES += \
@@ -130,7 +130,7 @@ PRODUCT_COPY_FILES += \
 
 # update the battery log info
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/log_battery_data.sh:/system/bin/log_battery_data.sh
+    $(LOCAL_PATH)/prebuilt/bin/log_battery_data.sh:/system/bin/log_battery_data.sh
 
 ifeq ($(TARGET_PREBUILT_BOOTLOADER),)
     LOCAL_BOOTLOADER := device/bn/encore/prebuilt/boot/MLO
