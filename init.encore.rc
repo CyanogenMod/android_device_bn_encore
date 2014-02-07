@@ -44,6 +44,11 @@ on init
     write /proc/sys/vm/swappiness 20
 
 on fs
+    # set up links to block devices based on boot location
+    mkdir /dev/block/by-name 0755 root root
+    start fsfinder
+    wait /dev/block/by-name/system
+
     # mount partitions
     mount_all /fstab.encore
     swapon_all /fstab.encore
@@ -210,6 +215,11 @@ on property:dev.bootcomplete=1
     write /sys/kernel/mm/ksm/pages_to_scan 100
     write /sys/kernel/mm/ksm/sleep_millisecs 500
     write /sys/kernel/mm/ksm/run 1
+
+service fsfinder /sbin/fsfinder
+    class core
+    disabled
+    oneshot
 
 #service mountd /system/bin/mountd
 #   socket mountd stream 0660 root mount

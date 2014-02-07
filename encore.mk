@@ -29,6 +29,8 @@ PRODUCT_COPY_FILES += \
     device/bn/encore/ueventd.encore.rc:root/ueventd.encore.rc \
     device/bn/encore/fstab.encore:root/fstab.encore
 
+PRODUCT_PACKAGES += fsfinder
+
 # key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/usr/idc/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \
