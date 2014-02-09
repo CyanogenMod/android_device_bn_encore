@@ -139,7 +139,7 @@ HARDWARE_OMX := true
 # Boot animation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
-TARGET_BOOTANIMATION_USE_565 := true
+TARGET_BOOTANIMATION_USE_RGB565 := true
 
 # Recovery options
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_ui.c
