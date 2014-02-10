@@ -28,6 +28,11 @@ esac
 # Mount modified fstab over the original so that vold will find it
 if [ -f "$FSTAB_NEW" ]; then
 	mount -t bind -o bind "$FSTAB_NEW" "$FSTAB"
+
+	# If in recovery, replace /etc/recovery.fstab too
+	if [ -e /etc/recovery.fstab ]; then
+		mount -t bind -o bind "$FSTAB_NEW" /etc/recovery.fstab
+	fi
 fi
 
 : > /dev/.vold_configured

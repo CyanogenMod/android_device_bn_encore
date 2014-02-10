@@ -1,0 +1,8 @@
+on init
+    start configure_vold
+    wait /dev/.vold_configured
+
+service configure_vold /sbin/configure_vold.sh
+    class core
+    disabled
+    oneshot
