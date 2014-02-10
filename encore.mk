@@ -31,6 +31,10 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += fsfinder
 
+# vold configuration script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/configure_vold.sh:system/bin/configure_vold.sh
+
 # key mapping and touchscreen files
 PRODUCT_COPY_FILES += \
     device/bn/encore/prebuilt/usr/idc/cyttsp-i2c.idc:/system/usr/idc/cyttsp-i2c.idc \

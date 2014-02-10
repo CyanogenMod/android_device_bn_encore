@@ -57,6 +57,11 @@ on post-fs-data
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
+
+    # update vold configuration in fstab
+    start configure_vold
+    wait /dev/.vold_configured
+
     setprop vold.post_fs_data_done 1
 
 # wi-fi
@@ -229,6 +234,11 @@ service pvrsrvinit /system/bin/pvrsrvinit
     class core
     user root
     group root
+    oneshot
+
+service configure_vold /system/bin/configure_vold.sh
+    class core
+    disabled
     oneshot
 
 # Update the battery data heuristics every hour
