@@ -1,6 +1,15 @@
 on init
+    mkdir /dev/block/by-name 0755 root root
+    start fsfinder
+    wait /dev/block/by-name/system
+
     start configure_vold
     wait /dev/.vold_configured
+
+service fsfinder /sbin/fsfinder
+    class core
+    disabled
+    oneshot
 
 service configure_vold /sbin/configure_vold.sh
     class core
