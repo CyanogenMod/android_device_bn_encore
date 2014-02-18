@@ -9,6 +9,9 @@
 /dev/block/mmcblk0p2	/rom	vfat	sync,noatime,nodiratime,uid=1000,gid=1000,fmask=117,dmask=007	defaults
 /dev/block/mmcblk0p1	/boot	vfat	fmask=177,dmask=077	recoveryonly
 
+# Swap devices
+/dev/block/zram0	none	swap	defaults	zramsize=100663296
+
 #
 # vold-managed volumes ("block device" is actually a sysfs devpath)
 #
