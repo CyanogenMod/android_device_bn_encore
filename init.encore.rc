@@ -206,6 +206,11 @@ on property:dev.bootcomplete=1
     start bootcnt
     class_start default
 
+    # Enable KSM to merge duplicate memory pages
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
 #service mountd /system/bin/mountd
 #   socket mountd stream 0660 root mount
 
