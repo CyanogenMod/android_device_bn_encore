@@ -14,8 +14,7 @@ bootdevice="`getprop ro.boot.bootdevice`"
 case "$bootdevice" in
 	SD )
 		# Get last partition on SD card
-		last_partition="`(cd /dev/block; ls mmcblk1p*) | sort -rn | head -n 1`"
-		partnum="${last_partition##mmcblk1p}"
+		partnum="`for i in /dev/block/mmcblk1p*; do echo ${i##/dev/block/mmcblk1p}; done | sort -rn | head -n 1`"
 
 		# Update vold configuration for sdcard1
 		sed -e "s/voldmanaged=sdcard1:auto/voldmanaged=sdcard1:$partnum,nonremovable/" "$FSTAB" > "$FSTAB_NEW"
