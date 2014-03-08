@@ -6,16 +6,20 @@
 ROM_NVS=/system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin
 ORIG_NVS=/data/misc/wifi/wl1271-nvs.bin.orig
 NEW_NVS=/data/misc/wifi/wl1271-nvs.bin
+MACADDR_FILE=/rom/devconf/MACAddress
+MACADDR_COPY=/data/misc/wifi/MACAddress
 
 PATH=/vendor/bin:/system/bin:/system/xbin
 umask 0022
 
 # Don't bother updating the nvs file if the one shipped in the ROM hasn't
-# changed since the last boot
-cmp "$ROM_NVS" "$ORIG_NVS" > /dev/null 2>&1 && exit 0
+# changed since the last boot and the MAC address of the device hasn't changed
+cmp "$ROM_NVS" "$ORIG_NVS" > /dev/null 2>&1 && \
+    cmp "$MACADDR_FILE" "$MACADDR_COPY" > /dev/null 2>&1 && \
+    exit 0
 
 # Get the MAC address
-macaddr=$(cat /rom/devconf/MACAddress)
+macaddr=$(cat "$MACADDR_FILE")
 [ $macaddr ] || exit 1
 
 # The MAC address is stored in the nvs file in two pieces: the four
@@ -38,5 +42,10 @@ dd if="$ROM_NVS" of="$NEW_NVS" bs=1 skip=12 seek=12
 
 # Store the unmodified nvs file for reference
 cp "$ROM_NVS" "$ORIG_NVS"
+
+# Also store the MAC address referenced in the NVS, so that we can detect the
+# case where this installation is cloned/moved to another device and update
+# the NVS file accordingly
+cp "$MACADDR_FILE" "$MACADDR_COPY"
 
 exit 0
