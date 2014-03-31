@@ -19,3 +19,6 @@ ro.config.low_ram=true
 ro.hwui.disable_scissor_opt=true
 # GPU producer to CPU consumer not supported
 ro.bq.gpu_to_cpu_unsupported=1
+
+# Tell CyanogenMod we mean to have KSM enabled by default
+ro.ksm.default=1
