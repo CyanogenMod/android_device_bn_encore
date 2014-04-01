@@ -23,23 +23,77 @@
 #include <hardware/power.h>
 
 #define PIN_CORE_CLK_CTRL "/sys/devices/platform/omap/pvrsrvkm.0/pin_core_clk"
+#define KSM_CTRL "/sys/kernel/mm/ksm/run"
+
+static int enable_ksm = 1;
+
+static int ksm_scanning_enabled(void) {
+    FILE *fp;
+    int value;
+
+    /* Check to see whether KSM is enabled */
+    if (!(fp = fopen(KSM_CTRL, "r"))) {
+        ALOGW("Failed to open " KSM_CTRL ": %d", errno);
+        return 0;
+    }
+
+    if ((value = fgetc(fp)) == EOF) {
+        ALOGW("Failed to read current KSM state");
+        value = '0';
+    }
+    fclose(fp);
+
+    return (value != '0');
+}
+
+static void set_ksm_scanning(int on) {
+    FILE *fp;
+
+    ALOGI("Turning KSM scanning %s", on ? "on" : "off");
+    if (!(fp = fopen(KSM_CTRL, "w"))) {
+        ALOGW("Failed to open " KSM_CTRL ": %d", errno);
+        return;
+    }
+    fprintf(fp, "%d\n", on ? 1 : 0);
+    fclose(fp);
+}
 
 static void encore_power_init(struct power_module *module)
 {
+    enable_ksm = ksm_scanning_enabled();
 }
 
 static void encore_power_set_interactive(struct power_module *module, int on)
 {
-    FILE *pin_core_clk_fp;
+    FILE *fp;
 
     /* Enable/disable pinning the memory bus clock */
     ALOGI("Setting pin_core_clk to %d", on);
-    if (!(pin_core_clk_fp = fopen(PIN_CORE_CLK_CTRL, "w"))) {
+    if (!(fp = fopen(PIN_CORE_CLK_CTRL, "w"))) {
         ALOGE("Failed to open " PIN_CORE_CLK_CTRL ": %d", errno);
         return;
     }
-    fprintf(pin_core_clk_fp, "%d\n", on ? 1 : 0);
-    fclose(pin_core_clk_fp);
+    fprintf(fp, "%d\n", on ? 1 : 0);
+    fclose(fp);
+
+    if (!on) {
+        /* Screen turning off */
+        /* If KSM scanning is currently enabled, disable it and make a note
+         * to reenable it once the screen comes back on */
+        if (ksm_scanning_enabled()) {
+            enable_ksm = 1;
+            set_ksm_scanning(0);
+        } else {
+            enable_ksm = 0;
+        }
+    } else {
+        /* Screen turning on */
+        /* Reenable KSM scanning if it was enabled when the screen was last
+         * turned off */
+        if (enable_ksm) {
+            set_ksm_scanning(1);
+        }
+    }
 }
 
 static void encore_power_hint(struct power_module *module, power_hint_t hint,
