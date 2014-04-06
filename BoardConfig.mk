@@ -97,6 +97,10 @@ COMMON_GLOBAL_CFLAGS += -DDONT_USE_FENCE_SYNC
 # use EGL_IMG_context_priority extension, which helps performance
 COMMON_GLOBAL_CFLAGS += -DHAS_CONTEXT_PRIORITY
 
+# OMAP3 HWC: disable use of YUV overlays
+# Prevents stuttering/compositing artifacts and sync loss during video playback
+TARGET_OMAP3_HWC_DISABLE_YUV_OVERLAY := true
+
 # Storage
 BOARD_VOLD_MAX_PARTITIONS := 8
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
