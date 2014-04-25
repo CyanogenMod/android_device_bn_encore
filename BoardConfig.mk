@@ -147,6 +147,7 @@ TARGET_BOOTANIMATION_USE_RGB565 := true
 
 # Recovery options
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/bn/encore/recovery/recovery_keys.c
+BOARD_CUSTOM_RECOVERY_UI := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "/system/bin/dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; /system/bin/sync"
 TARGET_RECOVERY_FSTAB := device/bn/encore/fstab.encore
 RECOVERY_FSTAB_VERSION := 2
