@@ -3,10 +3,17 @@ on init
     start fsfinder
     wait /dev/block/by-name/system
 
+    start emmc_protect
+
     start configure_vold
     wait /dev/.vold_configured
 
 service fsfinder /sbin/fsfinder
+    class core
+    disabled
+    oneshot
+
+service emmc_protect /sbin/recovery_emmc_protect.sh start
     class core
     disabled
     oneshot
