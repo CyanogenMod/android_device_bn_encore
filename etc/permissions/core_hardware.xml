@@ -29,7 +29,8 @@
     <feature name="android.hardware.touchscreen" />
     <feature name="android.hardware.touchscreen.multitouch" />
     <feature name="android.hardware.touchscreen.multitouch.distinct" />
-    <!--<feature name="android.hardware.microphone" />-->
+    <!-- We don't actually have a microphone, but too many apps expect it. -->
+    <feature name="android.hardware.microphone" />
     <feature name="android.hardware.screen.portrait" />
     <feature name="android.hardware.screen.landscape" />
     <feature name="android.software.app_widgets" />
