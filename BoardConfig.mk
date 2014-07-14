@@ -151,6 +151,7 @@ BOARD_CUSTOM_RECOVERY_UI := ../../device/bn/encore/recovery/recovery_ui.c
 TARGET_RECOVERY_PRE_COMMAND := "/system/bin/mount -t vfat -o sync,noatime,umask=0077 /dev/block/mmcblk0p2 /rom; /system/bin/dd if=/dev/zero of=/rom/bcb bs=64 count=1 > /dev/null 2>&1 ; echo 'recovery' >> /rom/bcb ; /system/bin/sync"
 TARGET_RECOVERY_FSTAB := device/bn/encore/fstab.encore
 RECOVERY_FSTAB_VERSION := 2
+TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 
 #Config for building TWRP
 DEVICE_RESOLUTION := 1024x600
