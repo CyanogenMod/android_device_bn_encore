@@ -1,0 +1,29 @@
+#!/sbin/sh
+
+bcb="/rom/BCB"
+
+bcb_set()
+{
+	# Zero out the boot counter
+	dd if=/dev/zero of=/rom/devconf/BootCnt bs=1 count=4 2>/dev/null
+
+	# Reset the bootloader control block (bcb) file
+	dd if=/dev/zero of=$bcb bs=64 count=1 2>/dev/null
+	cat >> $bcb
+}
+
+bcb_get()
+{
+	dd if=$bcb bs=64 skip=1 2>/dev/null
+}
+
+mkdir -p /rom
+mount /dev/block/mmcblk0p2 /rom
+
+if [ "$1" = "--set" ]; then
+	bcb_set
+else
+	bcb_get
+fi
+
+umount /rom

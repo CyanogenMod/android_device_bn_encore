@@ -152,6 +152,7 @@ TARGET_RECOVERY_PRE_COMMAND := "/system/bin/mount -t vfat -o sync,noatime,umask=
 TARGET_RECOVERY_FSTAB := device/bn/encore/fstab.encore
 RECOVERY_FSTAB_VERSION := 2
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+BOARD_CUSTOM_RECOVERY_BCB := true
 
 #Config for building TWRP
 DEVICE_RESOLUTION := 1024x600
