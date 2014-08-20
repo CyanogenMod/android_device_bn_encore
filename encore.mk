@@ -22,6 +22,10 @@ DEVICE_PACKAGE_OVERLAYS += device/bn/encore/overlay
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
+# make cm build happy
+PRODUCT_COPY_FILES += \
+    device/bn/encore/prebuilt/boot/dummy.img:boot.img
+
 # Init files
 PRODUCT_COPY_FILES += \
     device/bn/encore/init.encore.rc:root/init.encore.rc \
